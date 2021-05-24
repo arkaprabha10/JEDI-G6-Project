@@ -101,8 +101,17 @@ public class User {
 		this.joiningYear = joiningYear;
 	}
 	
-//	public User
-	
+		
+	public User() {
+		userID = 0;
+		name = "Default";
+		role = "Student";
+		password = "";
+		contactNumber = "0000000000";
+		joiningYear = 2021;
+		}
+			
+			// TODO Auto-generated constructor stub
 	
 	public User(Integer userID, String name, String role, String password, String contactNumber, Integer joiningYear) {
 		super();

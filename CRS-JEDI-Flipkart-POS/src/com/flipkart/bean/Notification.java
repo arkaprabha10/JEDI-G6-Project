@@ -11,7 +11,7 @@ public class Notification {
 	
 	
 	private String notificationID;
-	private String payment_id;
+	private String paymentID;
 	private String message;
 
 }

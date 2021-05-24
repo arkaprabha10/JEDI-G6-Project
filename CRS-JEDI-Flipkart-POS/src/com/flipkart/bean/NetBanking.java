@@ -8,6 +8,6 @@ package com.flipkart.bean;
  *
  */
 public class NetBanking {
-	private String TxnID;
-	private String ModeOfTransfer;
+	private String bank;
+	private String accountNumber;
 }

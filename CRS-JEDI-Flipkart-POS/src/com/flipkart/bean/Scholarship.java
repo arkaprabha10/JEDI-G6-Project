@@ -8,7 +8,7 @@ package com.flipkart.bean;
  *
  */
 public class Scholarship extends Payment {
-	private String Scholarship_Name;
+	private String scholarshipName;
 	
 
 }

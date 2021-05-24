@@ -8,9 +8,7 @@ package com.flipkart.bean;
  *
  */
 public class Student extends User{
-private int studentID;
+private Integer studentID;
 private String department;
-private int joining_year;
-private Boolean payment_status;
 
 }

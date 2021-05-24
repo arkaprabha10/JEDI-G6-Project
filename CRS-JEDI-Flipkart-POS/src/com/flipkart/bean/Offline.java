@@ -10,6 +10,6 @@ package com.flipkart.bean;
 public class Offline extends Payment{
 	private String cashier;
 	private String branch;
-	private String type;
+	private String transactionType;
 
 }

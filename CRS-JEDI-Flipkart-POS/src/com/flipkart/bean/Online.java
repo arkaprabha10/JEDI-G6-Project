@@ -8,6 +8,7 @@ package com.flipkart.bean;
  *
  */
 public class Online {
-	private String type;
+	
+	private String transactionType;
 
 }

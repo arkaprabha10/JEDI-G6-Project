@@ -9,5 +9,5 @@ package com.flipkart.bean;
  */
 public class Card extends Online{
 	private String CardType;
-	private int CardNumber;
+	private Integer CardNumber;
 }

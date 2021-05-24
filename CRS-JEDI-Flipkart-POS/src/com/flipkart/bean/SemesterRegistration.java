@@ -8,9 +8,9 @@ package com.flipkart.bean;
  *
  */
 public class SemesterRegistration {
-	private int studentID;
-	private int semesterID;
-	private String DateOfRegistration;
+	private Integer studentID;
+	private Integer semesterID;
+	private String dateOfRegistration;
 	private Boolean isApproved;
-
+	
 }

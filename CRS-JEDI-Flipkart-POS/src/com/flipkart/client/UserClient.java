@@ -87,7 +87,7 @@ public class UserClient {
 //                        registerAdmin();
                         break;
                     case 4:
-                        sc.close();
+//                        sc.close();
                         return;
                     default:
                         System.out.println("Invalid input");

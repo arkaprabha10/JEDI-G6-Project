@@ -12,8 +12,8 @@ import java.util.ArrayList;
 public class RegisteredCourses {
 	private int studentID;
 	private int semesterID;
-	ArrayList<String> course_ID = new ArrayList<String>();
-	ArrayList<String> course_name = new ArrayList<String>();
+	private ArrayList<String> course_ID = new ArrayList<String>();
+	private ArrayList<String> course_name = new ArrayList<String>();
 	
 	
 }

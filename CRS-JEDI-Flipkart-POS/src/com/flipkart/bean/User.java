@@ -20,14 +20,14 @@ public class User {
 	/**
 	 * @return the userID
 	 */
-	public String getuserName() {
+	public String getUserID() {
 		return userName;
 	}
 
 	/**
 	 * @param userID the userID to set
 	 */
-	public void setuserName(String userName) {
+	public void setUserID(String userName) {
 		this.userName = userName;
 	}
 

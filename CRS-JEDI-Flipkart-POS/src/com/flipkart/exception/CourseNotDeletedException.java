@@ -7,6 +7,9 @@ package com.flipkart.exception;
  * @author Dell
  *
  */
+
+//Exception arises when course has been deleted by admin but still exists in the catalog
+
 public class CourseNotDeletedException extends Exception{
 private String courseID;
 	

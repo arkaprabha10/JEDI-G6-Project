@@ -7,6 +7,9 @@ package com.flipkart.exception;
  * @author Dell
  *
  */
+
+//Exception arises when course doesnt exist in the course catalog
+
 public class CourseNotFoundException extends Exception {
 	private String courseID;
 	

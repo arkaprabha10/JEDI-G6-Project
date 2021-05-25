@@ -12,6 +12,10 @@ public class StudentNotApprovedException extends Exception{
 	
 	private int studentId;
 
+	public StudentNotApprovedException(Integer studentId) {
+		this.studentId=studentId;
+	}
+	
 	public int getStudentId() {
 		return studentId;
 	}

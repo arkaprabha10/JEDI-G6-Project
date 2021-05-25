@@ -5,6 +5,8 @@ package com.flipkart.service;
 
 import java.util.HashMap;
 
+import com.flipkart.bean.ReportCard;
+
 /**
  * @author Asus
  *
@@ -12,33 +14,16 @@ import java.util.HashMap;
 public class ReportCardOperation implements ReportCardInterface {
 
 	@Override
-	public ReportCardInterface addGrade(int studentId, int semesterId, int courseId, int grade) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Float getSPI(int studentId, int semesterId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public HashMap<String, Integer> viewGrades(int studentId, int semesterId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public HashMap<String, Integer> viewCourseGrade(int studentId, int semesterId, int courseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean makeVisible(int studentId, int semesterId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Float getSPI(ReportCard RC) {
+		HashMap<String, Integer> grades = RC.getGrades();
+		float sum = 0.0f;
+		int num_courses=0;
+		for (float g : grades.values()) {
+		    sum += g;
+		    num_courses++;
+		}
+		sum=sum/num_courses;
+		return sum;
 	}
 
 }

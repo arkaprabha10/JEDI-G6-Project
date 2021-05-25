@@ -9,8 +9,10 @@ import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.StudentDaoOperation;
+import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.StudentNotApproved;
+import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserAlreadyInUseException;
 
@@ -18,16 +20,25 @@ public class StudentOperation implements StudentInterface {
 	
 	
 	@Override
-	public ReportCard viewReportCard(int StudentID, int semesterId) throws GradeNotAddedException, StudentNotApproved {
-		// TODO Auto-generated method stub
-		return null;
+	public ReportCard viewReportCard(int StudentID, int semesterId) throws GradeNotAddedException, StudentNotApproved, FeesPendingException, SQLException, StudentNotApprovedException  {
+
+		ReportCard R = new ReportCard();
+		StudentDaoOperation SDO= new StudentDaoOperation();
+		R= SDO.viewReportCard(StudentID,semesterId);
+		ReportCardOperation report = new ReportCardOperation();
+		R.setSpi(report.getSPI(R));
+		return R;
 	}
 
 	@Override
-	public List<RegisteredCourses> viewRegisteredCourses(int studentID, int semesterId)
-			throws StudentNotRegisteredException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
+			throws StudentNotRegisteredException, SQLException {
+		
+		StudentDaoOperation SDO= new StudentDaoOperation();
+		
+		return SDO.viewRegisteredCourses(studentID,semesterId);	
+		
+		
 	}
 
 	@Override
@@ -45,5 +56,16 @@ public class StudentOperation implements StudentInterface {
 		sdo.addStudent(newStudent);
 		return newStudent;
 	}
+//	public static void main(String[] args) throws UserAlreadyInUseException, SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
+//		System.out.println("Hey There!");
+//		StudentOperation so = new StudentOperation();
+//		
+//			so.addStudent("Dora", "Gurseerat", "derf","EE", "1234554321", 2020);
+//			List<Course> l=so.viewRegisteredCourses(1, 1);
+//			for (Course el: l ) {
+//				System.out.println(el.getCourseID());
+//			}
+//			so.viewReportCard(3, 1);
+//	}
 	
 }

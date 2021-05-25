@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.flipkart.bean.Course;
@@ -13,7 +14,9 @@ import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueries;
+import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserAlreadyInUseException;
 import com.flipkart.utils.DBUtil;
@@ -31,7 +34,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_STUDENTS,Statement.RETURN_GENERATED_KEYS);
 			ResultSet results=preparedStatement0.getGeneratedKeys();
 			int studentId = 0;
-			if(results.next())
+			while(results.next())
 				studentId=results.getInt(1);
 			
 			student.setStudentID(studentId+1);
@@ -55,29 +58,116 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			System.out.println(ex.getMessage());
 //			throw new UserAlreadyInUseException();
 		}
-		finally
-		{
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-			}
-		}
+//		finally
+//		{
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				System.out.println(e.getMessage());
+//				e.printStackTrace();
+//			}
+//		}
 		return student;
 	}
 
 	@Override
-	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException {
-		// TODO Auto-generated method stub
-		return null;
+	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
+		Connection connection=DBUtil.getConnection();
+		
+		ReportCard R = new ReportCard();
+		R.setStudentID(StudentID);
+		R.setSemesterID(semesterId);
+		
+		try
+		{ 
+			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.GET_REPORT(StudentID,semesterId));
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			rs.next();
+			if(rs.getBoolean(13)==false)
+				throw new FeesPendingException(StudentID);
+			else if (rs.getBoolean(14)==false)
+				throw new StudentNotApprovedException(StudentID);
+			else {
+				R.setIsVisible(true);
+				
+				HashMap<String,Integer> grades = new HashMap<String, Integer>();
+				
+				for(int i=0;i<4;i++) {
+					grades.put(rs.getString(2+i), rs.getInt(9+i));
+				}
+				
+				R.setGrades(grades);
+				
+			}
+			
+			
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+//		finally
+//		{
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				System.out.println(e.getMessage());
+//				e.printStackTrace();
+//			}
+//		}
+		
+		return R;
 	}
 
 	@Override
-	public List<RegisteredCourses> viewRegisteredCourses(int studentID, int semesterId)
+	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
 			throws SQLException, StudentNotRegisteredException {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Connection connection=DBUtil.getConnection();
+		
+		List<Course> registeredCourses = new ArrayList<Course>();
+		
+		
+		try
+		{ 
+			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.GET_COURSES(studentID,semesterId));
+			
+			ResultSet rs = preparedStatement.executeQuery();
+			rs.next();
+			List<String> course_ids= new ArrayList<String>();
+			for(int i=1;i<=4;i++) {
+				course_ids.add(rs.getString(i));
+			}
+			for(int i=1;i<=4;i++) {		
+				String courseId = course_ids.get(i-1);
+				PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_COURSE_BY_ID(courseId,semesterId));
+				ResultSet rs0 = preparedStatement.executeQuery();
+				Course c = new Course();
+				c.setCourseID(courseId);
+				rs0.next();
+				c.setCoursename(rs0.getString(2));
+				c.setInstructorID(rs0.getString(2));
+				registeredCourses.add(c);
+			}
+		}
+		
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+		}
+//		finally
+//		{
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				System.out.println(e.getMessage());
+//				e.printStackTrace();
+//			}
+//		}
+		
+		return registeredCourses;
 	}
 
 	

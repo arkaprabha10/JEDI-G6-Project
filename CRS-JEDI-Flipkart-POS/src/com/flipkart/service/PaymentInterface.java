@@ -12,7 +12,6 @@ import com.flipkart.bean.RegisteredCourses;
 public interface PaymentInterface {
 
 	/**
-	 * 
 	 * @param studentId : student to be notified
 	 * @param registeredCourses : has coursesList of student
 	 * @return : final payableAmount for student

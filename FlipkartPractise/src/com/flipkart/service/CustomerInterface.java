@@ -12,9 +12,9 @@ import com.flipkart.bean.Customer;
  *
  */
 public interface CustomerInterface {
-	public void listCustomer(ArrayList<Customer> customerObj);
-	public boolean deleteCustomer(Integer id,ArrayList<Customer> customerObj);
-	public boolean updateCustomer(Integer id,Integer newID,ArrayList<Customer> customerObj);
-	public void createCustomer(ArrayList<Customer> customerObj, Integer id, String name, String add);
+	public void listCustomer(Customer customerObj[],Integer currIndex);
+	public Integer deleteCustomer(Integer id,Customer customerObj[],Integer currIndex);
+	public boolean updateCustomer(Integer id,Integer newID,Customer customerObj[],Integer currIndex);
+	public Integer createCustomer(Customer customerObj[], Integer id, String name, String add,Integer currIndex);
 	
 }

@@ -23,14 +23,21 @@ public class FlipkartClient {
 		// TODO Auto-generated method stub
 //		CustomerInterface customer = new CustomerImpl();
 	
-		ArrayList<Customer> customerObj = new ArrayList<Customer>();
-		customerObj.add(new Customer(1,"Arka","India"));
-		customerObj.add(new Customer(2,"Mikkel","Germany"));
-		customerObj.add(new Customer(3,"Luke","Tattoine"));
+//		ArrayList<Customer> customerObj = new ArrayList<Customer>();
+		Customer[] customerObj = new Customer[20];
+		
+		customerObj[0]=new Customer(1,"Arka","India");
+		customerObj[1]=new Customer(2,"Mikkel","Germany");
+		customerObj[2]=new Customer(3,"Luke","Tattoine");
+		
+		
+//		customerObj.add(new Customer(1,"Arka","India"));
+//		customerObj.add(new Customer(2,"Mikkel","Germany"));
+//		customerObj.add(new Customer(3,"Luke","Tattoine"));
 		Scanner in = new Scanner(System.in);
 		
 		CustomerImpl ci = new CustomerImpl();
-		Integer choice = 0;
+		Integer choice = 0,currIndex=2;
 		while(choice!=5)
 		{
 			System.out.println(" Press 1 to Create elements \n Press 2 to View elements \n Press 3 to Update ID \n Press 4 to Delete elements \n Press any other key to exit ");
@@ -44,13 +51,13 @@ public class FlipkartClient {
 				String name = in.nextLine();
 				System.out.println("Enter Address : "); 
 				String add = in.nextLine();
-				ci.createCustomer(customerObj,id,name,add);
+				currIndex =  ci.createCustomer(customerObj,id,name,add,currIndex);
 //				customerObj.add(new Customer(id,name,add));
 				
 			}
 			else if(choice.equals(2) )
 			{
-				ci.listCustomer(customerObj);
+				ci.listCustomer(customerObj,currIndex);
 //				for (Customer c: customerObj)
 //					System.out.println("Customer ID = "+c.getCustomerid() +" ,Customer name = "+c.getCustname() + " ,Customer address = "+c.getCustaddres());
 //				
@@ -62,7 +69,7 @@ public class FlipkartClient {
 				Integer id = in.nextInt();
 				System.out.println("Enter new ID : "); 
 				Integer newID = in.nextInt();
-				ci.updateCustomer(id,newID, customerObj);
+				ci.updateCustomer(id,newID, customerObj,currIndex);
 //				System.out.println("Enter old ID : "); 
 //				Integer id = in.nextInt();
 //				System.out.println("Enter new ID : "); 
@@ -86,8 +93,8 @@ public class FlipkartClient {
 			{
 				System.out.println("Enter old ID : "); 
 				Integer id = in.nextInt();
-				ci.deleteCustomer(id, customerObj);
-				
+				currIndex = ci.deleteCustomer(id, customerObj,currIndex);
+				System.out.println(currIndex);
 //				Boolean found = false;
 //				Integer counter = 0;
 //				for (Customer c: customerObj)

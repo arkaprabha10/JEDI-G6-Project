@@ -14,58 +14,76 @@ import com.flipkart.bean.Customer;
 public class CustomerImpl implements CustomerInterface {
 
 	@Override
-	public void createCustomer(ArrayList<Customer> customerObj,Integer id,String name,String add) {
+	public Integer createCustomer(Customer customerObj[], Integer id, String name, String add,Integer currIndex) {
 		// TODO Auto-generated method stub
-		customerObj.add(new Customer(id,name,add));
-		System.out.println("Create");
-		
-	}
-
-	@Override
-	public void listCustomer(ArrayList<Customer> customerObj) {
-		// TODO Auto-generated method stub
-		System.out.println("List");
-		for (Customer c: customerObj)
-			System.out.println("Customer ID = "+c.getCustomerid() +" ,Customer name = "+c.getCustname() + " ,Customer address = "+c.getCustaddres());
-		
-	}
-
-	@Override
-	public boolean deleteCustomer(Integer id,ArrayList<Customer> customerObj) {
-		// TODO Auto-generated method stub
-		System.out.println("Delete");
-		Boolean found = false;
-		Integer counter = 0;
-		for (Customer c: customerObj)
-		{
-			if(c.getCustomerid().equals(id))
-			{
-				found = true;
-				break;
-			}
-			counter++;
-				
-		}
-		if (found.equals(true))
-		{	
-			customerObj.remove((int)counter);
-			System.out.println("Element Deleted");
+		if(currIndex>20)
+			System.out.println("Limit Exceeded");
+		else
+		{	currIndex = currIndex+1;
+			customerObj[currIndex] = new Customer(id,name,add);
+//			customerObj.add(new Customer(id,name,add));
+			System.out.println("Created");
 			
 		}
-		else
-			System.out.println("Element Not found");
-		return true;
+		return currIndex;
+		
 	}
 
 	@Override
-	public boolean updateCustomer(Integer id,Integer newID,ArrayList<Customer> customerObj) {
+	public void listCustomer(Customer customerObj[],Integer currIndex) {
+		// TODO Auto-generated method stub
+		System.out.println("List");
+		for (int i=0;i<=currIndex;i++)
+			System.out.println("Customer ID = "+customerObj[i].getCustomerid() +" ,Customer name = "+customerObj[i].getCustname() + " ,Customer address = "+customerObj[i].getCustaddres());
+//		for (Customer c: customerObj)
+//			System.out.println("Customer ID = "+c.getCustomerid() +" ,Customer name = "+c.getCustname() + " ,Customer address = "+c.getCustaddres());
+		
+	}
+
+	@Override
+	public Integer deleteCustomer(Integer id,Customer customerObj[],Integer currIndex) {
+		// TODO Auto-generated method stub
+		if(currIndex <0)
+			System.out.println("No element");
+		else
+		{
+			System.out.println("Delete");
+			Boolean found = false;
+			Integer counter = 0;
+			for (int i=0;i<=currIndex;i++)
+			{
+				if(customerObj[i].getCustomerid().equals(id))
+				{
+					found = true;
+					break;
+				}
+				counter++;
+			}
+			if (found.equals(true))
+			{	
+				for (int i=counter;i<currIndex;i++)
+					customerObj[i]=customerObj[i+1];
+				currIndex--;
+				System.out.println("Element Deleted");
+				
+			}
+			else
+				System.out.println("Element Not found");
+		}
+		
+		return currIndex;
+	}
+
+	@Override
+	public boolean updateCustomer(Integer id,Integer newID,Customer customerObj[],Integer currIndex) {
 		// TODO Auto-generated method stub
 		Boolean found = false;
-		for (Customer c: customerObj)
+		
+		for (int i=0;i<=currIndex;i++)
 		{
-			if(c.getCustomerid().equals(id))
+			if(customerObj[i].getCustomerid().equals(id))
 			{
-				c.setCustomerid(newID);
+				customerObj[i].setCustomerid(newID);
 				found = true;
 			}
 				

@@ -9,12 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import  com.flipkart.utils.DBUtil;
-import com.flipkart.bean.Grade;
+//import com.flipkart.bean.Grade;
 import com.flipkart.bean.RegisteredCourses;
-import com.flipkart.bean.Student;
+//import com.flipkart.bean.Student;
 
 /**
- * @author rutwi
+ * @author Dell
  *
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
@@ -28,7 +28,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		Connection connection=DBUtil.getConnection();
 		try 
 		{
-			String sql,sql1;
+			String sql="",sql1="";
 			PreparedStatement stmt = null,stmt1=null;
 			sql = "SELECT * FROM registered_courses WHERE student_id = "+studentID+" AND semester_id = "+Integer.toString(grade);         
 		    

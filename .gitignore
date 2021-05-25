@@ -25,4 +25,5 @@ hs_err_pid*
 
 .idea/
 out/
-./CRS-JEDI-Flipkart-POS/src/config.properties
+
+/CRS-JEDI-Flipkart-POS/src/config.properties

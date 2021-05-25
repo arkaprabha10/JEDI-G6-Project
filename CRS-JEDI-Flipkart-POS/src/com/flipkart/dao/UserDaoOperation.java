@@ -1,8 +1,8 @@
-package com.flipkart.service;
+package com.flipkart.dao;
 
 import com.flipkart.exception.UserNotFoundException;
 
-public class UserOperation implements UserInterface{
+public class UserDaoOperation implements UserDaoInterface{
 
 	@Override
 	public void updatePassword(String userID, String password) {
@@ -23,7 +23,7 @@ public class UserOperation implements UserInterface{
 	}
 
 	@Override
-	public boolean loginUser(String userID, String password) throws UserNotFoundException {
+	public boolean loginUser(String userID, String password) {
 		// TODO Auto-generated method stub
 		return false;
 	}

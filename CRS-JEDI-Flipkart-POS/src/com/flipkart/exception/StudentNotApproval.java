@@ -20,8 +20,8 @@ public class StudentNotApproval extends Exception{
 		this.studentId = studentId;
 	}
 	
-	public String getmessage() {
+	@Override
+	public String getMessage() {
 		return "Student "+ studentId +"is not approved";
 	}
-	
 }

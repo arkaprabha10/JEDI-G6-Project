@@ -21,6 +21,7 @@ public class UserNotFoundException extends Exception {
 	/**
 	 * Message thrown by user
 	 */
+	@Override
 	public String getMessage() {
 		return "No such user exists! Verify UserID and try again ";
 	}

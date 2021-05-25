@@ -9,13 +9,13 @@ package com.flipkart.exception;
  */
 public class UserNotFoundException extends Exception {
 	
-	private String UserId;
+	private String userId;
 
 	/**
 	 * @param userId
 	 */
 	public void setUserId(String userId) {
-		this.UserId = userId;
+		this.userId = userId;
 	}
 
 	/**

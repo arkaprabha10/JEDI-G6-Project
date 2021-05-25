@@ -4,7 +4,7 @@
 package com.flipkart.exception;
 
 /**
- * Exception thrown when student is not approval
+ * Exception thrown when student is not approved
  * @author Jayanth
  *
  */

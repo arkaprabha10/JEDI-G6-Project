@@ -4,17 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import com.flipkart.bean.Professor;
-import com.flipkart.dao.AdminDaoOperation;
-
 public class AdminClient {
     private Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-    	AdminDaoOperation test = new AdminDaoOperation();
-    	test.removeProfessor(new Professor());
-//        AdminClient test = new AdminClient();
-//        test.createAdminMenu();
+        AdminClient test = new AdminClient();
+        test.createAdminMenu();
     }
 
     public void createAdminMenu() {

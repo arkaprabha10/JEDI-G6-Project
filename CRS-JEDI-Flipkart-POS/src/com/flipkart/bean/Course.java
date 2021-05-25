@@ -13,22 +13,24 @@ public class Course {
 	private String instructorID;
 	private Integer totalSeats;
 	private Integer availableSeats;
+	private Integer offeredSemester;
 
-	
 	public Course() {
 		this.courseID = "0";
 		this.coursename = "xyz";
 		this.instructorID = "1";
 		this.totalSeats = 0;
 		this.availableSeats = 0;
+		this.offeredSemester = 1;
 	}
-	public Course(String courseID, String coursename, String instructorID, Integer totalSeats, Integer availableSeats) {
+	public Course(String courseID, String coursename, String instructorID, Integer totalSeats, Integer availableSeats, Integer offeredSemester) {
 		super();
 		this.courseID = courseID;
 		this.coursename = coursename;
 		this.instructorID = instructorID;
 		this.totalSeats = totalSeats;
 		this.availableSeats = availableSeats;
+		this.offeredSemester = offeredSemester;
 	}
 
 	public String getCourseID() {
@@ -62,6 +64,11 @@ public class Course {
 		this.availableSeats = availableSeats;
 	}
 	
-	
+	public Integer getOfferedSemester() {
+		return offeredSemester;
+	}
+	public void setOfferedSemester(Integer offeredSemester) {
+		this.offeredSemester = offeredSemester;
+	}
 	
 }

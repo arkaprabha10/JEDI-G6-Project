@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.FeesPendingException;
@@ -23,29 +22,28 @@ import com.flipkart.exception.UserAlreadyInUseException;
  *
  */
 public interface StudentDaoInterface {
-	/**
-	 * @param StudentID
-	 * @param reportCard
-	 * @return Student
-	 */
-	public Student addStudent (Student student) throws SQLException, UserAlreadyInUseException;
-	
 	
 	/**
 	 * @param StudentID
+
 	 * @param semesterId
 	 * @return reportCard
 	 * @throws FeesPendingException 
 	 * @throws StudentNotApprovedException 
 	 */
 	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException;
-	
+/*
+	 * @param reportCard
+	 */
+	public void viewReportCard(int StudentID, ReportCard reportCard) throws SQLException;
+
 	/**
 	 * @param studentID
-	 * @param semesterId
-	 * @return course list
+	 * @param catalog
 	 */
+
 	public List<Course> viewRegisteredCourses(int studentID, int semesterId) throws SQLException, StudentNotRegisteredException;
+	Student addStudent(Student student) throws SQLException, UserAlreadyInUseException;
 	
 	
 }

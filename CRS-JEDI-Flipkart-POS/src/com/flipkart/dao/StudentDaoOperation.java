@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 import com.flipkart.bean.Course;
-import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueries;
@@ -23,7 +23,6 @@ import com.flipkart.utils.DBUtil;
 
 public class StudentDaoOperation implements StudentDaoInterface {
 
-	
 	@Override
 	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException{
 		Connection connection=DBUtil.getConnection();
@@ -40,7 +39,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			student.setStudentID(studentId+1);
 			System.out.println(studentId);
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.ADD_STUDENT);
-			preparedStatement.setString(1, student.getuserName());
+			preparedStatement.setString(1, student.getUserID());
 			preparedStatement.setString(2, student.getName());
 			preparedStatement.setString(3, "student");//role
 			preparedStatement.setInt(4, student.getStudentID());
@@ -169,7 +168,11 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		
 		return registeredCourses;
 	}
-
+	public void viewReportCard(int StudentID, ReportCard reportCard) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 
 }

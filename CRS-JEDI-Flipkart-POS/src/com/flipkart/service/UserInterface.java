@@ -15,7 +15,9 @@ public interface UserInterface {
 	 * @param userID
 	 * @param password
 	 */
+
 	public void updatePassword(String userID, String password) throws UserNotFoundException; 
+
 	
 	/**
 	 * @param userID

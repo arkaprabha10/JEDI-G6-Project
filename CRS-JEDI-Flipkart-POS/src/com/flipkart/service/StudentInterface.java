@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.FeesPendingException;
@@ -27,9 +26,10 @@ public interface StudentInterface {
 	/**
 	 * @param StudentID
 	 * @param reportCard
-	 * @return Student
+	 * @throws UserAlreadyInUseException 
 	 */
-	public Student addStudent (String userName, String name, String password,String department, String contactNumber, Integer joiningYear) throws UserAlreadyInUseException, SQLException;
+
+	public Student addStudent (String userName, String name, String password,String department, String contactNumber, Integer joiningYear) throws UserAlreadyInUseException, SQLException, UserAlreadyInUseException;
 	
 	
 	/**

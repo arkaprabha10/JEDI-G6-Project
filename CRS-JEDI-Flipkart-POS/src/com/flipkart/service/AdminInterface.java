@@ -15,10 +15,36 @@ import com.flipkart.bean.Student;
  */
 public interface AdminInterface {
 	
+	/**
+	 * @param students
+	 */
 	public void approveStudentRegistration(ArrayList<Student> students);
-	public void addProfessorDetails(Professor professor);
-	public void generateReportCard();
+	
+	/**
+	 * @param professor
+	 */
+	public void addProfessor(Professor professor);
+	
+	/**
+	 * @param professor
+	 */
+	public void removeProfessor(Professor professor);
+	
+	/**
+	 * @param studentID
+	 */
+	public void generateReportCard(int studentID);
+	
+	/**
+	 * @param courseID
+	 * @param courseCatalog
+	 */
 	public void removeCourse(int courseID, ArrayList<Course> courseCatalog);
+	
+	/**
+	 * @param courseID
+	 * @param courseCatalog
+	 */
 	public void addCourse(int courseID, ArrayList<Course> courseCatalog);
 
 }

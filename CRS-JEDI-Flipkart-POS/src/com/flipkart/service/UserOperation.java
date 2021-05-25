@@ -23,7 +23,11 @@ public class UserOperation implements UserInterface{
 	}
 
 	@Override
+<<<<<<< HEAD
+	public boolean loginUser(String userID, String password) {
+=======
 	public boolean loginUser(String userID, String password) throws UserNotFoundException {
+>>>>>>> main
 		// TODO Auto-generated method stub
 		return false;
 	}

@@ -23,7 +23,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	
 
 	@Override
-	public void addGrade(String studentID, int semesterID, String courseID, Integer grade) {
+	public void addGrade(Integer studentID, int semesterID, String courseID, Integer grade) {
 		// TODO Auto-generated method stub
 		
 		Connection connection=DBUtil.getConnection();
@@ -31,7 +31,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		{
 			String sql="",sql1="";
 			PreparedStatement stmt = null,stmt1=null;
-			sql = "SELECT * FROM registered_courses WHERE student_id = "+studentID+" AND semester_id = "+Integer.toString(grade);         
+			sql = "SELECT * FROM registered_courses WHERE student_id = "+Integer.toString(studentID)+" AND semester_id = "+Integer.toString(grade);         
 		    
 			stmt = connection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);

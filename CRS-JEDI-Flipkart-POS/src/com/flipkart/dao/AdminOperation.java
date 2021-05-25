@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.flipkart.service;
+package com.flipkart.dao;
 
 import java.util.ArrayList;
 
@@ -13,7 +13,7 @@ import com.flipkart.bean.Student;
  * @author rutwi
  *
  */
-public class AdminOperation implements AdminInterface {
+public class AdminOperation implements AdminDaoInterface {
 
 	@Override
 	public void approveStudentRegistration(ArrayList<Student> students) {

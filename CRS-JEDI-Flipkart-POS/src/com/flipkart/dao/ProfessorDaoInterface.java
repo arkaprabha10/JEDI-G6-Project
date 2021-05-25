@@ -24,7 +24,7 @@ public interface ProfessorDaoInterface {
 	 * @param courseID
 	 * @param grade
 	 */
-	public void addGrade(String studentID, int semesterID,String courseID, Integer grade) throws SQLException;
+	public void addGrade(Integer studentID, int semesterID,String courseID, Integer grade) throws SQLException;
 	
 	/**
 	 * @param professorID
@@ -33,7 +33,8 @@ public interface ProfessorDaoInterface {
 //	View student details for students who are registered in a particular course
 	
 	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID) throws SQLException;
-	
+
+	// view courses which the professor is associated with
 	public ArrayList<Course> viewCourseProf(String instructorID) throws SQLException;
 	
 

@@ -23,7 +23,12 @@ public interface AdminInterface {
 	/**
 	 * @param professor
 	 */
-	public void addProfessorDetails(Professor professor);
+	public void addProfessor(Professor professor);
+	
+	/**
+	 * @param professor
+	 */
+	public void removeProfessor(Professor professor);
 	
 	/**
 	 * @param studentID

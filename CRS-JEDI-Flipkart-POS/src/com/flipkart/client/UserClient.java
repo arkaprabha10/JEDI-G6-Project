@@ -3,6 +3,8 @@ package com.flipkart.client;
 import java.util.Scanner;
 
 public class UserClient {
+    private Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
 
         UserClient newUser = new UserClient();
@@ -10,8 +12,6 @@ public class UserClient {
     }
 
     private void createMenu() {
-        Scanner sc = new Scanner(System.in);
-
         try {
             while(true) {
                 System.out.println("Choose an option: ");
@@ -20,6 +20,7 @@ public class UserClient {
                 System.out.println("3 : Exit menu");
 
                 int menuOption = sc.nextInt();
+                sc.nextLine();
 
                 switch(menuOption) {
                     case 1:
@@ -44,8 +45,6 @@ public class UserClient {
     }
 
     private void loginUser() {
-
-        Scanner sc = new Scanner(System.in);
         String username, password;
 
         try {
@@ -54,7 +53,8 @@ public class UserClient {
             System.out.println("Password: ");
             password = sc.nextLine();
 
-            // to do : verify Credentials and create appropriate object
+            // to do : verify Credentials, get role, create appropriate object
+            // and launch menu
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,32 +62,22 @@ public class UserClient {
     }
 
     private void registerUser() {
-
-        Scanner sc = new Scanner(System.in);
         String username, password;
 
         try {
             while(true) {
                 System.out.println("Register: ");
                 System.out.println("1 : Student");
-                System.out.println("2 : Professor");
-                System.out.println("3 : Admin");
-                System.out.println("4 : Exit registration");
+                System.out.println("2 : Exit registration");
 
                 int userType = sc.nextInt();
+                sc.nextLine();
 
                 switch(userType) {
                     case 1:
                         registerStudent();
                         break;
                     case 2:
-//                        registerProfessor();
-                        break;
-                    case 3:
-//                        registerAdmin();
-                        break;
-                    case 4:
-//                        sc.close();
                         return;
                     default:
                         System.out.println("Invalid input");
@@ -100,9 +90,7 @@ public class UserClient {
 
     private void registerStudent() {
 
-        Scanner sc = new Scanner(System.in);
         String username, password, name, department, studentID, joiningYear, address;
-//        String role = ?
 
         try {
 
@@ -128,12 +116,4 @@ public class UserClient {
             e.printStackTrace();
         }
     }
-
-//    private void registerProfessor() {
-//
-//    }
-//
-//    private void registerAdmin() {
-//
-//    }
 }

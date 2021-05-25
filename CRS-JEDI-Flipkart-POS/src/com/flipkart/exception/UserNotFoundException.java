@@ -9,20 +9,21 @@ package com.flipkart.exception;
  */
 public class UserNotFoundException extends Exception {
 	
-	private String UserId;
+	private String userId;
 
 	/**
 	 * @param userId
 	 */
 	public void setUserId(String userId) {
-		this.UserId = userId;
+		this.userId = userId;
 	}
 
 	/**
 	 * Message thrown by user
 	 */
+	@Override
 	public String getMessage() {
-		return "No such user exists! Verify UserID and try again ";
+		return "No such user exists! Verify userID and try again ";
 	}
 	
 }

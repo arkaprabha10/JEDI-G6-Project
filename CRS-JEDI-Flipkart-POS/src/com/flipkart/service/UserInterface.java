@@ -15,7 +15,11 @@ public interface UserInterface {
 	 * @param userID
 	 * @param password
 	 */
+<<<<<<< HEAD
 	public void updatePassword(String userID, String password throws UserNotFoundException); 
+=======
+	public void updatePassword(String userID, String password) throws UserNotFoundException; 
+>>>>>>> main
 	
 	/**
 	 * @param userID

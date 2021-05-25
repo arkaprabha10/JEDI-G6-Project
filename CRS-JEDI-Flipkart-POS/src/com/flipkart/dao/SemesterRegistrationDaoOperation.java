@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.flipkart.service;
+package com.flipkart.dao;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import com.flipkart.bean.RegisteredCourses;
  * @author Asus
  *
  */
-public class SemesterRegistrationImplementation implements SemesterRegistrationInterface{
+public class SemesterRegistrationDaoOperation implements SemesterRegistrationDaoInterface{
 
 	@Override
 	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) {

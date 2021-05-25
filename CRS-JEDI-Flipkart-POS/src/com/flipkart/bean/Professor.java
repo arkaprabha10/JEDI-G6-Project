@@ -9,14 +9,14 @@ package com.flipkart.bean;
  */
 public class Professor extends User{
 
-	private String instructorID;
+	private Integer instructorID;
 	private String department;
 	private String designation;
 	
 	public Professor() {
 		// TODO Auto-generated constructor stub
 	
-		instructorID = "1";
+		instructorID = 0;
 		department = "Default";
 		designation = "Default";
 	}
@@ -27,7 +27,7 @@ public class Professor extends User{
 	 * @param department
 	 * @param designation
 	 */
-	public Professor(String instructorID, String department, String designation) {
+	public Professor(Integer instructorID, String department, String designation) {
 		super();
 		this.instructorID = instructorID;
 		this.department = department;
@@ -38,7 +38,7 @@ public class Professor extends User{
 	/**
 	 * @return the instructorID
 	 */
-	public String getInstructorID() {
+	public Integer getInstructorID() {
 		return instructorID;
 	}
 
@@ -46,7 +46,7 @@ public class Professor extends User{
 	/**
 	 * @param instructorID the instructorID to set
 	 */
-	public void setInstructorID(String instructorID) {
+	public void setInstructorID(Integer instructorID) {
 		this.instructorID = instructorID;
 	}
 

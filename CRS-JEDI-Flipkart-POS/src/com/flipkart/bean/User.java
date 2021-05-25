@@ -9,7 +9,7 @@ package com.flipkart.bean;
  */
 public class User {
 
-	private Integer userID;
+	private String userName;
 	private String name;
 	private String role;
 	private String password;
@@ -20,15 +20,15 @@ public class User {
 	/**
 	 * @return the userID
 	 */
-	public Integer getUserID() {
-		return userID;
+	public String getuserName() {
+		return userName;
 	}
 
 	/**
 	 * @param userID the userID to set
 	 */
-	public void setUserID(Integer userID) {
-		this.userID = userID;
+	public void setuserName(String userName) {
+		this.userName = userName;
 	}
 
 	/**
@@ -103,7 +103,7 @@ public class User {
 	
 		
 	public User() {
-		userID = 0;
+		userName = "";
 		name = "Default";
 		role = "Student";
 		password = "";
@@ -113,9 +113,9 @@ public class User {
 			
 			// TODO Auto-generated constructor stub
 	
-	public User(Integer userID, String name, String role, String password, String contactNumber, Integer joiningYear) {
+	public User(String userName, String name, String role, String password, String contactNumber, Integer joiningYear) {
 		super();
-		this.userID = userID;
+		this.userName = userName;
 		this.name = name;
 		this.role = role;
 		this.password = password;

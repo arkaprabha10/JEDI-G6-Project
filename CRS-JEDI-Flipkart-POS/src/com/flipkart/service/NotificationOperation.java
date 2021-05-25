@@ -10,7 +10,7 @@ import com.flipkart.bean.Payment;
  * @author Asus
  *
  */
-public class NotificationImplementation implements NotificationInterface{
+public class NotificationOperation implements NotificationInterface{
 
 	@Override
 	public Notification GenerateNotification(int studentId, Payment payment, String message) {

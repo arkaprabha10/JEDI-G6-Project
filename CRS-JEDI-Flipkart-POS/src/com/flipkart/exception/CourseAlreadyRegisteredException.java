@@ -7,6 +7,9 @@ package com.flipkart.exception;
  * @author Dell
  *
  */
+
+// Exception arises when student tries to register for an already registered course
+
 public class CourseAlreadyRegisteredException extends Exception{
 
 	private String courseID;

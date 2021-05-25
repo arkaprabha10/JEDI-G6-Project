@@ -1,8 +1,9 @@
 /**
  * 
  */
-package com.flipkart.service;
+package com.flipkart.dao;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.flipkart.bean.Payment;
@@ -18,7 +19,7 @@ import com.flipkart.exception.StudentNotRegisteredException;
  * @author Asus
  *
  */
-public interface SemesterRegistrationInterface {
+public interface SemesterRegistrationDaoInterface {
 	
 	/**
 	 * Method to add Course selected by student 
@@ -27,7 +28,7 @@ public interface SemesterRegistrationInterface {
 	 * @param courseId 
 	 * @return the course if it is added successfully, else null
 	 */
-	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) throws CourseNotFoundException, CourseNotAssignedException, CourseAlreadyRegisteredException, CourseLimitExceededException, StudentNotRegisteredException;
+	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) throws SQLException;
 	
 	/**
 	 * Method to drop Course selected by student 
@@ -36,7 +37,7 @@ public interface SemesterRegistrationInterface {
 	 * @param courseId 
 	 * @return Boolean value indicating if it is was dropped successfully
 	 */
-	public RegisteredCourses dropCourse(int studentId, int semesterId, String courseId) throws CourseNotFoundException, CourseNotDeletedException ,StudentNotRegisteredException;
+	public RegisteredCourses dropCourse(int studentId, int semesterId, String courseId) throws SQLException;
 	
 	/**
 	 * Method to view Courses registered by student 
@@ -44,13 +45,13 @@ public interface SemesterRegistrationInterface {
 	 * @param semesterId 
 	 * @return list of student's registered courses
 	 */
-	public List<RegisteredCourses> viewRegisteredCourses(int studentId, int semesterId) throws StudentNotRegisteredException;
+	public List<RegisteredCourses> viewRegisteredCourses(int studentId, int semesterId) throws SQLException;
 	
 	/**
 	 * Method to view all courses available
 	 * @return list of all courses with availbale seats
 	 */
-	public List<RegisteredCourses> viewAvailableCourses(int studentId, int semesterId) throws StudentNotRegisteredException;
+	public List<RegisteredCourses> viewAvailableCourses(int studentId, int semesterId) throws SQLException;
 	
 	
 	/**
@@ -69,7 +70,7 @@ public interface SemesterRegistrationInterface {
 	 * @param paymentMode 
 	 * @return Boolean value indicating if payment was successful
 	 */
-	public Payment payFees(int studentId, int semesterId, String paymentMode) ;
+	public Payment payFees(int studentId, int semesterId, String paymentMode) throws SQLException ;
 	
 	
 }

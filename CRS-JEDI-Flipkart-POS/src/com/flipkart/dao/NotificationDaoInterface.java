@@ -1,7 +1,9 @@
 /**
  * 
  */
-package com.flipkart.service;
+package com.flipkart.dao;
+
+import java.sql.SQLException;
 
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.Payment;
@@ -11,7 +13,7 @@ import com.flipkart.exception.NotificationNotDeliveredException;
  * @author Jayanth
  *
  */
-public interface NotificationInterface{
+public interface NotificationDaoInterface{
 	
 	
 	 /**
@@ -27,7 +29,7 @@ public interface NotificationInterface{
 	 * @param studentId: student to be notified
 	 * @return notificationId for the record added in the database
 	 */
-	 public int sendNotification(int studentId,Notification notification) throws NotificationNotDeliveredException;
+	 public int sendNotification(int studentId,Notification notification) throws SQLException;
 	 
 	 
 

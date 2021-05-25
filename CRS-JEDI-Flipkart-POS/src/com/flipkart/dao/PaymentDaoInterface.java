@@ -1,7 +1,9 @@
 /**
  * 
  */
-package com.flipkart.service;
+package com.flipkart.dao;
+
+import java.sql.SQLException;
 
 import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.exception.PaymentFailedException;
@@ -10,7 +12,7 @@ import com.flipkart.exception.PaymentFailedException;
  * @author Jayanth
  *
  */
-public interface PaymentInterface {
+public interface PaymentDaoInterface {
 	//Deuplicate in semester registration
 //	/**
 //	 * @param studentId : student to be notified
@@ -25,6 +27,6 @@ public interface PaymentInterface {
 	 * @param: Amount to be paid by student
 	 * @return: Transaction Id
 	 */
-	public String makePayment(int studentId, int semesterId, int amount) throws PaymentFailedException;
+	public String makePayment(int studentId, int semesterId, int amount) throws SQLException;
 	
 }

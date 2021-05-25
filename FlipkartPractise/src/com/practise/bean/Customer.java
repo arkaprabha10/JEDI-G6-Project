@@ -26,6 +26,9 @@ public class Customer {
 		this.custname = custname;
 		this.custaddres = custaddres;
 	}
+	public Customer() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getCustomerid() {
 		return Customerid;
 	}

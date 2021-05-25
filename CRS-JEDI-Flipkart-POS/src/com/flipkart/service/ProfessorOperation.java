@@ -5,8 +5,14 @@ package com.flipkart.service;
 
 import java.util.ArrayList;
 
-import com.flipkart.bean.Grade;
+import com.flipkart.bean.Course;
+//import com.flipkart.bean.Grade;
+import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.ProfessorDaoInterface;
+import com.flipkart.dao.ProfessorDaoOperation;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.GradeNotAddedException;
 
 /**
  * @author rutwi
@@ -14,16 +20,52 @@ import com.flipkart.bean.Student;
  */
 public class ProfessorOperation implements ProfessorInterface {
 
+	//Add grade
 	@Override
-	public void addGrade(int studentID, String courseID, Grade grade) {
-		// TODO Auto-generated method stub
-		
+	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade) throws GradeNotAddedException 
+	{
+		try {
+			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+			profObj.addGrade(studentID, semesterID,courseID, grade);
+			
+		}
+		catch(Exception e){
+			throw new GradeNotAddedException(studentID);
+		}
 	}
 
+	//view student details who have registered for a particular course
 	@Override
-	public ArrayList<Student> viewCourseStudents(String courseID) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID)throws CourseNotFoundException {
+		
+		ArrayList<RegisteredCourses>ans = new ArrayList<RegisteredCourses>();
+		
+		try {
+			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+			ans = profObj.viewCourseStudents(courseID);
+			 
+		}
+		catch(Exception e) {
+			throw new CourseNotFoundException(courseID);
+		}
+		return ans;
+	}
+
+	//view course details which the professor is associated with
+	@Override
+	public ArrayList<Course> viewCourseProf(String instructorID) {
+	
+		ArrayList<Course>ans = new ArrayList<Course>();
+		try {
+			
+			
+			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+			ans = profObj.viewCourseProf(instructorID);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		return ans;
 	}
 
 }

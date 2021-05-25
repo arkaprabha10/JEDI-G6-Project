@@ -9,7 +9,7 @@ package com.flipkart.bean;
  */
 public class Professor extends User{
 
-	private String professorID;
+	private String instructorID;
 	private String department;
 	private String designation;
 	

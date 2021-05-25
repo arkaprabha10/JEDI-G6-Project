@@ -8,7 +8,7 @@ package com.flipkart.exception;
  * @author Jayanth
  *
  */
-public class StudentNotApproval extends Exception{
+public class StudentNotApprovedException extends Exception{
 	
 	private int studentId;
 

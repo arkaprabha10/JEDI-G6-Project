@@ -11,7 +11,7 @@ import com.flipkart.bean.RegisteredCourses;
  * @author Asus
  *
  */
-public interface ReportCard {
+public interface ReportCardInterface {
 	/**
 	 * Method to add student's Grade (by Professor) 
 	 * @param studentId
@@ -20,7 +20,7 @@ public interface ReportCard {
 	 * @param courseId
 	 * @return updated report card
 	 */
-	public ReportCard addGrade(int studentId, int semesterId, int courseId, int grade) ;
+	public ReportCardInterface addGrade(int studentId, int semesterId, int courseId, int grade)  ;
 	
 	/**
 	 * Method to get student's SPI

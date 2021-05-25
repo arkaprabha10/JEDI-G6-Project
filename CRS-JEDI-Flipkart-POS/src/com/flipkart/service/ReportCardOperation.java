@@ -9,10 +9,10 @@ import java.util.HashMap;
  * @author Asus
  *
  */
-public class ReportCardImplementation implements ReportCard {
+public class ReportCardOperation implements ReportCardInterface {
 
 	@Override
-	public ReportCard addGrade(int studentId, int semesterId, int courseId, int grade) {
+	public ReportCardInterface addGrade(int studentId, int semesterId, int courseId, int grade) {
 		// TODO Auto-generated method stub
 		return null;
 	}

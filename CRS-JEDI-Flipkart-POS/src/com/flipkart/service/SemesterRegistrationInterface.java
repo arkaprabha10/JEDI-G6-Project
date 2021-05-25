@@ -7,6 +7,12 @@ import java.util.List;
 
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
+import com.flipkart.exception.CourseAlreadyRegisteredException;
+import com.flipkart.exception.CourseLimitExceededException;
+import com.flipkart.exception.CourseNotAssignedException;
+import com.flipkart.exception.CourseNotDeletedException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.StudentNotRegisteredException;
 
 /**
  * @author Asus
@@ -21,7 +27,7 @@ public interface SemesterRegistrationInterface {
 	 * @param courseId 
 	 * @return the course if it is added successfully, else null
 	 */
-	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) ;// throws CourseNotFound, CourseNotAvailable, SQLException ;
+	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) throws CourseNotFoundException, CourseNotAssignedException, CourseAlreadyRegisteredException, CourseLimitExceededException, StudentNotRegisteredException;
 	
 	/**
 	 * Method to drop Course selected by student 
@@ -30,7 +36,7 @@ public interface SemesterRegistrationInterface {
 	 * @param courseId 
 	 * @return Boolean value indicating if it is was dropped successfully
 	 */
-	public RegisteredCourses dropCourse(int studentId, int semesterId, String courseId) ;// throws CourseNotFound, SQLException ;
+	public RegisteredCourses dropCourse(int studentId, int semesterId, String courseId) throws CourseNotFoundException, CourseNotDeletedException ,StudentNotRegisteredException;
 	
 	/**
 	 * Method to view Courses registered by student 
@@ -38,13 +44,13 @@ public interface SemesterRegistrationInterface {
 	 * @param semesterId 
 	 * @return list of student's registered courses
 	 */
-	public List<RegisteredCourses> viewRegisteredCourses(int studentId, int semesterId) ;
+	public List<RegisteredCourses> viewRegisteredCourses(int studentId, int semesterId) throws StudentNotRegisteredException;
 	
 	/**
 	 * Method to view all courses available
 	 * @return list of all courses with availbale seats
 	 */
-	public List<RegisteredCourses> viewAvailableCourses(int studentId, int semesterId) ;
+	public List<RegisteredCourses> viewAvailableCourses(int studentId, int semesterId) throws StudentNotRegisteredException;
 	
 	
 	/**

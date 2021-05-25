@@ -11,7 +11,7 @@ import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.ReportCardNotFoundException;
-import com.flipkart.exception.StudentNotApproval;
+import com.flipkart.exception.StudentNotApproved;
 import com.flipkart.exception.StudentNotRegisteredException;
 
 /**

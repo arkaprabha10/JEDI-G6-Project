@@ -11,23 +11,26 @@ package com.flipkart.exception;
 public class StudentNotRegisteredException extends Exception{
 	
 	private String studentName;
-	private Integer studentID;
+	private String userId;
 	
+	public StudentNotRegisteredException(String userID) {
+		this.userId=userID;
+	}
 	public String getStudentName() {
 		return studentName;
 	}
 	public void setStudentName(String studentName) {
 		studentName = studentName;
 	}
-	public Integer getStudentID() {
-		return studentID;
+	public String getStudentID() {
+		return userId;
 	}
-	public void setStudentID(Integer studentID) {
-		this.studentID = studentID;
+	public void setStudentID(String userId) {
+		this.userId = userId;
 	}
 
 	public String getMessage() {
-		return studentName +"( "+studentID+")"+"not registered, Register and try again";
+		return studentName +"( "+userId+")"+"not registered, Register and try again";
 	}
 
 }

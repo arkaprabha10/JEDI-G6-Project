@@ -13,7 +13,7 @@ import com.flipkart.bean.Student;
  * @author rutwi
  *
  */
-public class AdminOperation implements AdminDaoInterface {
+public class AdminDaoOperation implements AdminDaoInterface {
 
 	@Override
 	public void approveStudentRegistration(ArrayList<Student> students) {

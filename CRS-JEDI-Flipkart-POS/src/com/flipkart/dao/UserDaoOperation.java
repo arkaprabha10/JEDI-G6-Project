@@ -32,7 +32,9 @@ public class UserDaoOperation implements UserDaoInterface{
 		try {
 			System.out.println("Updating password...");
 
-			getUserRole(userID);
+			if(userRole == null) {
+				assignUserRole(userID);
+			}
 
 			String query = "UPDATE " + userRole + " SET password = ? WHERE user_name = ?";
 
@@ -50,7 +52,21 @@ public class UserDaoOperation implements UserDaoInterface{
 		}
 	}
 
-	private void getUserRole(String userID) throws UserNotFoundException{
+	@Override
+	public String getUserRole(String userID) {
+
+		try {
+			if(userRole == null) {
+				assignUserRole(userID);
+			}
+		} catch (UserNotFoundException ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		return userRole;
+	}
+
+	private void assignUserRole(String userID) throws UserNotFoundException{
 
 		PreparedStatement stmt;
 
@@ -89,7 +105,9 @@ public class UserDaoOperation implements UserDaoInterface{
 		try {
 			System.out.println("Updating contact number...");
 
-			getUserRole(userID);
+			if(userRole == null) {
+				assignUserRole(userID);
+			}
 
 			String query = "UPDATE " + userRole + " SET contact_number = ? WHERE user_name = ?";
 
@@ -121,7 +139,9 @@ public class UserDaoOperation implements UserDaoInterface{
 		try {
 			System.out.println("Logging in...");
 
-			getUserRole(userID);
+			if(userRole == null) {
+				assignUserRole(userID);
+			}
 
 			String query = "SELECT password " + "FROM " + userRole;
 

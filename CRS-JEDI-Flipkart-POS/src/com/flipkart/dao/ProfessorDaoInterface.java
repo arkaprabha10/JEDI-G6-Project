@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Grade;
+import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.GradeNotAddedException;
@@ -22,13 +23,15 @@ public interface ProfessorDaoInterface {
 	 * @param courseID
 	 * @param grade
 	 */
-	public void addGrade(int studentID, String courseID, Grade grade) throws SQLException;
+	public void addGrade(String studentID, int semesterID,String courseID, Integer grade) throws SQLException;
 	
 	/**
 	 * @param professorID
 	 * @return
 	 */
-	public ArrayList<Student> viewCourseStudents(String courseID) throws SQLException;
+//	View student details for students who are registered in a particular course
+	
+	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID) throws SQLException;
 	
 	
 

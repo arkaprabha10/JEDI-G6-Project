@@ -14,8 +14,8 @@ public interface PaymentInterface {
 	/**
 	 * 
 	 * @param studentId : student to be notified
-	 * @param registeredCourses : has courseslist of student
-	 * @return : final payableamount for student
+	 * @param registeredCourses : has coursesList of student
+	 * @return : final payableAmount for student
 	 */
 	public float calculatepay(int studentId,RegisteredCourses registeredCourses);
 	

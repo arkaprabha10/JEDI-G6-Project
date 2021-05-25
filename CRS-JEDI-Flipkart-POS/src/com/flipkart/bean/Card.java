@@ -9,13 +9,13 @@ package com.flipkart.bean;
  */
 public class Card extends Online{
 	private String CardType;
-	private Integer CardNumber;
+	private String CardNumber;
 
 	public Card() {
 		CardType = "default";
 		CardNumber = "0000-0000-0000";
 	}
-	public Card(String cardType, Integer cardNumber) {
+	public Card(String cardType, String cardNumber) {
 		super();
 		CardType = cardType;
 		CardNumber = cardNumber;
@@ -27,10 +27,10 @@ public class Card extends Online{
 		CardType = cardType;
 	}
 	
-	public Integer getCardNumber() {
+	public String getCardNumber() {
 		return CardNumber;
 	}
-	public void setCardNumber(Integer cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		CardNumber = cardNumber;
 	}
 }

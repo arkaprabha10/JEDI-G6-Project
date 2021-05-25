@@ -6,6 +6,13 @@ package com.flipkart.service;
 import java.util.HashMap;
 
 import com.flipkart.bean.RegisteredCourses;
+import com.flipkart.exception.CourseNotAssignedException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.ReportCardNotFoundException;
+import com.flipkart.exception.StudentNotApproval;
+import com.flipkart.exception.StudentNotRegisteredException;
 
 /**
  * @author Asus
@@ -20,7 +27,7 @@ public interface ReportCardInterface {
 	 * @param courseId
 	 * @return updated report card
 	 */
-	public ReportCardInterface addGrade(int studentId, int semesterId, int courseId, int grade)  ;
+	public ReportCardInterface addGrade(int studentId, int semesterId, int courseId, int grade) throws StudentNotRegisteredException, ReportCardNotFoundException, CourseNotFoundException, CourseNotAssignedException;
 	
 	/**
 	 * Method to get student's SPI
@@ -28,7 +35,7 @@ public interface ReportCardInterface {
 	 * @param semesterId
 	 * @return spi for that semester and student
 	 */
-	public Float getSPI(int studentId, int semesterId);
+	public Float getSPI(int studentId, int semesterId) throws StudentNotRegisteredException, ReportCardNotFoundException;
 	
 	/**
 	 * Method to get student's grades
@@ -36,7 +43,7 @@ public interface ReportCardInterface {
 	 * @param semesterId
 	 * @return student's grades for that semester 
 	 */
-	public HashMap<String, Integer> viewGrades(int studentId, int semesterId);
+	public HashMap<String, Integer> viewGrades(int studentId, int semesterId) throws StudentNotRegisteredException, ReportCardNotFoundException;
 	
 	/**
 	 * Method to get student's grades for a course
@@ -45,7 +52,7 @@ public interface ReportCardInterface {
 	 * @param courseId
 	 * @return student's grades for that course 
 	 */
-	public HashMap<String, Integer> viewCourseGrade(int studentId, int semesterId, int courseId);
+	public HashMap<String, Integer> viewCourseGrade(int studentId, int semesterId, int courseId) throws StudentNotRegisteredException, ReportCardNotFoundException, CourseNotFoundException, CourseNotAssignedException;
 	
 	
 	/**
@@ -55,7 +62,7 @@ public interface ReportCardInterface {
 	 * @return Boolean to indicate if operation is successful 
 	 * //(e.g. check if all grades marked)
 	 */
-	public Boolean makeVisible(int studentId, int semesterId);
+	public Boolean makeVisible(int studentId, int semesterId) throws StudentNotRegisteredException, ReportCardNotFoundException;
 	
 	
 }

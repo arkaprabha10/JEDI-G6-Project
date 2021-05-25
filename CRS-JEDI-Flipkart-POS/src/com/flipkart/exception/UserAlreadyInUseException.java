@@ -32,7 +32,7 @@ public class UserAlreadyInUseException extends Exception {
 	
 	/**
 	 * Message to thrown if exception occurs
-	 */
+   */
 	public String getMessage() {
 		return "Provided UserId is already in use";	
 	}

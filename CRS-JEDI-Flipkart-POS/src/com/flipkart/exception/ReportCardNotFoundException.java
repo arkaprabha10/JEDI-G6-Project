@@ -8,14 +8,13 @@ package com.flipkart.exception;
  *
  */
 
-//Exception arises when student has taken more than the recommended limit of courses
+//Exception arises when the report card for a student ID doesnt exist
 
-public class CourseLimitExceededException extends Exception {
-
-
+public class ReportCardNotFoundException extends Exception{
+	
 private String studentID;
 	
-	public CourseLimitExceededException() {
+	public ReportCardNotFoundException() {
 		// TODO Auto-generated constructor stub
 	
 		studentID = "";
@@ -26,7 +25,7 @@ private String studentID;
 	/**
 	 * @param courseID
 	 */
-	public CourseLimitExceededException(String studentID) {
+	public ReportCardNotFoundException(String studentID) {
 		super();
 		this.studentID = studentID;
 	}
@@ -42,9 +41,7 @@ private String studentID;
 	
 	@Override
 	public String getMessage() {
-		return "studentID: " + studentID + "has exceeded course Limit!";
+		return "Report Card for studentID: " + studentID + "not found!";
 	}
 
-
 }
-

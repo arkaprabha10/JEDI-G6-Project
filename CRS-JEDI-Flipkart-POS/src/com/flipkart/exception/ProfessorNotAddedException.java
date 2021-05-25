@@ -7,7 +7,10 @@ package com.flipkart.exception;
  * @author JEDI-G6
  *
  */
-public class ProfessorNotAddedException {
+
+
+
+public class ProfessorNotAddedException extends Exception {
 	private String professorId;
 	
 	public ProfessorNotAddedException(String professorId) {

@@ -7,6 +7,8 @@ package com.flipkart.exception;
  * @author Dell
  *
  */
+
+//Exception arises when course has number of students which are either more/less than the recommended range
 public class InvalidCourseException extends Exception {
 
 	private String courseID;

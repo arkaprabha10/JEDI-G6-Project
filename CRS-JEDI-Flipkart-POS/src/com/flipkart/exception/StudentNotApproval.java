@@ -19,9 +19,8 @@ public class StudentNotApproval extends Exception{
 	public void setStudentId(int studentId) {
 		this.studentId = studentId;
 	}
-	
+
 	public String getMessage() {
 		return "Student "+ studentId +"is not approved";
 	}
-	
 }

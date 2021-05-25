@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import  com.flipkart.utils.DBUtil;
+import com.flipkart.bean.Course;
 //import com.flipkart.bean.Grade;
 import com.flipkart.bean.RegisteredCourses;
 //import com.flipkart.bean.Student;
@@ -128,6 +129,50 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			}
 		}
 		
+		return null;
+	}
+
+	@Override
+	public ArrayList<Course> viewCourseProf(String instructorID) throws SQLException {
+		// TODO Auto-generated method stub
+//		private String courseID;
+//		private String coursename;
+//		private String instructorID;
+//		private Integer totalSeats;
+//		private Integer availableSeats;
+		
+		Connection connection=DBUtil.getConnection();
+		try {
+			
+			String sql = "SELECT * FROM course_catalog WHERE instructor = "+instructorID ;
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			ArrayList<Course>ans = new ArrayList<Course>();
+			
+			while(rs.next())
+			{
+				
+			Course c = new Course(rs.getString("courseID"), rs.getString("course_name"), rs.getString("instructor"), 10, rs.getInt("available_seats"));
+			ans.add(c);
+			}
+			return ans;
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			
+		}
+		finally 
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 		return null;
 	}
 

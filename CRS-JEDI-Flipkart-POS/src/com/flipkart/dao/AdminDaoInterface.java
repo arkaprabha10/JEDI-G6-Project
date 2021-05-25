@@ -34,7 +34,7 @@ public interface AdminDaoInterface {
 	/**
 	 * @param professor
 	 */
-	public void removeProfessor(Professor professor) throws SQLException;
+	public void removeProfessor(int professorID) throws SQLException;
 	
 	/**
 	 * @param studentID
@@ -45,12 +45,12 @@ public interface AdminDaoInterface {
 	 * @param courseID
 	 * @param courseCatalog
 	 */
-	public void removeCourse(int courseID, ArrayList<Course> courseCatalog) throws SQLException;
+	public void removeCourse(int courseID) throws SQLException;
 	
 	/**
 	 * @param courseID
 	 * @param courseCatalog
 	 */
-	public void addCourse(int courseID, ArrayList<Course> courseCatalog) throws SQLException;
+	public void addCourse(Course course) throws SQLException;
 
 }

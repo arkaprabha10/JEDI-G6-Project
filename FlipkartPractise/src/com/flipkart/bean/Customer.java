@@ -8,38 +8,36 @@ package com.flipkart.bean;
  *
  */
 public class Customer {
-	private Integer Customerid;
-	private String custname;
-	private String custaddres;
+	private Integer customerID;
+	private String customerName;
+	private String customerAddress;
 	
-	
-	/**
-	 * @param customerid
-	 * @param custname
-	 * @param custaddres
-	 */
-	public Customer(Integer customerid, String custname, String custaddres) {
+	public Customer(Integer customerID, String customerName, String customerAddress) {
 		super();
-		this.Customerid = customerid;
-		this.custname = custname;
-		this.custaddres = custaddres;
+		this.customerID = customerID;
+		this.customerName = customerName;
+		this.customerAddress = customerAddress;
 	}
-	public Integer getCustomerid() {
-		return Customerid;
+	
+	public Integer getCustomerID() {
+		return customerID;
 	}
-	public void setCustomerid(Integer customerid) {
-		Customerid = customerid;
+	public void setCustomerID(Integer customerID) {
+		this.customerID = customerID;
 	}
-	public String getCustname() {
-		return custname;
+	public String getCustomerName() {
+		return customerName;
 	}
-	public void setCustname(String custname) {
-		this.custname = custname;
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
-	public String getCustaddres() {
-		return custaddres;
+	public String getCustomerAddress() {
+		return customerAddress;
 	}
-	public void setCustaddres(String custaddres) {
-		this.custaddres = custaddres;
+	public void setCustomerAddress(String customerAddress) {
+		this.customerAddress = customerAddress;
 	}
+	
+	
+	
 }

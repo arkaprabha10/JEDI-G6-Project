@@ -27,7 +27,7 @@ public interface ReportCardInterface {
 	 * @param courseId
 	 * @return updated report card
 	 */
-	public ReportCardInterface addGrade(int studentId, int semesterId, int courseId, int grade) throws StudentNotRegisteredException, ReportCardNotFoundException, CourseNotFoundException, CourseNotAssignedException;
+	public ReportCardInterface addGrade(int studentId, int semesterId, int courseId, int grade) throws CourseNotFoundException;
 	
 	/**
 	 * Method to get student's SPI
@@ -62,7 +62,7 @@ public interface ReportCardInterface {
 	 * @return Boolean to indicate if operation is successful 
 	 * //(e.g. check if all grades marked)
 	 */
-	public Boolean makeVisible(int studentId, int semesterId) throws StudentNotRegisteredException, ReportCardNotFoundException;
+	public Boolean makeVisible(int studentId, int semesterId) throws GradeNotAddedException, FeesPendingException;
 	
 	
 }

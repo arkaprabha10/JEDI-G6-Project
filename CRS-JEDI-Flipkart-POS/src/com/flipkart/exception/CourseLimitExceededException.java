@@ -7,6 +7,9 @@ package com.flipkart.exception;
  * @author Dell
  *
  */
+
+//Exception arises when student has taken more than the recommended limit of courses
+
 public class CourseLimitExceededException extends Exception {
 
 

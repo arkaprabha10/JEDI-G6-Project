@@ -4,11 +4,11 @@
 package com.flipkart.exception;
 
 /**
- * Exception thrown when student is not approval
+ * Exception thrown when student is not approved
  * @author Jayanth
  *
  */
-public class StudentNotApproval extends Exception{
+public class StudentNotApproved extends Exception{
 	
 	private int studentId;
 

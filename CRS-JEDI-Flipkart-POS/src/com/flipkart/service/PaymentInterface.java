@@ -10,12 +10,12 @@ import com.flipkart.bean.RegisteredCourses;
  *
  */
 public interface PaymentInterface {
-
+	//Deuplicate in semester registration
 	/**
 	 * @param studentId : student to be notified
 	 * @param registeredCourses : has coursesList of student
 	 * @return : final payableAmount for student
 	 */
-	public float calculatepay(int studentId,RegisteredCourses registeredCourses);
+	public float calculatePay(int studentId,RegisteredCourses registeredCourses);
 	
 }

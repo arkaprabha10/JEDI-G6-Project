@@ -5,6 +5,7 @@ package com.flipkart.service;
 
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.Payment;
+import com.flipkart.exception.NotificationNotDeliveredException;
 
 /**
  * @author Jayanth
@@ -26,7 +27,7 @@ public interface NotificationInterface{
 	 * @param studentId: student to be notified
 	 * @return notificationId for the record added in the database
 	 */
-	 public int sendNotification(int studentId,Notification notification);
+	 public int sendNotification(int studentId,Notification notification) throws NotificationNotDeliveredException;
 	 
 	 
 

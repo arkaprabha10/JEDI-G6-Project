@@ -25,20 +25,20 @@ public class UserDaoOperation implements UserDaoInterface{
 
 
 	@Override
-	public void updatePassword(String userName, String newPassword) {
+	public void updatePassword(String userID, String newPassword) {
 
 		PreparedStatement queryStatement;
 
 		try {
 			System.out.println("Updating password...");
 
-			getUserRole(userName);
+			getUserRole(userID);
 
 			String query = "UPDATE " + userRole + " SET password = ? WHERE user_name = ?";
 
 			queryStatement = conn.prepareStatement(query);
 			queryStatement.setString(1, newPassword);
-			queryStatement.setString(2, userName);
+			queryStatement.setString(2, userID);
 			queryStatement.executeUpdate();
 
 
@@ -50,7 +50,7 @@ public class UserDaoOperation implements UserDaoInterface{
 		}
 	}
 
-	private void getUserRole(String userName) throws UserNotFoundException{
+	private void getUserRole(String userID) throws UserNotFoundException{
 
 		PreparedStatement stmt;
 
@@ -61,7 +61,7 @@ public class UserDaoOperation implements UserDaoInterface{
 				String query = "SELECT COUNT(1) FROM " + role + " WHERE user_name = ?";
 
 				stmt = conn.prepareStatement(query);
-				stmt.setString(1, userName);
+				stmt.setString(1, userID);
 				ResultSet rs = stmt.executeQuery();
 
 				rs.next();
@@ -82,20 +82,20 @@ public class UserDaoOperation implements UserDaoInterface{
 	}
 
 	@Override
-	public void updateContactNumber(String userName, String newNumber) {
+	public void updateContactNumber(String userID, String newNumber) {
 
 		PreparedStatement queryStatement;
 
 		try {
 			System.out.println("Updating contact number...");
 
-			getUserRole(userName);
+			getUserRole(userID);
 
 			String query = "UPDATE " + userRole + " SET contact_number = ? WHERE user_name = ?";
 
 			queryStatement = conn.prepareStatement(query);
 			queryStatement.setString(1, newNumber);
-			queryStatement.setString(2, userName);
+			queryStatement.setString(2, userID);
 			queryStatement.executeUpdate();
 
 
@@ -108,20 +108,20 @@ public class UserDaoOperation implements UserDaoInterface{
 	}
 
 	@Override
-	public void updateRole(String UserID, String role) {
+	public void updateRole(String userID, String role) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public boolean loginUser(String userName, String userPassword) {
+	public boolean loginUser(String userID, String userPassword) {
 
 		PreparedStatement queryStatement;
 
 		try {
 			System.out.println("Logging in...");
 
-			getUserRole(userName);
+			getUserRole(userID);
 
 			String query = "SELECT password " + "FROM " + userRole;
 

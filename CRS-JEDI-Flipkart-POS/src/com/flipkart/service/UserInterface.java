@@ -15,11 +15,8 @@ public interface UserInterface {
 	 * @param userID
 	 * @param password
 	 */
-<<<<<<< HEAD
-	public void updatePassword(String userID, String password throws UserNotFoundException); 
-=======
-	public void updatePassword(String userID, String password) throws UserNotFoundException; 
->>>>>>> main
+
+	public void updatePassword(String userID, String password) throws UserNotFoundException;
 	
 	/**
 	 * @param userID
@@ -28,7 +25,7 @@ public interface UserInterface {
 	public void updateContactNumber(String userID, String number) throws UserNotFoundException;
 	
 	/**
-	 * @param UserID
+	 * @param userID
 	 * @param role
 	 */
 	public void updateRole(String userID, String role) throws UserNotFoundException;

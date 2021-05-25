@@ -36,7 +36,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		
 		try {
 			statement = connection.prepareStatement(sql);
-			statement.setString(1, professor.getuserName());
+			statement.setString(1, professor.getUserID());
 			statement.setString(2, professor.getName());
 			statement.setInt(3, professor.getJoiningYear());
 			statement.setString(4, professor.getContactNumber());

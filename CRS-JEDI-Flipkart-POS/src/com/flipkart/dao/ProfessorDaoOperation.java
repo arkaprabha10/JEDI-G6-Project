@@ -153,7 +153,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			while(rs.next())
 			{
 				
-			Course c = new Course(rs.getString("courseID"), rs.getString("course_name"), rs.getString("instructor"), 10, rs.getInt("available_seats"));
+			Course c = new Course(rs.getString("courseID"), rs.getString("course_name"), rs.getString("instructor"), 10, rs.getInt("available_seats"), 0);
 			ans.add(c);
 			}
 			return ans;

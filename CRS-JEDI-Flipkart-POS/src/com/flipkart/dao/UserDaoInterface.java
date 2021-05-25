@@ -17,7 +17,7 @@ public interface UserDaoInterface {
 	 * @param userID
 	 * @param password
 	 */
-	public void updatePassword(String userID, String password) throws SQLException; 
+	public void updatePassword(String userID, String password) throws SQLException;
 	
 	/**
 	 * @param userID
@@ -26,7 +26,7 @@ public interface UserDaoInterface {
 	public void updateContactNumber(String userID, String number) throws SQLException;
 	
 	/**
-	 * @param UserID
+	 * @param userID
 	 * @param role
 	 */
 	public void updateRole(String userID, String role) throws SQLException;

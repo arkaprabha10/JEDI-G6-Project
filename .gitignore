@@ -27,3 +27,4 @@ hs_err_pid*
 out/
 
 /CRS-JEDI-Flipkart-POS/src/config.properties
+/CRS-JEDI-Flipkart-POS/.classpath

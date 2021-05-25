@@ -12,7 +12,7 @@ import com.flipkart.bean.RegisteredCourses;
  * @author Asus
  *
  */
-public class SemesterRegistrationImplementation implements SemesterRegistrationInterface{
+public class SemesterRegistrationOperation implements SemesterRegistrationInterface{
 
 	@Override
 	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) {

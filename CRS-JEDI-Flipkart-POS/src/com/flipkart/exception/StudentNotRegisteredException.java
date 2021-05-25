@@ -25,8 +25,7 @@ public class StudentNotRegisteredException extends Exception{
 	public void setStudentID(Integer studentID) {
 		this.studentID = studentID;
 	}
-	
-	@Override
+
 	public String getMessage() {
 		return studentName +"( "+studentID+")"+"not registered, Register and try again";
 	}

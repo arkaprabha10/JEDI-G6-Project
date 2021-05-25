@@ -10,7 +10,7 @@ import com.flipkart.bean.Payment;
  * @author Jayanth
  *
  */
-public interface NotificationInterface {
+public interface NotificationInterface{
 	
 	
 	 /**

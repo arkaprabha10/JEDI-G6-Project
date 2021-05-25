@@ -1,7 +1,5 @@
 package com.flipkart.client;
 
-import com.flipkart.bean.Student;
-
 import java.util.Scanner;
 
 public class StudentClient {
@@ -55,7 +53,7 @@ public class StudentClient {
 
             while(true) {
                 System.out.println("Semester registration : ");
-                System.out.println("1 : View course details");
+                System.out.println("1 : View available course details");
                 System.out.println("2 : Add course");
                 System.out.println("3 : Drop course");
                 System.out.println("4 : Make a payment");
@@ -66,7 +64,7 @@ public class StudentClient {
 
                 switch(menuOption) {
                     case 1 :
-                        viewCourseDetails();
+                        viewAvailableCourses();
                         break;
                     case 2 :
                         addCourse();
@@ -91,9 +89,11 @@ public class StudentClient {
     }
 
     private void finishRegistration() {
+        // to do : clean up, exit from registration, and return registered courses list
     }
 
     private void payRegistrationFee() {
+        // to do : fee payment logic, and return transactionID object
     }
 
     private void deleteCourse() {
@@ -116,10 +116,12 @@ public class StudentClient {
         // to do : implementation of course deletion
     }
 
-    private void viewCourseDetails() {
+    private void viewAvailableCourses() {
+        // to do : get available courses from db
     }
 
     private void viewRegisteredCourses() {
+        // to do : get courses from db, and return a list
     }
 
     private void viewGradeCard() {

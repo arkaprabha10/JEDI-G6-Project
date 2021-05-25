@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.flipkrt.collection;
+package com.flipkart.collection;
 
 import java.util.HashMap;
 import java.util.Map;

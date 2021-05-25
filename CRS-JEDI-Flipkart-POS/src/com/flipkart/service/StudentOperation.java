@@ -34,7 +34,7 @@ public class StudentOperation implements StudentInterface {
 	public Student addStudent(String userName, String name, String password,String department ,String contactNumber, Integer joiningYear)
 			throws UserAlreadyInUseException, SQLException {
 		Student newStudent = new Student();
-		newStudent.setUserID(userName);
+		newStudent.setuserName(userName);
 		newStudent.setName(name);
 		newStudent.setPassword(password);
 		newStudent.setDepartment(department);

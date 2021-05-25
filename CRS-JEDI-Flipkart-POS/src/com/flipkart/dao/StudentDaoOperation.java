@@ -37,7 +37,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			student.setStudentID(studentId+1);
 			System.out.println(studentId);
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.ADD_STUDENT);
-			preparedStatement.setString(1, student.getUserID());
+			preparedStatement.setString(1, student.getuserName());
 			preparedStatement.setString(2, student.getName());
 			preparedStatement.setString(3, "student");//role
 			preparedStatement.setInt(4, student.getStudentID());

@@ -16,4 +16,9 @@ public class GradeNotAddedException extends Exception {
 		return studentId;
 	}
 
+	@Override
+	public String getMessage() {
+		return "Grades have not been added for Student ID : " + studentId ;
+	}
+
 }

@@ -3,6 +3,7 @@
  */
 package com.flipkart.service;
 
+import com.flipkart.exception.*;
 
 /**
  * @author rutwi
@@ -10,11 +11,30 @@ package com.flipkart.service;
  */
 public interface UserInterface {
 	
-	public void updatePassword(String userID, String password);
+	/**
+	 * @param userID
+	 * @param password
+	 */
+	public void updatePassword(String userID, String password throws UserNotFoundException); 
 	
-	public void updateContactNumber(String userID, String number);
+	/**
+	 * @param userID
+	 * @param number
+	 */
+	public void updateContactNumber(String userID, String number) throws UserNotFoundException;
 	
-	public void updateRole(String UserID, String role);
+	/**
+	 * @param UserID
+	 * @param role
+	 */
+	public void updateRole(String userID, String role) throws UserNotFoundException;
+	
+	/**
+	 * @param userID
+	 * @param password
+	 * @return
+	 */
+	public boolean loginUser(String userID, String password) throws UserNotFoundException;
 	
 
 }

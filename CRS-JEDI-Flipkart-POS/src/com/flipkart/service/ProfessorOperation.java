@@ -20,6 +20,29 @@ import com.flipkart.exception.GradeNotAddedException;
  *
  */
 public class ProfessorOperation implements ProfessorInterface {
+	
+	private static volatile ProfessorOperation instance=null;
+//	ProfessorDaoInterface profObj = ProfessorDaoOperation.getInstance();
+	private ProfessorOperation()
+	{
+
+	}
+	
+	/**
+	 * Method to make ProfessorOperation Singleton
+	 * @return
+	 */
+	public static ProfessorOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(ProfessorOperation.class){
+				instance=new ProfessorOperation();
+			}
+		}
+		return instance;
+	}
 
 	//Add grade
 	@Override

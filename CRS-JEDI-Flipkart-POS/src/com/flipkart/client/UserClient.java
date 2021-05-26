@@ -8,6 +8,7 @@ import com.flipkart.service.UserOperation;
 public class UserClient {
     private Scanner sc = new Scanner(System.in);
 
+    
     public static void main(String[] args) {
         UserClient newUser = new UserClient();
         newUser.createMenu();
@@ -136,7 +137,7 @@ public class UserClient {
     private void registerStudent() {
 
         String username, password, name, department, contact, joiningYear;
-        StudentOperation so = new StudentOperation();
+        StudentOperation so = StudentOperation.getInstance();
 
         try {
         	System.out.println("=======================================");

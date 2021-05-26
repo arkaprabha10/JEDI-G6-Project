@@ -3,6 +3,7 @@
  */
 package com.flipkart.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
@@ -23,7 +24,30 @@ import com.flipkart.bean.Student;
 
 public class AdminOperation implements AdminInterface {
 	
-	AdminDaoOperation ado = new AdminDaoOperation();
+//	AdminDaoOperation ado = new AdminDaoOperation();
+	AdminDaoInterface ado = AdminDaoOperation.getInstance();
+	private static volatile AdminOperation instance = null;
+	
+	private AdminOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make AdminOperation Singleton
+	 */
+	public static AdminOperation getInstance()
+	{
+		if(instance == null)
+		{
+			synchronized(AdminOperation.class){
+				instance = new AdminOperation();
+			}
+		}
+		return instance;
+	}
+	
+	
 
 	@Override
 	public void approveStudentRegistration(ArrayList<Student> students) {
@@ -41,7 +65,12 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public void removeProfessor(int professorID) {
 		// TODO Auto-generated method stub
-		ado.removeCourse(professorID);
+		try {
+			ado.removeCourse(professorID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -54,7 +83,12 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public void removeCourse(int courseID) {
 		// TODO Auto-generated method stub
-		ado.removeCourse(courseID);
+		try {
+			ado.removeCourse(courseID);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -67,7 +101,12 @@ public class AdminOperation implements AdminInterface {
 		newCourse.setOfferedSemester(semester);
 		newCourse.setAvailableSeats(10);
 		
-		ado.addCourse(newCourse);
+		try {
+			ado.addCourse(newCourse);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class StudentClient {
     static Scanner sc = new Scanner(System.in);
-    private Student student;
+    private int studentID;
 
     public static void main(String[] args) {
         StudentClient test = new StudentClient();
@@ -28,8 +28,8 @@ public class StudentClient {
 
         try {
         	
-        	student = getStudentfromUserName(username);
-            System.out.println("here");
+        	studentID = getStudentID(username);
+            assert studentID != -1;
 
             while(true) {
             	System.out.println("\n\n==~~=~~=~~=~~=~Student Panel~=~~=~~=~~=~~==");
@@ -46,10 +46,10 @@ public class StudentClient {
 
                 switch(menuOption) {
                     case 1 :
-                        viewGradeCard(student.getStudentID(),1);
+                        viewGradeCard(studentID,1);
                         break;
                     case 2 :
-                        viewRegisteredCourses(student.getStudentID(),1);
+                        viewRegisteredCourses(studentID,1);
                         break;
                     case 3:
                         createRegistrationDashboard();
@@ -119,7 +119,7 @@ public class StudentClient {
         System.out.println("=======================================");
         System.out.println("Finishing registration...");
 
-        boolean registrationFinished = sro.finishRegistration(student.getStudentID(), 1);
+        boolean registrationFinished = sro.finishRegistration(studentID, 1);
 
         if(registrationFinished) {
             System.out.println("Registration completed successfully!");
@@ -143,7 +143,7 @@ public class StudentClient {
 
         String courseID = sc.nextLine();
 
-        boolean courseDropped = sro.dropCourse(student.getStudentID(), 1, courseID);
+        boolean courseDropped = sro.dropCourse(studentID, 1, courseID);
 
         if(courseDropped) {
             System.out.println("Course dropped successfully!");
@@ -163,7 +163,7 @@ public class StudentClient {
 
         String courseID = sc.nextLine();
 
-        boolean courseAdded = sro.addCourse(student.getStudentID(), 1, courseID);
+        boolean courseAdded = sro.addCourse(studentID, 1, courseID);
 
         if(courseAdded) {
             System.out.println("Course added successfully!");
@@ -201,9 +201,9 @@ public class StudentClient {
     	R.getGrades().forEach((key, value) -> System.out.println(key + "    " + value));
     }
     
-    private Student getStudentfromUserName(String username) throws StudentNotRegisteredException, SQLException {
+    private int getStudentID(String username) throws StudentNotRegisteredException, SQLException {
 		
     	StudentDaoOperation sdo = new StudentDaoOperation();
-        return sdo.getStudentfromUserName(username);
+        return sdo.getStudentIDFromUserName(username);
 	}
 }

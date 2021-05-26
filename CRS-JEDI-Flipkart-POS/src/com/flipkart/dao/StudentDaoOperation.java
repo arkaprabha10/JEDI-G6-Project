@@ -154,9 +154,9 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	
-	public Student getStudentfromUserName(String username) throws StudentNotRegisteredException, SQLException {
+	public int getStudentIDFromUserName(String username) throws StudentNotRegisteredException, SQLException {
 		
-		Student student = new Student();
+		int studentID = -1;
 		
 		Connection connection=DBUtil.getConnection();
 		
@@ -169,28 +169,19 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			ResultSet results=preparedStatement.executeQuery();
 			
 			if(results.next()) {
-//				System.out.println(results.getInt(4));
-				student.setUserID(username);
-				student.setName(results.getString(2));
-				student.setStudentID(results.getInt(4));
-				student.setDepartment(results.getString(5));
-				student.setJoiningYear(results.getInt(6));
-				student.setPassword(results.getString(7));
-				student.setContactNumber(results.getString(8));
+				studentID = results.getInt("student_id");
+
+				return studentID;
 			}
 			else {
 				throw new StudentNotRegisteredException();
-			}	
-			
-			
+			}
 		}
-		catch(Exception ex)
-		{
+		catch(StudentNotRegisteredException ex) {
 			System.out.println(ex.getMessage());
-//			throw new UserAlreadyInUseException();
 		}
 
-		return student;
+		return studentID;
 	}
 	
 

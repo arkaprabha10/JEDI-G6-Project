@@ -57,7 +57,7 @@ public class ProfessorOperation implements ProfessorInterface {
 
 	//view course details which the professor is associated with
 	@Override
-	public void viewCourseProf(String instructorID) {
+	public void viewCourseProf(int instructorID) {
 	
 		ArrayList<Course>ans = new ArrayList<Course>();
 		try {
@@ -76,7 +76,7 @@ public class ProfessorOperation implements ProfessorInterface {
 	}
 
 	@Override
-	public void registerCourse(String instructorID, Integer semesterID, String courseID) throws SQLException {
+	public void registerCourse(int instructorID, Integer semesterID, String courseID) throws SQLException {
 		ProfessorDaoInterface profObj=new ProfessorDaoOperation();
 		Boolean ans = profObj.registerCourse(instructorID, semesterID, courseID);
 		

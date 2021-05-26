@@ -41,6 +41,6 @@ public interface StudentDaoInterface {
 	public List<Course> viewRegisteredCourses(int studentID, int semesterId) throws SQLException, StudentNotRegisteredException;
 	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException;
 	
-	public Student getStudentfromUserName(String username) throws StudentNotRegisteredException,SQLException;
+	public int getStudentIDFromUserName(String username) throws StudentNotRegisteredException,SQLException;
 	
 }

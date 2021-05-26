@@ -5,6 +5,8 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourses;
+import com.flipkart.exception.ProfessorNotRegisteredException;
+import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.utils.DBUtil;
 
 import java.sql.Connection;
@@ -24,9 +26,9 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 //		test.addGrade(1, 1, "A", 3);
 //		test.registerCourse("Abc", 1,"1" );
-		ArrayList<Course> temp = test.viewCourseProf("ABC");
-		for(Course r: temp )
-			System.out.println(r.getCourseID()+" "+r.getCoursename());
+//		ArrayList<Course> temp = test.viewCourseProf("ABC");
+//		for(Course r: temp )
+//			System.out.println(r.getCourseID()+" "+r.getCoursename());
 	}
 
 	@Override
@@ -98,19 +100,18 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 	@Override
-	public ArrayList<Course> viewCourseProf(String instructorID) {
+	public ArrayList<Course> viewCourseProf(int instructorID) {
 		// TODO Auto-generated method stub
-		
+
+		ArrayList<Course>ans = new ArrayList<Course>();
 		Connection connection=DBUtil.getConnection();
 		try {
 			
 			String sql = "SELECT * FROM course_catalog WHERE instructor = ?";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 
-			stmt.setString(1, instructorID);
+			stmt.setInt(1, instructorID);
 			ResultSet rs = stmt.executeQuery();
-
-			ArrayList<Course>ans = new ArrayList<Course>();
 
 			while (rs.next()) {
 				Course c = new Course(rs.getString("courseID"), rs.getString("course_name"), rs.getString("instructor"), 10, rs.getInt("available_seats"), 0);
@@ -129,18 +130,17 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			System.out.println(e.getMessage());
 		}
 
-		return null;
+		return ans;
 	}
 
 	@Override
-	public Boolean registerCourse(String instructorID, Integer semesterID, String courseID) {
+	public Boolean registerCourse(int instructorID, Integer semesterID, String courseID) {
 		
 		Connection connection=DBUtil.getConnection();
 		try {
 			
 			String sql = "SELECT * FROM course_catalog WHERE courseID = '"+courseID+"' AND offered_semester = "+semesterID + " AND instructor is NULL";
 			String sql1 = "UPDATE course_catalog set instructor = + '"+instructorID+"' WHERE courseID = '"+courseID+"' AND offered_semester = "+semesterID;
-			System.out.println(sql);
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
 			
@@ -169,6 +169,35 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			return false;
 			
 		}
+	}
+
+	public int getProfessorIDFromUserName(String username) throws SQLException {
+
+		int professorID = -1;
+
+		Connection connection=DBUtil.getConnection();
+
+		try
+		{
+			String Qry = "select * from professor where user_name = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(Qry);
+			preparedStatement.setString(1, username);
+			ResultSet results=preparedStatement.executeQuery();
+
+			if(results.next()) {
+				professorID = results.getInt("instructor_ID");
+
+				return professorID;
+			}
+			else {
+				throw new ProfessorNotRegisteredException();
+			}
+		}
+		catch(ProfessorNotRegisteredException ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		return professorID;
 	}
 
 }

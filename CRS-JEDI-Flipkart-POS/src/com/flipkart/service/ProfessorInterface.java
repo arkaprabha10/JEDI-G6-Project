@@ -34,8 +34,8 @@ public interface ProfessorInterface {
 	 * @throws CourseNotFoundException
 	 */
 	public void viewCourseStudents(String courseID, Integer semesterID) throws CourseNotFoundException;
-	public void viewCourseProf(String instructorID) ;
-	public void registerCourse(String instructorID, Integer semesterID, String courseID) throws SQLException;
+	public void viewCourseProf(int instructorID) ;
+	public void registerCourse(int instructorID, Integer semesterID, String courseID) throws SQLException;
 	
 	
 

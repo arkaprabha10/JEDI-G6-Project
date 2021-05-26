@@ -4,8 +4,10 @@
 package com.flipkart.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.exception.CourseAlreadyRegisteredException;
@@ -25,10 +27,18 @@ public interface SemesterRegistrationDaoInterface {
 	 * Method to add Course selected by student 
 	 * @param studentId
 	 * @param semesterId
-	 * @param courseId 
+	 * @param courseId
 	 * @return the course if it is added successfully, else null
 	 */
-	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) throws SQLException;
+	public boolean addCourse(int studentId, int semesterId, String courseId) throws SQLException;
+
+	/**
+	 * @param studentId
+	 * @param semeseterId
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean isRegistered(int studentId, int semeseterId) throws SQLException;
 	
 	/**
 	 * Method to drop Course selected by student 
@@ -37,7 +47,15 @@ public interface SemesterRegistrationDaoInterface {
 	 * @param courseId 
 	 * @return Boolean value indicating if it is was dropped successfully
 	 */
-	public RegisteredCourses dropCourse(int studentId, int semesterId, String courseId) throws SQLException;
+	public boolean dropCourse(int studentId, int semesterId, String courseId) throws SQLException;
+
+	/**
+	 * @param studentId
+	 * @param semesterId
+	 * @return
+	 * @throws SQLException
+	 */
+	public boolean finishRegistration(int studentId, int semesterId) throws SQLException;
 	
 	/**
 	 * Method to view Courses registered by student 
@@ -45,13 +63,13 @@ public interface SemesterRegistrationDaoInterface {
 	 * @param semesterId 
 	 * @return list of student's registered courses
 	 */
-	public List<RegisteredCourses> viewRegisteredCourses(int studentId, int semesterId) throws SQLException;
+	public RegisteredCourses viewRegisteredCourses(int studentId, int semesterId) throws SQLException;
 	
 	/**
 	 * Method to view all courses available
 	 * @return list of all courses with availbale seats
 	 */
-	public List<RegisteredCourses> viewAvailableCourses(int studentId, int semesterId) throws SQLException;
+	public ArrayList<Course> viewAvailableCourses() throws SQLException;
 	
 	
 	/**

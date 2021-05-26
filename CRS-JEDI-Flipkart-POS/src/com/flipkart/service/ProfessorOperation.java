@@ -3,6 +3,7 @@
  */
 package com.flipkart.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Course;
@@ -56,7 +57,7 @@ public class ProfessorOperation implements ProfessorInterface {
 
 	//view course details which the professor is associated with
 	@Override
-	public void viewCourseProf(String instructorID) {
+	public void viewCourseProf(int instructorID) {
 	
 		ArrayList<Course>ans = new ArrayList<Course>();
 		try {
@@ -71,6 +72,14 @@ public class ProfessorOperation implements ProfessorInterface {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	@Override
+	public void registerCourse(int instructorID, Integer semesterID, String courseID) throws SQLException {
+		ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+		Boolean ans = profObj.registerCourse(instructorID, semesterID, courseID);
+		
 		
 	}
 

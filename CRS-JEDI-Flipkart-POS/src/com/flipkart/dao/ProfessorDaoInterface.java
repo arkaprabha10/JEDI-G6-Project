@@ -35,7 +35,10 @@ public interface ProfessorDaoInterface {
 	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID, Integer semesterID) throws SQLException;
 
 	// view courses which the professor is associated with
-	public ArrayList<Course> viewCourseProf(String instructorID) throws SQLException;
+	public ArrayList<Course> viewCourseProf(int instructorID) throws SQLException;
+	
+//	prof registers for course if no one is allocated to it
+	public Boolean registerCourse(int instructorID, Integer semesterID,String courseID)throws SQLException;
 	
 
 }

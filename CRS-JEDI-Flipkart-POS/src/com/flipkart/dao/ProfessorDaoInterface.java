@@ -24,7 +24,7 @@ public interface ProfessorDaoInterface {
 	 * @param courseID
 	 * @param grade
 	 */
-	public void addGrade(Integer studentID, int semesterID,String courseID, Integer grade) throws SQLException;
+	public void addGrade(Integer studentID, Integer semesterID,String courseID, Integer grade) throws SQLException;
 	
 	/**
 	 * @param professorID

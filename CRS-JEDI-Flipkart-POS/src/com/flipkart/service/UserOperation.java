@@ -1,10 +1,10 @@
 package com.flipkart.service;
 
-import com.flipkart.dao.UserDaoInterface;
 import com.flipkart.dao.UserDaoOperation;
 import com.flipkart.exception.UserNotFoundException;
 
 public class UserOperation implements UserInterface{
+
 	private final UserDaoOperation userDao = new UserDaoOperation();
 
 	@Override
@@ -31,9 +31,10 @@ public class UserOperation implements UserInterface{
 	}
 
 	@Override
-	public boolean loginUser(String userID, String password) {
 
-		return userDao.loginUser(userID, password);
+	public boolean loginUser(String userID, String password, String role) throws UserNotFoundException {
+		
+		return userDao.loginUser(userID, password, role);
 	}
 
 }

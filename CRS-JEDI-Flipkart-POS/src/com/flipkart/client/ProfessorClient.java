@@ -2,21 +2,26 @@ package com.flipkart.client;
 
 import java.util.Scanner;
 
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.service.ProfessorInterface;
+import com.flipkart.service.ProfessorOperation;
+
 public class ProfessorClient {
     private Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         ProfessorClient test = new ProfessorClient();
-        test.createProfessorMenu();
+//        test.createProfessorMenu();
     }
 
-    public void createProfessorMenu() {
+    public void createProfessorMenu(String username) {
         try {
 
             while(true) {
                 System.out.println("Choose an option : ");
                 System.out.println("1 : View registered students");
-                System.out.println("2 : View student details");
+                System.out.println("2 : Add Grade");
                 System.out.println("3 : Show available courses");
                 System.out.println("4 : Register for a course");
                 System.out.println("5 : Logout");
@@ -29,7 +34,7 @@ public class ProfessorClient {
                         viewEnrolledStudents();
                         break;
                     case 2 :
-                        viewStudentDetails();
+                        addGrade();
                         break;
                     case 3:
                         viewAvailableCourses();
@@ -61,55 +66,52 @@ public class ProfessorClient {
 
     private void viewAvailableCourses() {
         // to do : retrieve course details from db
+    	String instructorID;
+        System.out.println("Enter instructor ID: ");
+        instructorID = sc.nextLine();
+    	ProfessorInterface profObj = new ProfessorOperation();
+    	profObj.viewCourseProf(instructorID);
     }
 
-    private void viewStudentDetails() {
+    private void addGrade() throws CourseNotFoundException, GradeNotAddedException {
 
-        String studentID;
-
+//    	viewEnrolledStudents();
+    	String courseID;
+    	Integer grade,semesterID,studentID;
         System.out.println("Enter student ID: ");
-        studentID = sc.nextLine();
-
+        studentID = sc.nextInt();
+        sc.nextLine();
+        System.out.println("Enter Semester ID: ");
+        semesterID = sc.nextInt();
+        System.out.println("Enter course ID: ");
+        sc.nextLine();
+        courseID = sc.nextLine();
+        System.out.println("Enter Grade: ");
+        grade = sc.nextInt();
+        sc.nextLine();
+        ProfessorInterface profObj = new ProfessorOperation();
+    	profObj.addGrade(studentID, semesterID, courseID, grade);
         // get students details/objects
 
-        try {
 
-            while(true) {
-                System.out.println("Options: ");
-                System.out.println("1 : Add grade");
-                System.out.println("2 : exit");
-
-                int menuOption = sc.nextInt();
-                sc.nextLine();
-
-                switch(menuOption) {
-                    case 1 :
-                        addGrade(studentID);
-                        break;
-                    case 2 :
-                        return;
-                    default:
-                        System.out.println("Invalid input");
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
-    private void addGrade(String studentID) {
+   
 
-        String courseID;
-
-        System.out.println("Enter course ID: ");
-        courseID = sc.nextLine();
-
-        // to do : verify both student and professor are registered to the course
-        // modify registeredCourse grade
-    }
-
-    private void viewEnrolledStudents() {
+    private void viewEnrolledStudents() throws CourseNotFoundException {
         // to do : get student details from db, and print them
+    	String courseID;
+        System.out.println("Enter course ID: ");
+        courseID= sc.nextLine();
+    	try {
+    		
+        	ProfessorInterface profObj = new ProfessorOperation();
+        	profObj.viewCourseStudents(courseID);
+//        	profObj.viewCourseStudents(courseID);	
+    	}
+    	catch(Exception e) {
+    		throw new CourseNotFoundException(courseID);
+    	}
+    	
     }
 }

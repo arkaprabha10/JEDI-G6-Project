@@ -1,18 +1,37 @@
 package com.flipkart.client;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.ReportCard;
+import com.flipkart.bean.Student;
+import com.flipkart.dao.StudentDaoOperation;
+import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.StudentNotApproved;
+import com.flipkart.exception.StudentNotApprovedException;
+import com.flipkart.exception.StudentNotRegisteredException;
+import com.flipkart.service.StudentOperation;
+
 public class StudentClient {
-    private Scanner sc = new Scanner(System.in);
+     static Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
         StudentClient test = new StudentClient();
-        test.createStudentMenu();
+        System.out.println("Enter You Username");
+        String username = sc.nextLine();
+        test.createStudentMenu(username);
     }
 
-    public void createStudentMenu() {
+    public void createStudentMenu(String username) {
 
         try {
+        	
+        	Student student = getStudentfromUserName(username);
 
             while(true) {
                 System.out.println("Choose an option : ");
@@ -26,10 +45,10 @@ public class StudentClient {
 
                 switch(menuOption) {
                     case 1 :
-                        viewGradeCard();
+                        viewGradeCard(student.getStudentID(),1);
                         break;
                     case 2 :
-                        viewRegisteredCourses();
+                        viewRegisteredCourses(student.getStudentID(),1);
                         break;
                     case 3:
                         createRegistrationDashboard();
@@ -46,7 +65,8 @@ public class StudentClient {
         }
     }
 
-    private void createRegistrationDashboard() {
+    
+	private void createRegistrationDashboard() {
         Scanner sc = new Scanner(System.in);
 
         try {
@@ -118,12 +138,33 @@ public class StudentClient {
 
     private void viewAvailableCourses() {
         // to do : get available courses from db
+    	
     }
 
-    private void viewRegisteredCourses() {
+    private void viewRegisteredCourses(int studentID, int semesterID) throws StudentNotRegisteredException, SQLException {
         // to do : get courses from db, and return a list
+    	StudentOperation so = new StudentOperation();
+    	List<Course> courses = so.viewRegisteredCourses(studentID, semesterID);
+    	System.out.println("These are your registered courses : ");
+    	for(Course c: courses) {
+    		System.out.println("Course ID : "+c.getCourseID()+" \t Course Name : "+ c.getCoursename()+"\t Instructor : "+c.getInstructorID());
+    	}
     }
 
-    private void viewGradeCard() {
+    private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
+    	StudentOperation so = new StudentOperation();
+    	ReportCard R = so.viewReportCard(studentID, semesterID);
+    	System.out.println("StudentID : "+R.getStudentID()+"\t SemesterID : "+R.getSemesterID());
+    	System.out.println("Course  Grade");
+    	R.getGrades().entrySet().forEach(entry -> {
+    	    System.out.println(entry.getKey() + "    " + entry.getValue());
+    	});
     }
+    
+    private Student getStudentfromUserName(String username) throws StudentNotRegisteredException, SQLException {
+		
+    	StudentDaoOperation sdo = new StudentDaoOperation();
+    	Student  st = sdo.getStudentfromUserName(username);
+		return st;
+	}
 }

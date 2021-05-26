@@ -2,6 +2,8 @@ package com.flipkart.dao;
 
 import com.flipkart.exception.UserNotFoundException;
 
+import java.sql.SQLException;
+
 /**
  * @author rutwi
  *
@@ -38,7 +40,6 @@ public interface UserDaoInterface {
 	 * @param password
 	 * @return
 	 */
-	public boolean loginUser(String userID, String password);
-	
 
+	public boolean loginUser(String userID, String password, String role) throws SQLException;
 }

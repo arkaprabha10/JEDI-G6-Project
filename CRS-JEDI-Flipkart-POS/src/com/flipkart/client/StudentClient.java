@@ -16,7 +16,7 @@ import java.util.Scanner;
 public class StudentClient {
     static Scanner sc = new Scanner(System.in);
     private int studentID;
-    private boolean finishedRegistration = false;
+    private boolean finishedRegistration = true;
 
     SemesterRegistrationInterface sro = SemesterRegistrationOperation.getInstance();
     StudentInterface so = StudentOperation.getInstance();

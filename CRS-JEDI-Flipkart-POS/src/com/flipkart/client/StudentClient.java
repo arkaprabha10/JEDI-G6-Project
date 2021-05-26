@@ -54,7 +54,8 @@ public class StudentClient {
                         createRegistrationDashboard();
                         break;
                     case 4:
-                        return;
+                    	System.out.println("Logging Out ...");
+                    	System.exit(0);
                     default:
                         System.out.println("Invalid input");
                 }

@@ -83,40 +83,43 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			rs.next();
-			if(rs.getBoolean(13)==false)
-				throw new FeesPendingException(StudentID);
-			else if (rs.getBoolean(14)==false)
-				throw new StudentNotApprovedException(StudentID);
-			else {
-				R.setIsVisible(true);
+			HashMap<String,Integer> grades = new HashMap<String, Integer>();
+			
+			do {
+
+				if(rs.getBoolean(7)==false)
+					
+					throw new FeesPendingException(StudentID);
 				
-				HashMap<String,Integer> grades = new HashMap<String, Integer>();
+				else if (rs.getBoolean(6)==false)
+					
+					throw new StudentNotApprovedException(StudentID);
 				
-				for(int i=0;i<4;i++) {
-					grades.put(rs.getString(2+i), rs.getInt(9+i));
+				else {
+						
+					grades.put(rs.getString(2), rs.getInt(4));
+					
 				}
+			}while(rs.next());
+			R.setIsVisible(true);
+			R.setGrades(grades);
 				
-				R.setGrades(grades);
-				
-			}
-			
-			
-			
 		}
+			
 		catch(Exception ex)
 		{
 			System.out.println(ex.getMessage());
 		}
-		finally
-		{
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-				e.printStackTrace();
-			}
-		}
-		
+//		finally
+//		{
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				System.out.println(e.getMessage());
+//				e.printStackTrace();
+//			}
+//		}
+//		
 		return R;
 	}
 
@@ -136,18 +139,18 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			ResultSet rs = preparedStatement.executeQuery();
 			rs.next();
 			List<String> course_ids= new ArrayList<String>();
-			for(int i=1;i<=4;i++) {
-				course_ids.add(rs.getString(i));
-			}
-			for(int i=1;i<=4;i++) {		
-				String courseId = course_ids.get(i-1);
+			do {
+				course_ids.add(rs.getString(1));
+			}while(rs.next());
+			
+			for(String courseId: course_ids) {		
 				PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_COURSE_BY_ID(courseId,semesterId));
-				ResultSet rs0 = preparedStatement.executeQuery();
+				ResultSet rs0 = preparedStatement0.executeQuery();
 				Course c = new Course();
 				c.setCourseID(courseId);
 				rs0.next();
 				c.setCoursename(rs0.getString(2));
-				c.setInstructorID(rs0.getString(2));
+				c.setInstructorID(rs0.getString(3));
 				registeredCourses.add(c);
 			}
 		}

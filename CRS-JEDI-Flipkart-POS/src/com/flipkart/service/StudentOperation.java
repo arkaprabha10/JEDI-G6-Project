@@ -54,16 +54,16 @@ public class StudentOperation implements StudentInterface {
 		sdo.addStudent(newStudent);
 		return newStudent;
 	}
-//	public static void main(String[] args) throws UserAlreadyInUseException, SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
-//		System.out.println("Hey There!");
-//		StudentOperation so = new StudentOperation();
-//		
-//			so.addStudent("Anon", "Gurseerat", "derf","EE", "1234554321", 2020);
+	public static void main(String[] args) throws UserAlreadyInUseException, SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
+		System.out.println("Hey There!");
+		StudentOperation so = new StudentOperation();
+		
+//			so.addStudent("09.Charlie", "Drake", "6273","EE", "2538389027", 2021);
 //			List<Course> l=so.viewRegisteredCourses(1, 1);
 //			for (Course el: l ) {
 //				System.out.println(el.getCourseID());
 //			}
 //			so.viewReportCard(1, 1);
-//	}
+	}
 	
 }

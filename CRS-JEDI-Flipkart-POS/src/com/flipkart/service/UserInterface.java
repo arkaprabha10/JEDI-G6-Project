@@ -35,7 +35,7 @@ public interface UserInterface {
 	 * @param password
 	 * @return
 	 */
-	public boolean loginUser(String userID, String password) throws UserNotFoundException;
+	public boolean loginUser(String userID, String password, String role) throws UserNotFoundException;
 	
 
 }

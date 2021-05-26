@@ -25,28 +25,29 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException{
+		
 		Connection connection=DBUtil.getConnection();
 		
 		try
 		{
 			//open db connection
-			PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_STUDENTS,Statement.RETURN_GENERATED_KEYS);
-			ResultSet results=preparedStatement0.getGeneratedKeys();
+			PreparedStatement preparedStatement0=connection.prepareStatement("SELECT MAX(student_id) FROM student");
+			ResultSet results=preparedStatement0.executeQuery();
 			int studentId = 0;
-			while(results.next())
+			if(results.next()) {
 				studentId=results.getInt(1);
-			
+			}
 			student.setStudentID(studentId+1);
-			System.out.println(studentId);
+			
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.ADD_STUDENT);
 			preparedStatement.setString(1, student.getUserID());
 			preparedStatement.setString(2, student.getName());
 			preparedStatement.setString(3, "student");//role
 			preparedStatement.setInt(4, student.getStudentID());
 			preparedStatement.setString(5, student.getDepartment());
-			preparedStatement.setString(6, student.getPassword());
-			preparedStatement.setString(7, student.getContactNumber());
-			preparedStatement.setInt(8, student.getJoiningYear());
+			preparedStatement.setInt(6, student.getJoiningYear());
+			preparedStatement.setString(7, student.getPassword());
+			preparedStatement.setString(8, student.getContactNumber());
 			preparedStatement.executeUpdate();
 			
 			
@@ -83,26 +84,29 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			rs.next();
-			if(rs.getBoolean(13)==false)
-				throw new FeesPendingException(StudentID);
-			else if (rs.getBoolean(14)==false)
-				throw new StudentNotApprovedException(StudentID);
-			else {
-				R.setIsVisible(true);
+			HashMap<String,Integer> grades = new HashMap<String, Integer>();
+			
+			do {
+
+				if(rs.getBoolean(7)==false)
+					
+					throw new FeesPendingException(StudentID);
 				
-				HashMap<String,Integer> grades = new HashMap<String, Integer>();
+				else if (rs.getBoolean(6)==false)
+					
+					throw new StudentNotApprovedException(StudentID);
 				
-				for(int i=0;i<4;i++) {
-					grades.put(rs.getString(2+i), rs.getInt(9+i));
+				else {
+						
+					grades.put(rs.getString(2), rs.getInt(4));
+					
 				}
+			}while(rs.next());
+			R.setIsVisible(true);
+			R.setGrades(grades);
 				
-				R.setGrades(grades);
-				
-			}
-			
-			
-			
 		}
+			
 		catch(Exception ex)
 		{
 			System.out.println(ex.getMessage());
@@ -116,7 +120,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 //				e.printStackTrace();
 //			}
 //		}
-		
+//		
 		return R;
 	}
 
@@ -136,18 +140,18 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			ResultSet rs = preparedStatement.executeQuery();
 			rs.next();
 			List<String> course_ids= new ArrayList<String>();
-			for(int i=1;i<=4;i++) {
-				course_ids.add(rs.getString(i));
-			}
-			for(int i=1;i<=4;i++) {		
-				String courseId = course_ids.get(i-1);
+			do {
+				course_ids.add(rs.getString(1));
+			}while(rs.next());
+			
+			for(String courseId: course_ids) {		
 				PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_COURSE_BY_ID(courseId,semesterId));
-				ResultSet rs0 = preparedStatement.executeQuery();
+				ResultSet rs0 = preparedStatement0.executeQuery();
 				Course c = new Course();
 				c.setCourseID(courseId);
 				rs0.next();
 				c.setCoursename(rs0.getString(2));
-				c.setInstructorID(rs0.getString(2));
+				c.setInstructorID(rs0.getString(3));
 				registeredCourses.add(c);
 			}
 		}
@@ -168,11 +172,55 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		
 		return registeredCourses;
 	}
-	public void viewReportCard(int StudentID, ReportCard reportCard) {
-		// TODO Auto-generated method stub
-		
-	}
+
+	@Override
 	
+	public Student getStudentfromUserName(String username) throws StudentNotRegisteredException, SQLException {
+		
+		Student student = new Student();
+		
+		Connection connection=DBUtil.getConnection();
+		
+		try
+		{
+			//open db connection			
+			String Qry = "select * from student where user_name = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(Qry);
+			preparedStatement.setString(1, username);
+			ResultSet results=preparedStatement.executeQuery();
+			
+			if(results.next()) {
+//				System.out.println(results.getInt(4));
+				student.setUserID(username);
+				student.setName(results.getString(2));
+				student.setStudentID(results.getInt(4));
+				student.setDepartment(results.getString(5));
+				student.setJoiningYear(results.getInt(6));
+				student.setPassword(results.getString(7));
+				student.setContactNumber(results.getString(8));
+			}
+			else {
+				throw new StudentNotRegisteredException();
+			}	
+			
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+//			throw new UserAlreadyInUseException();
+		}
+//		finally
+//		{
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				System.out.println(e.getMessage());
+//				e.printStackTrace();
+//			}
+//		}
+		return student;
+	}
 	
 
 }

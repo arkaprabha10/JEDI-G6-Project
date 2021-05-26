@@ -4,6 +4,13 @@
 package com.flipkart.service;
 
 import java.util.ArrayList;
+import com.flipkart.dao.AdminDaoInterface;
+import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.UserAlreadyInUseException;
+import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.exception.ProfessorNotAddedException;
+import com.flipkart.exception.StudentNotApprovedException;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -13,7 +20,10 @@ import com.flipkart.bean.Student;
  * @author rutwi
  *
  */
+
 public class AdminOperation implements AdminInterface {
+	
+	AdminDaoOperation ado = new AdminDaoOperation();
 
 	@Override
 	public void approveStudentRegistration(ArrayList<Student> students) {
@@ -23,13 +33,15 @@ public class AdminOperation implements AdminInterface {
 
 	@Override
 	public void addProfessor(Professor professor) {
+		
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void removeProfessor(Professor professor) {
+	public void removeProfessor(int professorID) {
 		// TODO Auto-generated method stub
+		ado.removeCourse(professorID);
 		
 	}
 
@@ -40,14 +52,22 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
-	public void removeCourse(int courseID, ArrayList<Course> courseCatalog) {
+	public void removeCourse(int courseID) {
 		// TODO Auto-generated method stub
+		ado.removeCourse(courseID);
 		
 	}
 
 	@Override
-	public void addCourse(int courseID, ArrayList<Course> courseCatalog) {
+	public void addCourse(String course_name, String courseID, int semester) {
 		// TODO Auto-generated method stub
+		Course newCourse = new Course();
+		newCourse.setCoursename(course_name);
+		newCourse.setCourseID(courseID);
+		newCourse.setOfferedSemester(semester);
+		newCourse.setAvailableSeats(10);
+		
+		ado.addCourse(newCourse);
 		
 	}
 

@@ -34,7 +34,7 @@ public interface AdminInterface {
 	/**
 	 * @param professor
 	 */
-	public void removeProfessor(Professor professor);
+	public void removeProfessor(int professorID);
 	
 	/**
 	 * @param studentID
@@ -45,12 +45,12 @@ public interface AdminInterface {
 	 * @param courseID
 	 * @param courseCatalog
 	 */
-	public void removeCourse(int courseID, ArrayList<Course> courseCatalog) throws CourseNotFoundException, CourseNotDeletedException;
+	public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
 	
 	/**
 	 * @param courseID
 	 * @param courseCatalog
 	 */
-	public void addCourse(int courseID, ArrayList<Course> courseCatalog) throws CourseAlreadyPresentException;
+	public void addCourse(String course_name, String courseID, int semester) throws CourseAlreadyPresentException;
 
 }

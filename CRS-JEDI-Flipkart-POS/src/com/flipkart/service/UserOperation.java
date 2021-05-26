@@ -5,7 +5,7 @@ import com.flipkart.exception.UserNotFoundException;
 
 public class UserOperation implements UserInterface{
 
-	private final UserDaoOperation userDao = new UserDaoOperation();
+	private final UserDaoOperation userDao = UserDaoOperation.getInstance();
 
 	@Override
 	public void updatePassword(String userID, String password) {

@@ -156,6 +156,47 @@ public class UserDaoOperation implements UserDaoInterface{
 
 		try {
 			System.out.println("Logging in...");
+			
+			if(role.equals("student"))
+			{
+				String query1 = "SELECT account_approved " + "FROM student WHERE user_name = ?";
+				queryStatement = conn.prepareStatement(query1);
+				queryStatement.setString(1, userID);
+				ResultSet rs = queryStatement.executeQuery();
+				
+				Boolean account_status = false;
+				while(rs.next())
+				{
+					account_status = rs.getBoolean("account_approved");
+					
+				}
+				
+				if(!account_status)
+				{
+					throw new Exception("Account Not Approved By Admin");
+					// TODO: ma
+				}
+				
+			}
+			
+//			if(role.equals("student"))
+//			{
+//				String query1 = "SELECT account_approved " + "FROM student WHERE user_name = ?";
+//				queryStatement = conn.prepareStatement(query1);
+//				queryStatement.setString(1, userID);
+//				ResultSet rs = queryStatement.executeQuery();
+//				
+//				Boolean account_status = false;
+//				while (rs.next()) {
+//					account_status = rs.getBoolean("account_approved");
+//				}
+//				
+//				if(!account_status)
+//				{
+//					throw new Exception("Account not approved by admin");
+//					// TODO: make this exception class
+//				}
+//			})
 
 
 
@@ -185,6 +226,9 @@ public class UserDaoOperation implements UserDaoInterface{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+		}
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
 		}
 
 		// throw exception on login failure

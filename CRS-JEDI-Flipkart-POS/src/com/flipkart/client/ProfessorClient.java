@@ -133,7 +133,7 @@ public class ProfessorClient {
 
     private int getProfessorID(String username) throws SQLException {
 
-        ProfessorDaoOperation pdo = new ProfessorDaoOperation();
+        ProfessorDaoOperation pdo = ProfessorDaoOperation.getInstance();
         return pdo.getProfessorIDFromUserName(username);
     }
 }

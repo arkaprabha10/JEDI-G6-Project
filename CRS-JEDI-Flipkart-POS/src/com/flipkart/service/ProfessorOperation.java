@@ -26,7 +26,7 @@ public class ProfessorOperation implements ProfessorInterface {
 	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade) throws GradeNotAddedException 
 	{
 		try {
-			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+			ProfessorDaoInterface profObj= ProfessorDaoOperation.getInstance();
 			profObj.addGrade(studentID, semesterID,courseID, grade);
 			System.out.println("Grade added successfully");
 			
@@ -43,7 +43,7 @@ public class ProfessorOperation implements ProfessorInterface {
 		ArrayList<RegisteredCourses>ans = new ArrayList<RegisteredCourses>();
 		
 		try {
-			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+			ProfessorDaoInterface profObj= ProfessorDaoOperation.getInstance();
 			ans = profObj.viewCourseStudents(courseID, semesterID);
 			for (RegisteredCourses r:ans) {
 				System.out.println("studentID = " + r.getStudentID()+ " Semester ID = "+r.getSemesterID());
@@ -63,7 +63,7 @@ public class ProfessorOperation implements ProfessorInterface {
 		try {
 			
 			
-			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+			ProfessorDaoInterface profObj=ProfessorDaoOperation.getInstance();
 			ans = profObj.viewCourseProf(instructorID);
 			for (Course c: ans) {
 				System.out.println("CourseID = " + c.getCourseID()+ " Course Name = " + c.getCoursename());
@@ -77,7 +77,7 @@ public class ProfessorOperation implements ProfessorInterface {
 
 	@Override
 	public void registerCourse(int instructorID, Integer semesterID, String courseID) throws SQLException {
-		ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+		ProfessorDaoInterface profObj=ProfessorDaoOperation.getInstance();
 		Boolean ans = profObj.registerCourse(instructorID, semesterID, courseID);
 		
 		

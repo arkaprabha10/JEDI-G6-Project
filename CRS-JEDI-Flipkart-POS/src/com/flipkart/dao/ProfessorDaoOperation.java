@@ -20,11 +20,13 @@ import java.util.ArrayList;
  *
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
-	private volatile ProfessorDaoOperation instance=null;
+	
+	private volatile static ProfessorDaoOperation instance=null;
 
 	private ProfessorDaoOperation(){
 
 	}
+	
 	public static ProfessorDaoOperation getInstance(){
 		if(instance==null)
 		{

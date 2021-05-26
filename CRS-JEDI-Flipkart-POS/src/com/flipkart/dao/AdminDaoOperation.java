@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.flipkart.bean.Course;
@@ -169,6 +170,51 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			e.printStackTrace();
 		}
 		
+	}
+
+	
+	@Override
+	public HashMap<String,ArrayList<Integer> >  viewCourseStudentList(String courseID, int semesterId, Boolean viewAll) {
+		
+		Connection connection = DBUtil.getConnection();
+		HashMap<String,ArrayList<Integer> > StudentList = new HashMap<String,ArrayList<Integer> >();
+		 
+		try {
+
+			List<String> course_ids = new ArrayList<String>();
+			
+			if(viewAll) {
+				statement = connection.prepareStatement(SQLQueries.GET_ALL_COURSES(semesterId));						
+				ResultSet rs = statement.executeQuery();
+				rs.next();
+	
+				do {
+					course_ids.add(rs.getString(1));				
+				}while(rs.next());
+			}
+			else {
+				course_ids.add(courseID);
+			}
+			 
+			for(String c : course_ids) {
+				PreparedStatement statement2 = connection.prepareStatement(SQLQueries.GET_COURSE_STUDENTS(c,semesterId));
+				ResultSet studentSet= statement2.executeQuery();
+				studentSet.next();
+				ArrayList<Integer> CourseStudentList = new ArrayList<Integer>();
+				do {					
+					CourseStudentList.add(studentSet.getInt(1));
+				}while(studentSet.next());
+				StudentList.put(c,CourseStudentList);
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		return StudentList;
+	
 	}
 
 }

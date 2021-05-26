@@ -4,6 +4,7 @@
 package com.flipkart.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -57,4 +58,5 @@ public interface AdminInterface {
 	 */
 	public void addCourse(String course_name, String courseID, int semester) throws CourseAlreadyPresentException;
 
+	public HashMap<String, ArrayList<Integer>> viewCourseStudentList(String courseID, int semester, Boolean viewAll);
 }

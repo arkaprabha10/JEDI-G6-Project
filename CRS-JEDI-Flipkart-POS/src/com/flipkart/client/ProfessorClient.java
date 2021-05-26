@@ -19,12 +19,14 @@ public class ProfessorClient {
         try {
 
             while(true) {
+                System.out.println("\n\n==~~=~~=~~=~~=~Student Panel~=~~=~~=~~=~~==");
                 System.out.println("Choose an option : ");
                 System.out.println("1 : View registered students");
                 System.out.println("2 : Add Grade");
                 System.out.println("3 : Show available courses");
                 System.out.println("4 : Register for a course");
                 System.out.println("5 : Logout");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -99,7 +101,7 @@ public class ProfessorClient {
    
 
     private void viewEnrolledStudents() throws CourseNotFoundException {
-        // to do : get student details from db, and print them
+
     	String courseID;
     	int semesterID;
 

@@ -85,23 +85,21 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			ResultSet rs = preparedStatement.executeQuery();
 			rs.next();
 			HashMap<String,Integer> grades = new HashMap<String, Integer>();
-			
-			do {
 
-				if(rs.getBoolean(7)==false)
-					
+			while (rs.next()) {
+				if(!rs.getBoolean(7)) {
 					throw new FeesPendingException(StudentID);
-				
-				else if (rs.getBoolean(6)==false)
-					
-					throw new StudentNotApprovedException(StudentID);
-				
-				else {
-						
-					grades.put(rs.getString(2), rs.getInt(4));
-					
 				}
-			}while(rs.next());
+
+				else if (!rs.getBoolean(6)) {
+					throw new StudentNotApprovedException(StudentID);
+				}
+
+				else {
+					grades.put(rs.getString(2), rs.getInt(4));
+				}
+			}
+
 			R.setIsVisible(true);
 			R.setGrades(grades);
 				
@@ -111,16 +109,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		{
 			System.out.println(ex.getMessage());
 		}
-//		finally
-//		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				System.out.println(e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
-//		
+
 		return R;
 	}
 
@@ -138,11 +127,11 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.GET_COURSES(studentID,semesterId));
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			rs.next();
 			List<String> course_ids= new ArrayList<String>();
-			do {
+
+			while (rs.next()) {
 				course_ids.add(rs.getString(1));
-			}while(rs.next());
+			}
 			
 			for(String courseId: course_ids) {		
 				PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_COURSE_BY_ID(courseId,semesterId));
@@ -156,19 +145,9 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			}
 		}
 		
-		catch(Exception ex)
-		{
+		catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-//		finally
-//		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				System.out.println(e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
 		
 		return registeredCourses;
 	}
@@ -210,15 +189,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			System.out.println(ex.getMessage());
 //			throw new UserAlreadyInUseException();
 		}
-//		finally
-//		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				System.out.println(e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
+
 		return student;
 	}
 	

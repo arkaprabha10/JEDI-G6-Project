@@ -22,11 +22,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	public static void main(String[] args) {
 		ProfessorDaoOperation test = new ProfessorDaoOperation();
 
-//		test.addGrade(1, 1, "aaa", 3);
+		test.addGrade(1, 1, "aaa", 3);
 
-		for(RegisteredCourses regCourseObj : test.viewCourseStudents("aaa", 1)) {
-			System.out.println(regCourseObj.getStudentID());
-		}
+//		for(RegisteredCourses regCourseObj : test.viewCourseStudents("aaa", 1)) {
+//			System.out.println(regCourseObj.getStudentID());
+//		}
 	}
 
 	@Override
@@ -99,7 +99,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, instructorID);
-			ResultSet rs = stmt.executeQuery(sql);
+			ResultSet rs = stmt.executeQuery();
 
 			ArrayList<Course>ans = new ArrayList<Course>();
 			
@@ -107,12 +107,17 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 				Course c = new Course(rs.getString("courseID"), rs.getString("course_name"), rs.getString("instructor"), 10, rs.getInt("available_seats"), 0);
 				ans.add(c);
 			}
-			return ans;
-		}
 
-		catch(SQLException e) {
+			if(!ans.isEmpty()) {
+				return ans;
+			}
+			else {
+				throw new Exception("Not yet registered to any courses!");
+			}
+		} catch(SQLException e) {
 			e.printStackTrace();
-			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
 		}
 
 		return null;

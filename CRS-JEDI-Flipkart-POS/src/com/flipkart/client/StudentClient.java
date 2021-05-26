@@ -1,24 +1,21 @@
 package com.flipkart.client;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Scanner;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.StudentDaoOperation;
-import com.flipkart.exception.FeesPendingException;
-import com.flipkart.exception.GradeNotAddedException;
-import com.flipkart.exception.StudentNotApproved;
-import com.flipkart.exception.StudentNotApprovedException;
-import com.flipkart.exception.StudentNotRegisteredException;
+import com.flipkart.exception.*;
+import com.flipkart.service.SemesterRegistrationOperation;
 import com.flipkart.service.StudentOperation;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class StudentClient {
-     static Scanner sc = new Scanner(System.in);
+    static Scanner sc = new Scanner(System.in);
+    private Student student;
 
     public static void main(String[] args) {
         StudentClient test = new StudentClient();
@@ -31,7 +28,8 @@ public class StudentClient {
 
         try {
         	
-        	Student student = getStudentfromUserName(username);
+        	student = getStudentfromUserName(username);
+            System.out.println("here");
 
             while(true) {
             	System.out.println("\n\n==~~=~~=~~=~~=~Student Panel~=~~=~~=~~=~~==");
@@ -87,7 +85,6 @@ public class StudentClient {
                 System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
-                sc.nextLine();
 
                 switch(menuOption) {
                     case 1 :
@@ -97,7 +94,7 @@ public class StudentClient {
                         addCourse();
                         break;
                     case 3:
-                        deleteCourse();
+                        dropCourse();
                         break;
                     case 4:
                         payRegistrationFee();
@@ -116,24 +113,49 @@ public class StudentClient {
     }
 
     private void finishRegistration() {
-        // to do : clean up, exit from registration, and return registered courses list
+
+        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
+
+        System.out.println("=======================================");
+        System.out.println("Finishing registration...");
+
+        boolean registrationFinished = sro.finishRegistration(student.getStudentID(), 1);
+
+        if(registrationFinished) {
+            System.out.println("Registration completed successfully!");
+        }
+        else {
+            System.out.println("Registration did not complete.");
+        }
     }
 
     private void payRegistrationFee() {
         // to do : fee payment logic, and return transactionID object
     }
 
-    private void deleteCourse() {
+    private void dropCourse() {
 
+        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
+
+        System.out.println("=======================================");
         System.out.println("Delete Course");
         System.out.println("Enter course ID: ");
 
         String courseID = sc.nextLine();
 
-        // to do : implementation of course deletion
+        boolean courseDropped = sro.dropCourse(student.getStudentID(), 1, courseID);
+
+        if(courseDropped) {
+            System.out.println("Course dropped successfully!");
+        }
+        else {
+            System.out.println("Course was not dropped from the cart.");
+        }
     }
 
     private void addCourse() {
+
+        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
 
     	System.out.println("=======================================");
         System.out.println("Add Course");
@@ -141,16 +163,28 @@ public class StudentClient {
 
         String courseID = sc.nextLine();
 
-        // to do : implementation of course deletion
+        boolean courseAdded = sro.addCourse(student.getStudentID(), 1, courseID);
+
+        if(courseAdded) {
+            System.out.println("Course added successfully!");
+        }
+        else {
+            System.out.println("Course was not added to the cart.");
+        }
     }
 
     private void viewAvailableCourses() {
-        // to do : get available courses from db
-    	
+
+        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
+        ArrayList<Course> courseCatalog = sro.viewAvailableCourses();
+        System.out.println("Course catalog : ");
+        for(Course c : courseCatalog) {
+            System.out.println("Course ID : "+c.getCourseID()+" \t Course Name : "+ c.getCoursename()+"\t Instructor : "+c.getInstructorID());
+        }
     }
 
     private void viewRegisteredCourses(int studentID, int semesterID) throws StudentNotRegisteredException, SQLException {
-        // to do : get courses from db, and return a list
+
     	StudentOperation so = new StudentOperation();
     	List<Course> courses = so.viewRegisteredCourses(studentID, semesterID);
     	System.out.println("These are your registered courses : ");
@@ -164,15 +198,12 @@ public class StudentClient {
     	ReportCard R = so.viewReportCard(studentID, semesterID);
     	System.out.println("StudentID : "+R.getStudentID()+"\t SemesterID : "+R.getSemesterID());
     	System.out.println("Course  Grade");
-    	R.getGrades().entrySet().forEach(entry -> {
-    	    System.out.println(entry.getKey() + "    " + entry.getValue());
-    	});
+    	R.getGrades().forEach((key, value) -> System.out.println(key + "    " + value));
     }
     
     private Student getStudentfromUserName(String username) throws StudentNotRegisteredException, SQLException {
 		
     	StudentDaoOperation sdo = new StudentDaoOperation();
-    	Student  st = sdo.getStudentfromUserName(username);
-		return st;
+        return sdo.getStudentfromUserName(username);
 	}
 }

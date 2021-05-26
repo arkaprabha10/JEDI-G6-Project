@@ -27,6 +27,7 @@ public class ProfessorOperation implements ProfessorInterface {
 		try {
 			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
 			profObj.addGrade(studentID, semesterID,courseID, grade);
+			System.out.println("Grade added successfully");
 			
 		}
 		catch(Exception e){
@@ -36,24 +37,26 @@ public class ProfessorOperation implements ProfessorInterface {
 
 	//view student details who have registered for a particular course
 	@Override
-	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID)throws CourseNotFoundException {
+	public void viewCourseStudents(String courseID)throws CourseNotFoundException {
 		
 		ArrayList<RegisteredCourses>ans = new ArrayList<RegisteredCourses>();
 		
 		try {
 			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
 			ans = profObj.viewCourseStudents(courseID);
+			for (RegisteredCourses r:ans) {
+				System.out.println("studentID = " + r.getStudentID()+ " Semester ID = "+r.getSemesterID());
+			}
 			 
 		}
 		catch(Exception e) {
 			throw new CourseNotFoundException(courseID);
 		}
-		return ans;
 	}
 
 	//view course details which the professor is associated with
 	@Override
-	public ArrayList<Course> viewCourseProf(String instructorID) {
+	public void viewCourseProf(String instructorID) {
 	
 		ArrayList<Course>ans = new ArrayList<Course>();
 		try {
@@ -61,11 +64,14 @@ public class ProfessorOperation implements ProfessorInterface {
 			
 			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
 			ans = profObj.viewCourseProf(instructorID);
+			for (Course c: ans) {
+				System.out.println("CourseID = " + c.getCourseID()+ " Course Name = " + c.getCoursename());
+			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		return ans;
+		
 	}
 
 }

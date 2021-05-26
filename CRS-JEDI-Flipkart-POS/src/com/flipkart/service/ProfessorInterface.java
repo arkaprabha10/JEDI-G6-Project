@@ -30,8 +30,8 @@ public interface ProfessorInterface {
 	 * @param professorID
 	 * @return
 	 */
-	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID) throws CourseNotFoundException;
-	public ArrayList<Course> viewCourseProf(String instructorID) ;
+	public void viewCourseStudents(String courseID) throws CourseNotFoundException;
+	public void viewCourseProf(String instructorID) ;
 	
 	
 

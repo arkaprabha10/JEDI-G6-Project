@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class StudentClient {
     static Scanner sc = new Scanner(System.in);
-    private int studentID;
+    private Integer studentID;
 
     public static void main(String[] args) {
         StudentClient test = new StudentClient();
@@ -63,7 +63,7 @@ public class StudentClient {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -108,7 +108,7 @@ public class StudentClient {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
         }
     }
 
@@ -183,7 +183,7 @@ public class StudentClient {
         }
     }
 
-    private void viewRegisteredCourses(int studentID, int semesterID) throws StudentNotRegisteredException, SQLException {
+    private void viewRegisteredCourses(Integer studentID, Integer semesterID)  {
 
     	StudentOperation so = new StudentOperation();
     	List<Course> courses = so.viewRegisteredCourses(studentID, semesterID);
@@ -193,7 +193,7 @@ public class StudentClient {
     	}
     }
 
-    private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
+    private void viewGradeCard(Integer studentID, Integer semesterID)  {
     	StudentOperation so = new StudentOperation();
     	ReportCard R = so.viewReportCard(studentID, semesterID);
     	System.out.println("StudentID : "+R.getStudentID()+"\t SemesterID : "+R.getSemesterID());
@@ -201,9 +201,18 @@ public class StudentClient {
     	R.getGrades().forEach((key, value) -> System.out.println(key + "    " + value));
     }
     
-    private int getStudentID(String username) throws StudentNotRegisteredException, SQLException {
+    private Integer getStudentID(String username)  {
 		
     	StudentDaoOperation sdo = new StudentDaoOperation();
-        return sdo.getStudentIDFromUserName(username);
+        Integer studentID = -1;
+    	try {
+    		studentID = sdo.getStudentIDFromUserName(username);
+		} catch (StudentNotRegisteredException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.getMessage();
+		}
+    	finally {
+			return studentID;
+		}
 	}
 }

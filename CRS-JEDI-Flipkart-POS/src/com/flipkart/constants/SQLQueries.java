@@ -46,4 +46,14 @@ public class SQLQueries {
 		return "select student_id from registered_courses where course_id = '"+course_id+"' and semester_id = "+semesterId;
 	}
 
+	public static String GET_STUDENT(int studentID) {
+		String qry="select account_approved from student where student_id = "+studentID;
+		 return qry;
+	}
+
+	public static String GENERATE_REPORT_CARD(int studentID,float spi) {
+		String qry="update student set spi = "+spi+ " where student_id = "+studentID;
+		 return qry;
+	}
+
 }

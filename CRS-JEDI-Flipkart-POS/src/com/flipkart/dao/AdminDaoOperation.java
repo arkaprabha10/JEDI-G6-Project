@@ -14,9 +14,11 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueries;
 import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.utils.DBUtil;
 
@@ -27,6 +29,29 @@ import com.flipkart.utils.DBUtil;
 public class AdminDaoOperation implements AdminDaoInterface {
 	
 	private PreparedStatement statement = null;
+	
+	private static volatile AdminDaoOperation instance = null;
+
+	
+	/**
+	 * Default Constructor
+	 */
+	private AdminDaoOperation(){}
+	
+	/**
+	 * Method to make AdminDaoOperation Singleton
+	 * @return
+	 */
+	public static AdminDaoOperation getInstance()
+	{
+		if(instance == null)
+		{
+			synchronized(AdminDaoOperation.class){
+				instance = new AdminDaoOperation();
+			}
+		}
+		return instance;
+	}	
 
 	@Override
 	public void approveStudentRegistration(int studentId,int semesterId) throws FeesPendingException, StudentNotApprovedException {
@@ -130,11 +155,11 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		
 	}
 
-	@Override
-	public void generateReportCard(int studentID) {
-		// TODO Auto-generated method stub
-		
-	}
+//	@Override
+//	public void generateReportCard(int studentID) {
+//		// TODO Auto-generated method stub
+//		
+//	}
 
 	@Override
 	public void removeCourse(int courseID) {
@@ -224,6 +249,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		}
 		return StudentList;
 	
+	}
+
+	@Override
+	public ReportCard generateReportCard(int studentID)
+			throws SQLException, StudentNotApprovedException, GradeNotAddedException, FeesPendingException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

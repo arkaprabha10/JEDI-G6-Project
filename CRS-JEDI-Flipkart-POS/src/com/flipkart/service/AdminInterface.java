@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseAlreadyPresentException;
 import com.flipkart.exception.CourseNotDeletedException;
@@ -43,8 +44,11 @@ public interface AdminInterface {
 	
 	/**
 	 * @param studentID
+	 * @return 
+	 * @throws StudentNotApprovedException 
+	 * @throws FeesPendingException 
 	 */
-	public void generateReportCard(int studentID) throws GradeNotAddedException;
+	public ReportCard generateReportCard(int studentID) throws GradeNotAddedException, StudentNotApprovedException, FeesPendingException;
 	
 	/**
 	 * @param courseID

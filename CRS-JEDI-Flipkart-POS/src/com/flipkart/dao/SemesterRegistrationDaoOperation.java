@@ -21,8 +21,24 @@ import com.flipkart.utils.DBUtil;
  *
  */
 public class SemesterRegistrationDaoOperation implements SemesterRegistrationDaoInterface{
-
+	private static volatile SemesterRegistrationDaoOperation instance=null;
 	private static Connection conn = DBUtil.getConnection();
+
+	private SemesterRegistrationDaoOperation(){
+
+	}
+
+	public static SemesterRegistrationDaoOperation getInstance()
+	{
+		if(instance==null)
+		{
+			synchronized(SemesterRegistrationDaoOperation.class){
+				instance=new SemesterRegistrationDaoOperation();
+			}
+		}
+		return instance;
+	}
+
 
 	public static void main(String[] args) throws SQLException {
 		SemesterRegistrationDaoInterface test = new SemesterRegistrationDaoOperation();

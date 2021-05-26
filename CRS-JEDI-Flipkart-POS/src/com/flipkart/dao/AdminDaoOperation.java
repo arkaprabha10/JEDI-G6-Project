@@ -14,10 +14,14 @@ import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueries;
+import com.flipkart.constants.constants;
 import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.StudentNotApprovedException;
+import com.flipkart.service.ReportCardOperation;
 import com.flipkart.utils.DBUtil;
 
 /**
@@ -131,9 +135,40 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	}
 
 	@Override
-	public void generateReportCard(int studentID) {
-		// TODO Auto-generated method stub
+	public ReportCard generateReportCard(int studentID) throws StudentNotApprovedException, GradeNotAddedException, FeesPendingException {
 		
+		Connection connection = DBUtil.getConnection();
+		ReportCard R = new ReportCard();
+		
+		try {
+			statement = connection.prepareStatement(SQLQueries.GET_STUDENT(studentID));
+						
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			
+//			if(rs.getBoolean(1)) {
+				
+				StudentDaoOperation sdo = new StudentDaoOperation();
+				R = sdo.viewReportCard(studentID, constants.SemesterID);
+				ReportCardOperation report = new ReportCardOperation();
+				R.setSpi(report.getSPI(R));
+				
+				PreparedStatement statement1 = connection.prepareStatement(SQLQueries.GENERATE_REPORT_CARD(studentID,R.getSpi()));
+				
+				statement1.executeUpdate();
+				
+				
+//			}
+			
+//			else {
+//				throw new StudentNotApprovedException(studentID);
+//			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return R;
 	}
 
 	@Override

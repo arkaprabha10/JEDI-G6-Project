@@ -10,6 +10,7 @@ import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.UserAlreadyInUseException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
@@ -17,6 +18,7 @@ import com.flipkart.exception.StudentNotApprovedException;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 
 /**
@@ -51,9 +53,9 @@ public class AdminOperation implements AdminInterface {
 	}
 
 	@Override
-	public void generateReportCard(int studentID) {
+	public ReportCard generateReportCard(int studentID) throws StudentNotApprovedException, GradeNotAddedException, FeesPendingException {
 		// TODO Auto-generated method stub
-		
+		return ado.generateReportCard(studentID);
 	}
 
 	@Override

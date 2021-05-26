@@ -7,8 +7,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.ReportCard;
 import com.flipkart.constants.constants;
 import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.service.AdminOperation;
 
@@ -179,11 +181,12 @@ public class AdminClient {
         // to do : approve student reg logic
     }
 
-    private void generateReportCard() {
-        String studentID;
+    private void generateReportCard() throws StudentNotApprovedException, GradeNotAddedException, FeesPendingException {
+        Integer studentID;
         System.out.println("Enter student ID: ");
-        studentID = sc.nextLine();
-
+        studentID = sc.nextInt();
+        ReportCard R = ao.generateReportCard(studentID);
+        System.out.println("Report Card Generated for Student ID : "+studentID+" SPI : "+R.getSpi());
         // to do : get student courses and grade, and generate report card
     }
 

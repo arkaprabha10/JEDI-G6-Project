@@ -12,10 +12,10 @@ public class ProfessorClient {
 
     public static void main(String[] args) {
         ProfessorClient test = new ProfessorClient();
-        test.createProfessorMenu();
+//        test.createProfessorMenu();
     }
 
-    public void createProfessorMenu() {
+    public void createProfessorMenu(String username) {
         try {
 
             while(true) {

@@ -2,13 +2,15 @@ package com.flipkart.client;
 
 import java.util.Scanner;
 
+import com.flipkart.service.StudentOperation;
+import com.flipkart.service.UserOperation;
+
 public class UserClient {
     private Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
 
         UserClient newUser = new UserClient();
-        newUser.createMenu();
     }
 
     private void createMenu() {
@@ -45,16 +47,48 @@ public class UserClient {
     }
 
     private void loginUser() {
-        String username, password;
+        String username, password, role;
 
         try {
             System.out.println("Username: ");
             username = sc.nextLine();
             System.out.println("Password: ");
             password = sc.nextLine();
-
-            // to do : verify Credentials, get role, create appropriate object
-            // and launch menu
+            System.out.println("Enter Role Number (Student/Professor/Admin): ");
+            role = sc.nextLine();
+            
+            UserOperation uo = new UserOperation();
+            
+            if(uo.loginUser(username, password, role))
+            {
+            	if(role.equals("Student"))
+            	{
+            		System.out.println("Logged In Succesully as a Student");
+            		StudentClient sc = new StudentClient();
+            		sc.createStudentMenu(username);
+            		return;
+            	}
+            	else if(role.equals("Professor"))
+            	{
+            		System.out.println("Logged In Succesully as a Professor");
+            		ProfessorClient pc = new ProfessorClient();
+            		pc.createProfessorMenu(username);
+            		return;
+            	}
+            	else if(role.equals("Admin"))
+            	{
+            		System.out.println("Logged In Succesully as a Student");
+            		AdminClient ac = new AdminClient();
+            		ac.createAdminMenu(username);
+            		return;
+            	}
+            	else
+            	{
+            		System.out.println("Invalid Role");
+            	}
+            		
+            }
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -90,7 +124,8 @@ public class UserClient {
 
     private void registerStudent() {
 
-        String username, password, name, department, studentID, joiningYear, address;
+        String username, password, name, department, contact, joiningYear;
+        StudentOperation so = new StudentOperation();
 
         try {
 
@@ -103,12 +138,14 @@ public class UserClient {
             name = sc.nextLine();
             System.out.println("Department: ");
             department = sc.nextLine();
-            System.out.println("Student ID: ");
-            studentID = sc.nextLine();
             System.out.println("Year of joining: ");
             joiningYear = sc.nextLine();
-            System.out.println("Address: ");
-            address = sc.nextLine();
+            System.out.println("Contact Number: ");
+            contact = sc.nextLine();
+            
+            so.addStudent(username, name, password, department, contact, Integer.parseInt(joiningYear));
+            
+            System.out.println("User Added Successfully");
 
             // to do : create student bean
 

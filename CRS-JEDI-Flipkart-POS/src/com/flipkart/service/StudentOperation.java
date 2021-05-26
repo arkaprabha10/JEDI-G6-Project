@@ -58,12 +58,12 @@ public class StudentOperation implements StudentInterface {
 //		System.out.println("Hey There!");
 //		StudentOperation so = new StudentOperation();
 //		
-//			so.addStudent("Dora", "Gurseerat", "derf","EE", "1234554321", 2020);
+//			so.addStudent("Anon", "Gurseerat", "derf","EE", "1234554321", 2020);
 //			List<Course> l=so.viewRegisteredCourses(1, 1);
 //			for (Course el: l ) {
 //				System.out.println(el.getCourseID());
 //			}
-//			so.viewReportCard(3, 1);
+//			so.viewReportCard(1, 1);
 //	}
 	
 }

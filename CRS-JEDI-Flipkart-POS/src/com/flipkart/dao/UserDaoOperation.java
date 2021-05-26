@@ -19,7 +19,7 @@ public class UserDaoOperation implements UserDaoInterface{
 
 		test.updatePassword("aaa", "aaa");
 		test.updateContactNumber("aaa", "999");
-		System.out.println(test.loginUser("aaa", "bbb"));
+		//System.out.println(test.loginUser("aaa", "bbb"));
 	}
 
 
@@ -114,7 +114,7 @@ public class UserDaoOperation implements UserDaoInterface{
 	}
 
 	@Override
-	public boolean loginUser(String userID, String userPassword) {
+	public boolean loginUser(String userID, String userPassword, String role) {
 
 		PreparedStatement queryStatement;
 
@@ -132,7 +132,9 @@ public class UserDaoOperation implements UserDaoInterface{
 			String password = rs.getString("password");
 
 			if(password.equals(userPassword)) {
-				return true;
+				if(role.equals(userRole))
+					return true;
+				else return false;
 			}
 
 

@@ -36,7 +36,7 @@ public interface UserDaoInterface {
 	 * @param password
 	 * @return
 	 */
-	public boolean loginUser(String userID, String password) throws SQLException;
+	public boolean loginUser(String userID, String password, String role) throws SQLException;
 	
 
 }

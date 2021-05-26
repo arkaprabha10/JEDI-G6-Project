@@ -30,23 +30,23 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		try
 		{
 			//open db connection
-			PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_STUDENTS,Statement.RETURN_GENERATED_KEYS);
-			ResultSet results=preparedStatement0.getGeneratedKeys();
+			PreparedStatement preparedStatement0=connection.prepareStatement("SELECT MAX(student_id) FROM student");
+			ResultSet results=preparedStatement0.executeQuery();
 			int studentId = 0;
-			while(results.next())
+			if(results.next()) {
 				studentId=results.getInt(1);
-			
+			}
 			student.setStudentID(studentId+1);
-			System.out.println(studentId);
+//			System.out.println(student.getStudentID());
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.ADD_STUDENT);
 			preparedStatement.setString(1, student.getUserID());
 			preparedStatement.setString(2, student.getName());
 			preparedStatement.setString(3, "student");//role
 			preparedStatement.setInt(4, student.getStudentID());
 			preparedStatement.setString(5, student.getDepartment());
-			preparedStatement.setString(6, student.getPassword());
-			preparedStatement.setString(7, student.getContactNumber());
-			preparedStatement.setInt(8, student.getJoiningYear());
+			preparedStatement.setInt(6, student.getJoiningYear());
+			preparedStatement.setString(7, student.getPassword());
+			preparedStatement.setString(8, student.getContactNumber());
 			preparedStatement.executeUpdate();
 			
 			
@@ -107,15 +107,15 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		{
 			System.out.println(ex.getMessage());
 		}
-//		finally
-//		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				System.out.println(e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
+		finally
+		{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+				e.printStackTrace();
+			}
+		}
 		
 		return R;
 	}
@@ -168,11 +168,55 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		
 		return registeredCourses;
 	}
-	public void viewReportCard(int StudentID, ReportCard reportCard) {
-		// TODO Auto-generated method stub
-		
-	}
+
+	@Override
 	
+	public Student getStudentfromUserName(String username) throws StudentNotRegisteredException, SQLException {
+		
+		Student student = new Student();
+		
+		Connection connection=DBUtil.getConnection();
+		
+		try
+		{
+			//open db connection			
+			String Qry = "select * from student where user_name = ?";
+			PreparedStatement preparedStatement = connection.prepareStatement(Qry);
+			preparedStatement.setString(1, username);
+			ResultSet results=preparedStatement.executeQuery();
+			
+			if(results.next()) {
+//				System.out.println(results.getInt(4));
+				student.setUserID(username);
+				student.setName(results.getString(2));
+				student.setStudentID(results.getInt(4));
+				student.setDepartment(results.getString(5));
+				student.setJoiningYear(results.getInt(6));
+				student.setPassword(results.getString(7));
+				student.setContactNumber(results.getString(8));
+			}
+			else {
+				throw new StudentNotRegisteredException();
+			}	
+			
+			
+		}
+		catch(Exception ex)
+		{
+			System.out.println(ex.getMessage());
+//			throw new UserAlreadyInUseException();
+		}
+//		finally
+//		{
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				System.out.println(e.getMessage());
+//				e.printStackTrace();
+//			}
+//		}
+		return student;
+	}
 	
 
 }

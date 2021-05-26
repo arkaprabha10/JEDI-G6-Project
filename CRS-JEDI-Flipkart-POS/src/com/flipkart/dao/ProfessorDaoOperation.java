@@ -57,10 +57,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		    	sql1="UPDATE registered_courses set grade1 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
 		    	
 		    }
-		    else 
-		    {
-		    	throw 
-		    }
+		    
 //		    
 			stmt1 = connection.prepareStatement(sql1);
 	    	stmt1.setInt(1, grade);

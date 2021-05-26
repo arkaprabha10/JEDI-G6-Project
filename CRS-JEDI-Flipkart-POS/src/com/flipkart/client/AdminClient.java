@@ -16,6 +16,7 @@ public class AdminClient {
         try {
 
             while(true) {
+            	System.out.println("==~~=~~=~~=~~=~Admin Panel~=~~=~~=~~=~~==");
                 System.out.println("Choose an option : ");
                 System.out.println("1 : Edit course details");
                 System.out.println("2 : Generate report card");
@@ -23,6 +24,7 @@ public class AdminClient {
                 System.out.println("4 : Edit professor details");
                 System.out.println("5 : View course student list");
                 System.out.println("6 : Logout");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -73,11 +75,13 @@ public class AdminClient {
         try {
 
             while(true) {
+            	System.out.println("=======================================");
                 System.out.println("Options : ");
                 System.out.println("1 : Add professor details");
                 System.out.println("2 : Update professor details");
                 System.out.println("3 : Remove professor");
                 System.out.println("4 : Exit");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -138,11 +142,13 @@ public class AdminClient {
         try {
 
             while(true) {
+            	System.out.println("=======================================");
                 System.out.println("Select field to edit: ");
                 System.out.println("1 : Name");
                 System.out.println("2 : Department");
                 System.out.println("3 : Designation");
                 System.out.println("4 : Save and Exit");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -185,7 +191,8 @@ public class AdminClient {
 
             String name, password, department, designation, dateOfJoining;
             Date dojObj;
-
+            
+            System.out.println("=======================================");
             System.out.println("Enter professor details");
             System.out.println("Name: ");
             name = sc.nextLine();
@@ -197,6 +204,7 @@ public class AdminClient {
             designation = sc.nextLine();
             System.out.println("Date of Joining (dd/MM/yyyy): ");
             dateOfJoining = sc.nextLine();
+            System.out.println("=======================================");
 
             dojObj = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfJoining);
 
@@ -228,10 +236,12 @@ public class AdminClient {
         try {
 
             while(true) {
+            	System.out.println("=======================================");
                 System.out.println("Options : ");
                 System.out.println("1 : Add course");
                 System.out.println("2 : Remove course");
                 System.out.println("3 : Exit");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -257,6 +267,7 @@ public class AdminClient {
 
     private void removeCourse() {
         String courseID;
+        System.out.println("=======================================");
         System.out.println("Enter course ID: ");
         courseID = sc.nextLine();
         
@@ -265,10 +276,11 @@ public class AdminClient {
 
     private void addCourse() {
 
-        try {
+        try{
             String name, courseID, courseInstructor;
             int offeredSemester;
-
+            
+            System.out.println("=======================================");
             System.out.println("Enter course details");
             System.out.println("Course name: ");
             name = sc.nextLine();

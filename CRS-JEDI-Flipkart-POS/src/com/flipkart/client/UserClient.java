@@ -16,7 +16,7 @@ public class UserClient {
     private void createMenu() {
         try {
             while(true) {
-            	System.out.println("==~~=~~=~~=~~=~~=~CRS~=~~=~~=~~=~~=~~==");
+            	System.out.println("\n\n==~~=~~=~~=~~=~~=~CRS~=~~=~~=~~=~~=~~==");
                 System.out.println("Choose an option: ");
                 System.out.println("---------------------------------------");
                 System.out.println("1 : Register a new user");

@@ -44,7 +44,7 @@ public interface SemesterRegistrationInterface {
 	 * @param semesterId 
 	 * @return list of student's registered courses
 	 */
-	public List<RegisteredCourses> viewRegisteredCourses(int studentId, int semesterId) throws StudentNotRegisteredException;
+	public RegisteredCourses viewRegisteredCourses(int studentId, int semesterId) throws StudentNotRegisteredException;
 	
 	/**
 	 * Method to view all courses available

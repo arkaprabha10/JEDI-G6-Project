@@ -101,13 +101,17 @@ public class ProfessorClient {
     private void viewEnrolledStudents() throws CourseNotFoundException {
         // to do : get student details from db, and print them
     	String courseID;
+    	int semesterID;
+
         System.out.println("Enter course ID: ");
         courseID= sc.nextLine();
+        System.out.println("Enter semester ID: ");
+        semesterID = sc.nextInt();
+
     	try {
     		
         	ProfessorInterface profObj = new ProfessorOperation();
-        	profObj.viewCourseStudents(courseID);
-//        	profObj.viewCourseStudents(courseID);	
+        	profObj.viewCourseStudents(courseID, semesterID);
     	}
     	catch(Exception e) {
     		throw new CourseNotFoundException(courseID);

@@ -27,7 +27,7 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 	}
 
 	@Override
-	public List<RegisteredCourses> viewRegisteredCourses(int studentId, int semesterId) {
+	public RegisteredCourses viewRegisteredCourses(int studentId, int semesterId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

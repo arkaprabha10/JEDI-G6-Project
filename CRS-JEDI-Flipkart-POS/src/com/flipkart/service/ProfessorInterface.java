@@ -25,12 +25,14 @@ public interface ProfessorInterface {
 	 * @param grade
 	 */
 	public void addGrade(Integer studentID, Integer semesterID,String courseID, Integer grade) throws GradeNotAddedException;
-	
+
+
 	/**
-	 * @param professorID
-	 * @return
+	 * @param courseID
+	 * @param semesterID
+	 * @throws CourseNotFoundException
 	 */
-	public void viewCourseStudents(String courseID) throws CourseNotFoundException;
+	public void viewCourseStudents(String courseID, Integer semesterID) throws CourseNotFoundException;
 	public void viewCourseProf(String instructorID) ;
 	
 	

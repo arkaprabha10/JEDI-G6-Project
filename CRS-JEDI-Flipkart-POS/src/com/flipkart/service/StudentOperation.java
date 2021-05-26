@@ -7,6 +7,7 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
@@ -16,12 +17,38 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserAlreadyInUseException;
 
 public class StudentOperation implements StudentInterface {
+	
+	private static volatile StudentOperation instance=null;
+	
+//	StudentDaoInterface studentDaoInterface=StudentDaoOperation.getInstance();
+	StudentDaoInterface SDO = StudentDaoOperation.getInstance();
 
+	public StudentOperation()
+	{
+		
+	}
+	/**
+	 * Method to make StudentOperation Singleton
+	 * @return
+	 */
+	public static StudentOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(StudentOperation.class){
+				instance=new StudentOperation();
+			}
+		}
+		return instance;
+	}
+
+	
 	@Override
 	public ReportCard viewReportCard(int StudentID, int semesterId) throws GradeNotAddedException, StudentNotApproved, FeesPendingException, SQLException, StudentNotApprovedException  {
 
 		ReportCard R = new ReportCard();
-		StudentDaoOperation SDO= new StudentDaoOperation();
+//		StudentDaoOperation SDO= new StudentDaoOperation();
 		R= SDO.viewReportCard(StudentID,semesterId);
 		ReportCardOperation report = new ReportCardOperation();
 		R.setSpi(report.getSPI(R));
@@ -32,7 +59,7 @@ public class StudentOperation implements StudentInterface {
 	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
 			throws StudentNotRegisteredException, SQLException {
 		
-		StudentDaoOperation SDO= new StudentDaoOperation();
+//		StudentDaoOperation SDO= new StudentDaoOperation();
 		
 		return SDO.viewRegisteredCourses(studentID,semesterId);	
 		
@@ -50,8 +77,8 @@ public class StudentOperation implements StudentInterface {
 		newStudent.setContactNumber(contactNumber);
 		newStudent.setJoiningYear(joiningYear);
 //		System.out.println("Student Made"+newStudent.getName());
-		StudentDaoOperation sdo=new StudentDaoOperation();
-		sdo.addStudent(newStudent);
+//		StudentDaoOperation sdo=new StudentDaoOperation();
+		SDO.addStudent(newStudent);
 		return newStudent;
 	}
 	public static void main(String[] args) throws UserAlreadyInUseException, SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {

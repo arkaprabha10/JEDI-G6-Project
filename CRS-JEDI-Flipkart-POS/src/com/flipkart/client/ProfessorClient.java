@@ -1,5 +1,6 @@
 package com.flipkart.client;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import com.flipkart.exception.CourseNotFoundException;
@@ -54,12 +55,19 @@ public class ProfessorClient {
         }
     }
 
-    private void registerCourse() {
+    private void registerCourse() throws SQLException {
 
-        String courseID;
-
+        String courseID,instructorID;
+        Integer semesterID;
         System.out.println("Enter course ID: ");
         courseID = sc.nextLine();
+        System.out.println("Enter instructor ID: ");
+        instructorID = sc.nextLine();
+        System.out.println("Enter Semester ID: ");
+        semesterID = sc.nextInt();
+        sc.nextLine();
+        ProfessorInterface profObj = new ProfessorOperation();
+    	profObj.registerCourse(instructorID, semesterID, courseID);
 
         // to do : register for course
     }

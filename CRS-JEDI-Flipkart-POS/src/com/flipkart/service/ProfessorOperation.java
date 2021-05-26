@@ -3,6 +3,7 @@
  */
 package com.flipkart.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Course;
@@ -71,6 +72,14 @@ public class ProfessorOperation implements ProfessorInterface {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+		
+	}
+
+	@Override
+	public void registerCourse(String instructorID, Integer semesterID, String courseID) throws SQLException {
+		ProfessorDaoInterface profObj=new ProfessorDaoOperation();
+		Boolean ans = profObj.registerCourse(instructorID, semesterID, courseID);
+		
 		
 	}
 

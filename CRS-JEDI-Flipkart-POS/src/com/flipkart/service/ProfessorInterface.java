@@ -3,6 +3,7 @@
  */
 package com.flipkart.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Course;
@@ -32,6 +33,7 @@ public interface ProfessorInterface {
 	 */
 	public void viewCourseStudents(String courseID) throws CourseNotFoundException;
 	public void viewCourseProf(String instructorID) ;
+	public void registerCourse(String instructorID, Integer semesterID, String courseID) throws SQLException;
 	
 	
 

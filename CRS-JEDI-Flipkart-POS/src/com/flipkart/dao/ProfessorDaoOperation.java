@@ -49,12 +49,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		    }
 		    else if(rs.getString("primary_course3").equals(courseID))
 		    {
-		    	sql1="UPDATE registered_courses set grade1 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
+		    	sql1="UPDATE registered_courses set grade3 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
 		    	
 		    }
 		    else if(rs.getString("primary_course4").equals(courseID))
 		    {
-		    	sql1="UPDATE registered_courses set grade1 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
+		    	sql1="UPDATE registered_courses set grade4 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
 		    	
 		    }
 		    
@@ -75,12 +75,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		finally 
 		{
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		
 	}
@@ -123,12 +123,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		finally 
 		{
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		
 		return null;
@@ -172,14 +172,53 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		}
 		finally 
 		{
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+//			try {
+//				connection.close();
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
 		return null;
+	}
+
+	@Override
+	public Boolean registerCourse(String instructorID, Integer semesterID, String courseID) throws SQLException {
+		
+		Connection connection=DBUtil.getConnection();
+try {
+			
+			String sql = "SELECT * FROM course_catalog WHERE courseID = '"+courseID+"' AND offered_semester = "+semesterID + " AND instructor is NULL";
+			String sql1 = "UPDATE course_catalog set instructor = + '"+instructorID+"' WHERE courseID = '"+courseID+"' AND offered_semester = "+semesterID;
+			System.out.println(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery(sql);
+			
+			if(!rs.next())
+			{
+				System.out.println("Course already registered");
+				return false;
+			}
+			else {
+			
+				PreparedStatement stmt1 = connection.prepareStatement(sql1);
+				int res = stmt1.executeUpdate();
+				if (res > 0)            
+	                System.out.println("Successfully Inserted");            
+	            else            
+	                System.out.println("Registration Failed");
+			}
+				
+			
+			return true;
+			
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+			
+		}
 	}
 
 }

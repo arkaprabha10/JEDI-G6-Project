@@ -1,10 +1,11 @@
 package com.flipkart.client;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.ReportCard;
-import com.flipkart.bean.Student;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.*;
+import com.flipkart.service.PaymentOperation;
 import com.flipkart.service.SemesterRegistrationOperation;
 import com.flipkart.service.StudentOperation;
 
@@ -16,6 +17,7 @@ import java.util.Scanner;
 public class StudentClient {
     static Scanner sc = new Scanner(System.in);
     private int studentID;
+    private boolean finishedRegistration = false;
 
     public static void main(String[] args) {
         StudentClient test = new StudentClient();
@@ -80,8 +82,9 @@ public class StudentClient {
                 System.out.println("1 : View available course details");
                 System.out.println("2 : Add course");
                 System.out.println("3 : Drop course");
-                System.out.println("4 : Make a payment");
-                System.out.println("5 : Finish registration and exit");
+                System.out.println("4 : Finish registration");
+                System.out.println("5 : Make a payment and exit");
+                System.out.println("6 : Exit");
                 System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
@@ -97,10 +100,12 @@ public class StudentClient {
                         dropCourse();
                         break;
                     case 4:
+                        finishRegistration();
+                        return;
+                    case 5:
                         payRegistrationFee();
                         break;
-                    case 5:
-                        finishRegistration();
+                    case 6:
                         return;
                     default:
                         System.out.println("Invalid input");
@@ -119,9 +124,9 @@ public class StudentClient {
         System.out.println("=======================================");
         System.out.println("Finishing registration...");
 
-        boolean registrationFinished = sro.finishRegistration(studentID, 1);
+        finishedRegistration = sro.finishRegistration(studentID, 1);
 
-        if(registrationFinished) {
+        if(finishedRegistration) {
             System.out.println("Registration completed successfully!");
         }
         else {
@@ -130,7 +135,66 @@ public class StudentClient {
     }
 
     private void payRegistrationFee() {
-        // to do : fee payment logic, and return transactionID object
+
+        Scanner sc = new Scanner(System.in);
+        Payment payment = new Payment();
+        PaymentOperation po = new PaymentOperation();
+
+        payment.setStudentID(studentID);
+
+        try {
+
+            if(!finishedRegistration) {
+                throw new Exception("You registration is incomplete!");
+            }
+
+            System.out.println("=======================================");
+            System.out.println("Choose a Payment type : ");
+            System.out.println("---------------------------------------");
+            System.out.println("1 : Card");
+            System.out.println("2 : NetBanking");
+            System.out.println("3 : Cash");
+            System.out.println("4 : Cheque");
+            System.out.println("=======================================");
+
+            int menuOption = sc.nextInt();
+
+            switch (menuOption) {
+                case 1:
+                    System.out.println("=======================================");
+                    System.out.println("Enter your card details");
+                    System.out.println("---------------------------------------");
+                    System.out.println("Enter card number : ");
+                    sc.nextLine();
+                    String cardNumber = sc.nextLine();
+                    payment.setPaymentMode("Card");
+                    break;
+                case 2:
+                    System.out.println("=======================================");
+                    System.out.println("Enter your bank details");
+                    System.out.println("---------------------------------------");
+                    System.out.println("Enter account number : ");
+                    sc.nextLine();
+                    String accountNumber = sc.nextLine();
+                    payment.setPaymentMode("NetBanking");
+                    break;
+                case 3:
+                    payment.setPaymentMode("Cash");
+                    break;
+                case 4:
+                    payment.setPaymentMode("Cheque");
+                    break;
+                default:
+                    System.out.println("---------------------------------------");
+                    System.out.println("Invalid input");
+                    return;
+            }
+
+            po.makePayment(payment);
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     private void dropCourse() {

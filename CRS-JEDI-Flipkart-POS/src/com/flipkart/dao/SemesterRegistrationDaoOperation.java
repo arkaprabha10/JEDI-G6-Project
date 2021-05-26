@@ -129,7 +129,7 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		try {
 
 			if(!isRegistered(studentId, semesterId)) {
-				coursesToAdd.remove(courseId);
+//				coursesToAdd.remove(courseId);
 				return true;
 			}
 
@@ -150,9 +150,9 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 
 		try {
 
-			if(!(coursesToAdd.size() == 6)){
-//				throw exception for invalid num of courses
-			}
+//			if(!(coursesToAdd.size() == 6)){
+////				throw exception for invalid num of courses
+//			}
 
 			if(!isRegistered(studentId, semesterId)) {
 				String query = "INSERT INTO Registered_courses";
@@ -171,7 +171,7 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 					courseID.add(rs.getString("primary_course4"));
 				}
 
-				regCourses = new RegisteredCourses(studentId, semesterId, courseID);
+//				regCourses = new RegisteredCourses(studentId, semesterId, courseID);
 			}
 
 			else {

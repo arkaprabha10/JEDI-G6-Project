@@ -25,4 +25,5 @@ public class SQLQueries {
 		String qry="select * from course_catalog where courseID = "+courseId+" and offered_semester = "+semesterId;
 	 return qry;
 	}
+
 }

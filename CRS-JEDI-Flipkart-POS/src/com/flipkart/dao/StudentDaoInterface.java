@@ -33,17 +33,14 @@ public interface StudentDaoInterface {
 	 */
 	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException, StudentNotApprovedException, FeesPendingException;
 /*
-	 * @param reportCard
-	 */
-	public void viewReportCard(int StudentID, ReportCard reportCard) throws SQLException;
-
 	/**
 	 * @param studentID
 	 * @param catalog
 	 */
 
 	public List<Course> viewRegisteredCourses(int studentID, int semesterId) throws SQLException, StudentNotRegisteredException;
-	Student addStudent(Student student) throws SQLException, UserAlreadyInUseException;
+	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException;
 	
+	public Student getStudentfromUserName(String username) throws StudentNotRegisteredException,SQLException;
 	
 }

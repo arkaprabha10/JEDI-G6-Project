@@ -23,7 +23,7 @@ public class ProfessorOperation implements ProfessorInterface {
 
 	//Add grade
 	@Override
-	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade) throws GradeNotAddedException 
+	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade)  
 	{
 		try {
 			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
@@ -32,13 +32,13 @@ public class ProfessorOperation implements ProfessorInterface {
 			
 		}
 		catch(Exception e){
-			throw new GradeNotAddedException(studentID);
+			;
 		}
 	}
 
 	//view student details who have registered for a particular course
 	@Override
-	public void viewCourseStudents(String courseID, Integer semesterID)throws CourseNotFoundException {
+	public void viewCourseStudents(String courseID, Integer semesterID) {
 		
 		ArrayList<RegisteredCourses>ans = new ArrayList<RegisteredCourses>();
 		
@@ -51,7 +51,7 @@ public class ProfessorOperation implements ProfessorInterface {
 			 
 		}
 		catch(Exception e) {
-			throw new CourseNotFoundException(courseID);
+			System.out.println(e.getMessage());
 		}
 	}
 
@@ -70,15 +70,21 @@ public class ProfessorOperation implements ProfessorInterface {
 			}
 		}
 		catch(Exception e) {
-			e.printStackTrace();
+			e.getMessage();
 		}
 		
 	}
 
 	@Override
-	public void registerCourse(int instructorID, Integer semesterID, String courseID) throws SQLException {
+	public void registerCourse(int instructorID, Integer semesterID, String courseID) {
 		ProfessorDaoInterface profObj=new ProfessorDaoOperation();
-		Boolean ans = profObj.registerCourse(instructorID, semesterID, courseID);
+		try {
+			Boolean ans = profObj.registerCourse(instructorID, semesterID, courseID);
+		}
+		catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
 		
 		
 	}

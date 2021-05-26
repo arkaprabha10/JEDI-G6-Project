@@ -5,8 +5,12 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.RegisteredCourses;
+import com.flipkart.exception.CourseNotAssignedException;
+import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.NoStudentInCourseException;
+import com.flipkart.exception.ProfessorCourseRegistrationException;
+import com.flipkart.exception.ProfessorNotAssignedException;
 import com.flipkart.exception.ProfessorNotRegisteredException;
-import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.utils.DBUtil;
 
 import java.sql.Connection;
@@ -32,7 +36,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 	@Override
-	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade) {
+	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade) throws GradeNotAddedException {
 		// TODO Auto-generated method stub
 		
 		Connection connection=DBUtil.getConnection();
@@ -52,8 +56,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			
             if (res > 0)            
                 System.out.println("Successfully Inserted");            
-            else            
-                System.out.println("Insert Failed");
+            else {
+            	
+            	throw new GradeNotAddedException(studentID);
+//            	System.out.println("Insert Failed");
+            }
+                
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -63,7 +71,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 	@Override
-	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID, Integer semesterID) {
+	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID, Integer semesterID) throws NoStudentInCourseException{
 		// TODO Auto-generated method stub
 		Connection connection=DBUtil.getConnection();
 		try {
@@ -78,7 +86,8 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			ArrayList<String> temp = new ArrayList<String>();
 			if(!rs.next())
 			{
-				System.out.println("No student in Course!!");
+				throw new NoStudentInCourseException(courseID);
+//				System.out.println("No student in Course!!");
 			}
 			else {
 				do  {
@@ -100,7 +109,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 	@Override
-	public ArrayList<Course> viewCourseProf(int instructorID) {
+	public ArrayList<Course> viewCourseProf(Integer instructorID) throws ProfessorNotAssignedException {
 		// TODO Auto-generated method stub
 
 		ArrayList<Course>ans = new ArrayList<Course>();
@@ -122,7 +131,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 				return ans;
 			}
 			else {
-				throw new Exception("Not yet registered to any courses!");
+				throw new ProfessorNotAssignedException(instructorID);
 			}
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -134,7 +143,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	}
 
 	@Override
-	public Boolean registerCourse(int instructorID, Integer semesterID, String courseID) {
+	public Boolean registerCourse(Integer instructorID, Integer semesterID, String courseID) throws ProfessorCourseRegistrationException{
 		
 		Connection connection=DBUtil.getConnection();
 		try {
@@ -155,23 +164,28 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 				int res = stmt1.executeUpdate();
 				if (res > 0)            
 	                System.out.println("Successfully Registered");            
-	            else            
-	                System.out.println("Registration Failed");
+	            
+				else{
+	            	throw new ProfessorCourseRegistrationException(instructorID, semesterID, courseID);
+	            }
+	                
 			}
 				
 			
 			return true;
 			
+			
 		}
+		
 		catch(SQLException e)
 		{
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 			
 		}
 	}
 
-	public int getProfessorIDFromUserName(String username) throws SQLException {
+	public int getProfessorIDFromUserName(String username) throws ProfessorNotRegisteredException  {
 
 		int professorID = -1;
 
@@ -193,8 +207,8 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 				throw new ProfessorNotRegisteredException();
 			}
 		}
-		catch(ProfessorNotRegisteredException ex) {
-			System.out.println(ex.getMessage());
+		catch(SQLException e) {
+			System.out.println(e.getMessage());
 		}
 
 		return professorID;

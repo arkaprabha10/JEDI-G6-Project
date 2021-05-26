@@ -8,7 +8,7 @@ package com.flipkart.exception;
  *
  */
 
-//Exception arises when grade is not allocated but report cards are generated
+//Exception arises when grade is not properly allocated 
 
 public class GradeNotAddedException extends Exception {
 	private Integer studentId;

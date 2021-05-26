@@ -7,7 +7,8 @@ import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.GradeNotAddedException;
-import com.flipkart.exception.StudentNotRegisteredException;
+import com.flipkart.exception.ProfessorNotRegisteredException;
+//import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
@@ -131,9 +132,17 @@ public class ProfessorClient {
     	
     }
 
-    private int getProfessorID(String username) throws SQLException {
-
+    private Integer getProfessorID(String username) throws SQLException {
+    	Integer professorID=-1; 
         ProfessorDaoOperation pdo = new ProfessorDaoOperation();
-        return pdo.getProfessorIDFromUserName(username);
+        try {
+        	professorID = pdo.getProfessorIDFromUserName(username);
+		} catch (ProfessorNotRegisteredException e) {
+			e.getMessage();
+		}
+        finally {
+        	return professorID;
+        }
+		
     }
 }

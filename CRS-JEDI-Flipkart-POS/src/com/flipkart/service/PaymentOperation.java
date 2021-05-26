@@ -5,6 +5,7 @@ package com.flipkart.service;
 
 import java.sql.SQLException;
 
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.dao.PaymentDaoInterface;
 import com.flipkart.dao.PaymentDaoOperation;
@@ -19,22 +20,11 @@ import com.flipkart.exception.PaymentFailedException;
 public class PaymentOperation implements PaymentInterface{
 
 	@Override
-	public String makePayment(int studentId, int semesterId, int amount) throws PaymentFailedException {
+	public void makePayment(Payment payment) throws PaymentFailedException {
 		
-//		PaymentDaoInterface test = PaymentDaoOperation.getInstance();
-		PaymentDaoInterface paymentobj = new PaymentDaoOperation();
-		
-		
-		String transactionId = null;
-		try {
-			transactionId = paymentobj.makePayment(studentId, semesterId, amount);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			throw new PaymentFailedException();
-		}
+		PaymentDaoInterface paymentObj = new PaymentDaoOperation();
 
-		// TODO Auto-generated method stub
-		return transactionId;
+		paymentObj.makePayment(payment);
 	}
 
 }

@@ -11,7 +11,7 @@ import javax.print.DocFlavor.INPUT_STREAM;
  */
 public class Payment {
 	
-	private String paymentID;
+	private Integer paymentID;
 	private Integer amount;
 	private Integer studentID;
 	private Boolean paymentStatus;
@@ -19,14 +19,14 @@ public class Payment {
 
 	
 	public Payment() {
-		paymentID="null";
+		paymentID=null;
 		amount=0;
 		studentID=0;
 		paymentStatus=false;
-		paymentMode="null";
+		paymentMode=null;
 	}
 	
-	public Payment(String paymentID, Integer amount, Integer studentID, Boolean paymentStatus, String paymentMode) {
+	public Payment(Integer paymentID, Integer amount, Integer studentID, Boolean paymentStatus, String paymentMode) {
 		super();
 		this.paymentID = paymentID;
 		this.amount = amount;
@@ -34,10 +34,10 @@ public class Payment {
 		this.paymentStatus = paymentStatus;
 		this.paymentMode = paymentMode;
 	}
-	public String getPaymentID() {
+	public Integer getPaymentID() {
 		return paymentID;
 	}
-	public void setPaymentID(String paymentID) {
+	public void setPaymentID(Integer paymentID) {
 		this.paymentID = paymentID;
 	}
 	public Integer getAmount() {

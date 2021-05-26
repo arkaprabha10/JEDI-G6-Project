@@ -3,7 +3,9 @@
  */
 package com.flipkart.dao;
 
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
+import com.flipkart.constants.SQLQueries;
 import com.flipkart.exception.PaymentFailedException;
 
 import com.flipkart.utils.DBUtil;
@@ -19,46 +21,65 @@ import java.util.UUID;
  *
  */
 public class PaymentDaoOperation implements PaymentDaoInterface{
-	
-	private PreparedStatement statement = null;
+
 	private static volatile PaymentDaoOperation instance=null;
+	private Connection connection=DBUtil.getConnection();
 	
-//	public static void main(String[] args) throws SQLException {
-//		
-//		PaymentDaoInterface test = new PaymentDaoOperation();
-//		test.makePayment(2,2,200);
-//		System.out.println("hello");
-//	}
-	
-	@Override
-	public String makePayment(int studentId, int semesterId, int amount){
-		// TODO Auto-generated method stub
-		
-		String sql = "INSERT INTO payments(studentId, semesterId, amount, transactionId,is_payed) VALUES (?, ?, ?, ?, ?)";
-		Connection connection = DBUtil.getConnection();
-		
-		String transactionId = null;
-		String is_payed = null;
-		
-		try {
-			statement = connection.prepareStatement(sql);
-			transactionId = Integer.toString(studentId)+"_PAYED";
-			is_payed = "yes";
-			statement.setInt(1, studentId);
-			statement.setInt(2, semesterId);
-			statement.setInt(3, amount);
-			statement.setString(4, transactionId);
-			statement.setString(5, is_payed);
-			
-			statement.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return transactionId;
-		
+	public static void main(String[] args) throws SQLException {
+		PaymentDaoOperation test = new PaymentDaoOperation();
 	}
 	
+	@Override
+	public void makePayment(Payment payment) throws PaymentFailedException {
+
+		payment.setPaymentID(getNewTransactionID());
+		PreparedStatement statement;
+
+		try {
+
+			String sql = "INSERT INTO payments(studentId, amount, transactionId, paymentType, isPaid) VALUES (?, ?, ?, ?, ?)";
+			statement = connection.prepareStatement(sql);
+
+			statement.setInt(1, payment.getStudentID());
+			statement.setInt(2, payment.getAmount());
+			statement.setInt(3, payment.getPaymentID());
+			statement.setString(4, payment.getPaymentMode());
+			statement.setBoolean(5, payment.getPaymentStatus());
+
+			statement.executeUpdate();
+
+		} catch (Exception e) {
+			throw new PaymentFailedException();
+		}
+	}
+
+	private int getNewTransactionID() {
+
+		int newTransactionID = -1;
+
+		try
+		{
+			//open db connection
+			String query = "SELECT MAX(transactionId) FROM payments";
+			PreparedStatement stmt = connection.prepareStatement(query);
+			ResultSet rs = stmt.executeQuery();
+
+			while(rs.next()) {
+				newTransactionID = rs.getInt("MAX(transactionId)") + 1;
+			}
+		}
+		catch(Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+
+		return newTransactionID;
+	}
+
+	private void updateRegisteredCoursesPayment() {
+
+		// to do
+	}
+
 	public static PaymentDaoOperation getInstance()
 	{
 		if(instance==null)

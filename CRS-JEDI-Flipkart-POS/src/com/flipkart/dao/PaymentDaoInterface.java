@@ -5,6 +5,7 @@ package com.flipkart.dao;
 
 import java.sql.SQLException;
 
+import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.exception.PaymentFailedException;
 
@@ -20,14 +21,10 @@ public interface PaymentDaoInterface {
 //	 * @return : final payableAmount for student
 //	 */
 //	public float calculatePay(int studentId,RegisteredCourses registeredCourses);
-	
+
+
 	/**
-	 * @param studentId : student to be notified
-	 * @param semester Id
-	 * @param: Amount to be paid by student
-	 * @return: Transaction Id
+	 * @param payment
 	 */
-	public String makePayment(int studentId, int semesterId, int amount) throws SQLException;
-		
-	
+    public void makePayment(Payment payment) throws PaymentFailedException;
 }

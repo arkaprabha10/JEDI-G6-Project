@@ -71,7 +71,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			List<String> primary_course_ids = new ArrayList<String>();
 			List<String> alternate_course_ids = new ArrayList<String>();
 			do {
-				if(rs.getBoolean(7)==false)fees=false; //fees not paid
+				if(!rs.getBoolean(7))fees=false; //fees not paid
 				if(rs.getString(2)!=null) {
 					if(rs.getBoolean(5)) //is primary 
 						primary_course_ids.add(rs.getString(2));

@@ -13,7 +13,7 @@ public class ProfessorClient {
 
     public static void main(String[] args) {
         ProfessorClient test = new ProfessorClient();
-//        test.createProfessorMenu();
+        test.createProfessorMenu("Arka");
     }
 
     public void createProfessorMenu(String username) {

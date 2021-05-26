@@ -19,14 +19,15 @@ import java.util.ArrayList;
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		ProfessorDaoOperation test = new ProfessorDaoOperation();
 
-//		test.addGrade(1, 1, "aaa", 3);
-
-		for(RegisteredCourses regCourseObj : test.viewCourseStudents("aaa", 1)) {
-			System.out.println(regCourseObj.getStudentID());
-		}
+//		test.addGrade(1, 1, "A", 3);
+//		test.registerCourse("Abc", 1,"1" );
+		ArrayList<Course> temp = test.viewCourseProf("ABC");
+		for(Course r: temp )
+			System.out.println(r.getCourseID()+" "+r.getCoursename());
+		
 	}
 
 	@Override
@@ -36,41 +37,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		Connection connection=DBUtil.getConnection();
 		try 
 		{
-<<<<<<< HEAD
-			String sql="",sql1="";
-			PreparedStatement stmt = null,stmt1=null;
-			sql = "SELECT * FROM registered_courses WHERE student_id = "+studentID+" AND semester_id = "+semesterID;         
-//		    System.out.println(sql);
-			stmt = connection.prepareStatement(sql);
-			ResultSet rs = stmt.executeQuery(sql);
-			rs.next();
-		    
-			if(rs.getString("primary_course1").equals(courseID))
-		    {
-		    	sql1="UPDATE registered_courses set grade1 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
-		    }
-		    else if(rs.getString("primary_course2").equals(courseID))
-		    {
-		    	sql1="UPDATE registered_courses set grade2 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
-		    	
-		    }
-		    else if(rs.getString("primary_course3").equals(courseID))
-		    {
-		    	sql1="UPDATE registered_courses set grade3 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
-		    	
-		    }
-		    else if(rs.getString("primary_course4").equals(courseID))
-		    {
-		    	sql1="UPDATE registered_courses set grade4 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
-		    	
-		    }
-		    
-//		    
-			stmt1 = connection.prepareStatement(sql1);
-	    	stmt1.setInt(1, grade);
-			int res = stmt1.executeUpdate();
-=======
-			String queryStr;
+	String queryStr;
 			PreparedStatement stmt;
 
 			queryStr = "UPDATE registered_courses SET grade = ? WHERE student_id = ? AND course_id = ? AND semester_id = ?";
@@ -81,7 +48,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			stmt.setInt(4, semesterID);
 
 			int res = stmt.executeUpdate();
->>>>>>> 9231a43c4e79d941ea65411391c9d687439eb7ff
 			
             if (res > 0)            
                 System.out.println("Successfully Inserted");            
@@ -91,19 +57,8 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
-<<<<<<< HEAD
-		finally 
-		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-		}
+
 		
-=======
->>>>>>> 9231a43c4e79d941ea65411391c9d687439eb7ff
 	}
 
 	@Override
@@ -112,6 +67,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		Connection connection=DBUtil.getConnection();
 		try {
 			String sql = "SELECT * FROM registered_courses WHERE course_id = ? AND semester_id = ?" ;
+			System.out.println(sql);
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, courseID);
 			stmt.setInt(2, semesterID);
@@ -119,31 +75,24 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			
 			ArrayList<RegisteredCourses> ans = new ArrayList<RegisteredCourses>();
 			ArrayList<String> temp = new ArrayList<String>();
-			
-			while(rs.next()) {
-				temp.add(rs.getString("course_id"));
-				RegisteredCourses tempObject = new RegisteredCourses(rs.getInt("student_id"), rs.getInt("semester_id"), temp);
-				ans.add(tempObject);
-				temp.clear();
+			if(!rs.next())
+			{
+				System.out.println("No student in Course!!");
 			}
+			else {
+				do  {
+					temp.add(rs.getString("course_id"));
+					RegisteredCourses tempObject = new RegisteredCourses(rs.getInt("student_id"), rs.getInt("semester_id"), temp);
+					ans.add(tempObject);
+					temp.clear();
+				}while(rs.next());
+			}
+			
 
 			return ans;
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
-<<<<<<< HEAD
-			
-		}
-		finally 
-		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-=======
->>>>>>> 9231a43c4e79d941ea65411391c9d687439eb7ff
 		}
 		
 		return null;
@@ -156,18 +105,25 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		Connection connection=DBUtil.getConnection();
 		try {
 			
-			String sql = "SELECT * FROM course_catalog WHERE instructor = ?";
-
+			String sql = "SELECT * FROM course_catalog WHERE instructor = '"+instructorID+"'";
+			System.out.println(sql);
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			stmt.setString(1, instructorID);
+//			stmt.setString(1, instructorID);
 			ResultSet rs = stmt.executeQuery(sql);
 
 			ArrayList<Course>ans = new ArrayList<Course>();
-			
-			while(rs.next()) {
-				Course c = new Course(rs.getString("courseID"), rs.getString("course_name"), rs.getString("instructor"), 10, rs.getInt("available_seats"), 0);
-				ans.add(c);
+			if(!rs.next())
+			{
+				System.out.println("No Course is being taught!!");
 			}
+			else {
+				
+				 do{
+					Course c = new Course(rs.getString("courseID"), rs.getString("course_name"), rs.getString("instructor"), 10, rs.getInt("available_seats"), 0);
+					ans.add(c);
+				}while(rs.next());
+			}
+			
 			return ans;
 		}
 
@@ -175,19 +131,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			e.printStackTrace();
 			
 		}
-<<<<<<< HEAD
-		finally 
-		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-		}
-=======
 
->>>>>>> 9231a43c4e79d941ea65411391c9d687439eb7ff
 		return null;
 	}
 
@@ -205,7 +149,7 @@ try {
 			
 			if(!rs.next())
 			{
-				System.out.println("Course already registered");
+				System.out.println("Course already registered / Course doesn't exist!!");
 				return false;
 			}
 			else {
@@ -213,7 +157,7 @@ try {
 				PreparedStatement stmt1 = connection.prepareStatement(sql1);
 				int res = stmt1.executeUpdate();
 				if (res > 0)            
-	                System.out.println("Successfully Inserted");            
+	                System.out.println("Successfully Registered");            
 	            else            
 	                System.out.println("Registration Failed");
 			}

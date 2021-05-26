@@ -4,13 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import com.flipkart.service.AdminOperation;
+
 public class AdminClient {
     private Scanner sc = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        AdminClient test = new AdminClient();
-//        test.createAdminMenu();
-    }
+    AdminOperation ao = new AdminOperation();
 
     public void createAdminMenu(String username) {
         try {
@@ -18,6 +16,7 @@ public class AdminClient {
             while(true) {
             	System.out.println("==~~=~~=~~=~~=~Admin Panel~=~~=~~=~~=~~==");
                 System.out.println("Choose an option : ");
+                System.out.println("---------------------------------------");
                 System.out.println("1 : Edit course details");
                 System.out.println("2 : Generate report card");
                 System.out.println("3 : Approve student registration");
@@ -77,6 +76,7 @@ public class AdminClient {
             while(true) {
             	System.out.println("=======================================");
                 System.out.println("Options : ");
+                System.out.println("---------------------------------------");
                 System.out.println("1 : Add professor details");
                 System.out.println("2 : Update professor details");
                 System.out.println("3 : Remove professor");
@@ -144,6 +144,7 @@ public class AdminClient {
             while(true) {
             	System.out.println("=======================================");
                 System.out.println("Select field to edit: ");
+                System.out.println("---------------------------------------");
                 System.out.println("1 : Name");
                 System.out.println("2 : Department");
                 System.out.println("3 : Designation");
@@ -194,6 +195,7 @@ public class AdminClient {
             
             System.out.println("=======================================");
             System.out.println("Enter professor details");
+            System.out.println("---------------------------------------");
             System.out.println("Name: ");
             name = sc.nextLine();
             System.out.println("Password: ");
@@ -238,6 +240,7 @@ public class AdminClient {
             while(true) {
             	System.out.println("=======================================");
                 System.out.println("Options : ");
+                System.out.println("---------------------------------------");
                 System.out.println("1 : Add course");
                 System.out.println("2 : Remove course");
                 System.out.println("3 : Exit");
@@ -271,26 +274,27 @@ public class AdminClient {
         System.out.println("Enter course ID: ");
         courseID = sc.nextLine();
         
+        ao.removeCourse(Integer.parseInt(courseID));
+        
         // to do : remove course from db
     }
 
     private void addCourse() {
 
         try{
-            String name, courseID, courseInstructor;
+            String course_name, courseID;
             int offeredSemester;
             
             System.out.println("=======================================");
             System.out.println("Enter course details");
-            System.out.println("Course name: ");
-            name = sc.nextLine();
-            System.out.println("Course ID: ");
+            System.out.print("Course Name: ");
+            course_name = sc.nextLine();
+            System.out.print("Course ID: ");
             courseID = sc.nextLine();
-            System.out.println("Course Instructor: ");
-            courseInstructor = sc.nextLine();
-            System.out.println("Semester : ");
+            System.out.print("Semester: ");
             offeredSemester = sc.nextInt();
-            sc.nextLine();
+            
+            ao.addCourse(course_name, courseID, offeredSemester);
 
             // to do : create course object, update course in db
         } catch (Exception e) {

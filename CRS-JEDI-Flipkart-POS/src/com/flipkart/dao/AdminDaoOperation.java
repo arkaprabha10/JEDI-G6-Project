@@ -108,16 +108,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	@Override
 	public void addCourse(Course course) {
 		// TODO Auto-generated method stub
-		String sql = "INSERT INTO course_catalog(courseID, course_name, instructor, offered_semester, available_seats) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO course_catalog(courseID, course_name,  offered_semester, available_seats) VALUES (?, ?, ?, ?)";
 		Connection connection = DBUtil.getConnection();
 		
 		try {
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, course.getCourseID());
 			statement.setString(2, course.getCoursename());
-			statement.setString(3, course.getInstructorID());
-			statement.setInt(4, course.getOfferedSemester());
-			statement.setInt(5, course.getAvailableSeats());
+			statement.setInt(3, course.getOfferedSemester());
+			statement.setInt(4, course.getAvailableSeats());
 			
 			int row = statement.executeUpdate();
 			

@@ -14,7 +14,7 @@ public class AdminClient {
         try {
 
             while(true) {
-            	System.out.println("==~~=~~=~~=~~=~Admin Panel~=~~=~~=~~=~~==");
+            	System.out.println("\n\n==~~=~~=~~=~~=~Admin Panel~=~~=~~=~~=~~==");
                 System.out.println("Choose an option : ");
                 System.out.println("---------------------------------------");
                 System.out.println("1 : Edit course details");

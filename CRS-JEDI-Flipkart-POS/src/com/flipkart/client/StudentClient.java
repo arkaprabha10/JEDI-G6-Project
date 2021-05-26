@@ -34,7 +34,7 @@ public class StudentClient {
         	Student student = getStudentfromUserName(username);
 
             while(true) {
-            	System.out.println("==~~=~~=~~=~~=~Student Panel~=~~=~~=~~=~~==");
+            	System.out.println("\n\n==~~=~~=~~=~~=~Student Panel~=~~=~~=~~=~~==");
                 System.out.println("Choose an option: ");
                 System.out.println("---------------------------------------");
                 System.out.println("1 : View report card");

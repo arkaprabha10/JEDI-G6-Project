@@ -21,7 +21,7 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 	@Override
 	public boolean addCourse(int studentId, int semesterId, String courseId) {
 
-		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
+		SemesterRegistrationDaoOperation srdo = SemesterRegistrationDaoOperation.getInstance();
 
 		return srdo.addCourse(studentId, semesterId, courseId);
 	}
@@ -29,7 +29,7 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 	@Override
 	public boolean dropCourse(int studentId, int semesterId, String courseId) {
 
-		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
+		SemesterRegistrationDaoOperation srdo = SemesterRegistrationDaoOperation.getInstance();
 
 		return srdo.dropCourse(studentId, semesterId, courseId);
 	}
@@ -43,7 +43,7 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 	@Override
 	public ArrayList<Course> viewAvailableCourses() {
 
-		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
+		SemesterRegistrationDaoOperation srdo = SemesterRegistrationDaoOperation.getInstance();
 
 		return srdo.viewAvailableCourses();
 	}
@@ -56,7 +56,7 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 
 	@Override
 	public boolean finishRegistration(int studentId, int semesterId) {
-		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
+		SemesterRegistrationDaoOperation srdo = SemesterRegistrationDaoOperation.getInstance();
 
 		return srdo.finishRegistration(studentId, semesterId);
 	}

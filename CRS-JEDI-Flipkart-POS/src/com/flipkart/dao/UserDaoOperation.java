@@ -10,10 +10,25 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class UserDaoOperation implements UserDaoInterface{
-
+	private static volatile UserDaoOperation instance=null;
 	private static final Connection conn = DBUtil.getConnection();
 	private static final String[] roleList = {"professor", "student", "admin"};
 	private String userRole;
+
+	private UserDaoOperation(){
+
+	}
+	public static UserDaoOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(UserDaoOperation.class){
+				instance=new UserDaoOperation();
+			}
+		}
+		return instance;
+	}
 
 	public static void main(String[] args) throws SQLException {
 		UserDaoInterface test = new UserDaoOperation();
@@ -141,6 +156,47 @@ public class UserDaoOperation implements UserDaoInterface{
 
 		try {
 			System.out.println("Logging in...");
+			
+			if(role.equals("student"))
+			{
+				String query1 = "SELECT account_approved " + "FROM student WHERE user_name = ?";
+				queryStatement = conn.prepareStatement(query1);
+				queryStatement.setString(1, userID);
+				ResultSet rs = queryStatement.executeQuery();
+				
+				Boolean account_status = false;
+				while(rs.next())
+				{
+					account_status = rs.getBoolean("account_approved");
+					
+				}
+				
+				if(!account_status)
+				{
+					throw new Exception("Account Not Approved By Admin");
+					// TODO: ma
+				}
+				
+			}
+			
+//			if(role.equals("student"))
+//			{
+//				String query1 = "SELECT account_approved " + "FROM student WHERE user_name = ?";
+//				queryStatement = conn.prepareStatement(query1);
+//				queryStatement.setString(1, userID);
+//				ResultSet rs = queryStatement.executeQuery();
+//				
+//				Boolean account_status = false;
+//				while (rs.next()) {
+//					account_status = rs.getBoolean("account_approved");
+//				}
+//				
+//				if(!account_status)
+//				{
+//					throw new Exception("Account not approved by admin");
+//					// TODO: make this exception class
+//				}
+//			})
 
 
 
@@ -170,6 +226,9 @@ public class UserDaoOperation implements UserDaoInterface{
 		}
 		catch (SQLException ex) {
 			ex.printStackTrace();
+		}
+		catch (Exception ex) {
+			System.out.println(ex.getMessage());
 		}
 
 		// throw exception on login failure

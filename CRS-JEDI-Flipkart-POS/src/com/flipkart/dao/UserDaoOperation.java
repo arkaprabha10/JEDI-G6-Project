@@ -7,11 +7,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 
 public class UserDaoOperation implements UserDaoInterface{
 
-	private static Connection conn = DBUtil.getConnection();
-	private static final String[] roleList = {"Professor", "Student", "Admin"};
+	private static final Connection conn = DBUtil.getConnection();
+	private static final String[] roleList = {"professor", "student", "admin"};
 	private String userRole;
 
 	public static void main(String[] args) throws SQLException {
@@ -80,12 +81,14 @@ public class UserDaoOperation implements UserDaoInterface{
 				stmt.setString(1, userID);
 				ResultSet rs = stmt.executeQuery();
 
-				rs.next();
-
-				if(rs.getInt("COUNT(1)") == 1) {
-					userRole = role;
-					break;
+				while(rs.next()) {
+					if(rs.getInt("COUNT(1)") == 1) {
+						userRole = role;
+						break;
+					}
 				}
+
+				if(userRole != null) break;
 			}
 
 			if(userRole == null) {
@@ -139,20 +142,26 @@ public class UserDaoOperation implements UserDaoInterface{
 		try {
 			System.out.println("Logging in...");
 
-			if(userRole == null) {
-				assignUserRole(userID);
-			}
 
-			String query = "SELECT password " + "FROM " + userRole ;
+
+			String query = "SELECT password " + "FROM " + role + " WHERE user_name = ?";
+
 
 			queryStatement = conn.prepareStatement(query);
+			queryStatement.setString(1, userID);
 			ResultSet rs = queryStatement.executeQuery();
-			rs.next();
-			String password = rs.getString("password");
-			if(password.equals(userPassword)) {
-				if(role.equalsIgnoreCase(userRole))
-					return true;
-				else return false;
+
+			String password = null;
+			while (rs.next()) {
+				password = rs.getString("password");
+			}
+
+			if(password == null) {
+				throw new UserNotFoundException();
+			}
+
+			if(Objects.requireNonNull(password).equals(userPassword)) {
+				return true;
 			}
 
 

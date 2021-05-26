@@ -3,10 +3,14 @@
  */
 package com.flipkart.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
+import com.flipkart.bean.SemesterRegistration;
+import com.flipkart.dao.SemesterRegistrationDaoOperation;
 
 /**
  * @author Asus
@@ -15,15 +19,19 @@ import com.flipkart.bean.RegisteredCourses;
 public class SemesterRegistrationOperation implements SemesterRegistrationInterface{
 
 	@Override
-	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean addCourse(int studentId, int semesterId, String courseId) {
+
+		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
+
+		return srdo.addCourse(studentId, semesterId, courseId);
 	}
 
 	@Override
-	public RegisteredCourses dropCourse(int studentId, int semesterId, String courseId) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean dropCourse(int studentId, int semesterId, String courseId) {
+
+		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
+
+		return srdo.dropCourse(studentId, semesterId, courseId);
 	}
 
 	@Override
@@ -33,15 +41,24 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 	}
 
 	@Override
-	public List<RegisteredCourses> viewAvailableCourses(int studentId, int semesterId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<Course> viewAvailableCourses() {
+
+		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
+
+		return srdo.viewAvailableCourses();
 	}
 
 	@Override
 	public int calculateFees(int studentId, int semesterId) {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+
+	@Override
+	public boolean finishRegistration(int studentId, int semesterId) {
+		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
+
+		return srdo.finishRegistration(studentId, semesterId);
 	}
 
 	@Override

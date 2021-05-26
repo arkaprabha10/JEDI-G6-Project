@@ -58,42 +58,39 @@ public class UserClient {
             username = sc.nextLine();
             System.out.print("Password: ");
             password = sc.nextLine();
-            System.out.print("Enter Role (Student/Professor/Admin): ");
+            System.out.print("Enter Role (student/professor/admin): ");
             role = sc.nextLine();
             
             UserOperation uo = new UserOperation();
             
             if(uo.loginUser(username, password, role))
             {
-            	if(role.equals("Student"))
-            	{
-            		System.out.println("=======================================");
-            		System.out.println("Logged In Succesully as a Student");
-            		StudentClient sc = new StudentClient();
-            		sc.createStudentMenu(username);
-            		return;
-            	}
-            	else if(role.equals("Professor"))
-            	{
-            		System.out.println("=======================================");
-            		System.out.println("Logged In Succesully as a Professor");
-            		ProfessorClient pc = new ProfessorClient();
-            		pc.createProfessorMenu(username);
-            		return;
-            	}
-            	else if(role.equals("Admin"))
-            	{
-            		System.out.println("=======================================");
-            		System.out.println("Logged In Succesully as a Admin");
-            		AdminClient ac = new AdminClient();
-            		ac.createAdminMenu(username);
-            		return;
-            	}
-            	else
-            	{
-            		System.out.println("Invalid Role");
-            		System.out.println("=======================================");
-            	}
+                switch (role) {
+                    case "student":
+                        System.out.println("=======================================");
+                        System.out.println("Logged In Succesully as a Student");
+                        StudentClient sc = new StudentClient();
+                        sc.createStudentMenu(username);
+                        break;
+
+                    case "professor":
+                        System.out.println("=======================================");
+                        System.out.println("Logged In Succesully as a Professor");
+                        ProfessorClient pc = new ProfessorClient();
+                        pc.createProfessorMenu(username);
+                        break;
+
+                    case "admin":
+                        System.out.println("=======================================");
+                        System.out.println("Logged In Succesully as a Admin");
+                        AdminClient ac = new AdminClient();
+                        ac.createAdminMenu(username);
+                        break;
+
+                    default:
+                        System.out.println("Invalid Role");
+                        System.out.println("=======================================");
+                }
             		
             }
             
@@ -104,7 +101,6 @@ public class UserClient {
     }
 
     private void registerUser() {
-        String username, password;
 
         try {
             while(true) {

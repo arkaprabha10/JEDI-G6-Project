@@ -22,7 +22,7 @@ public class StudentOperation implements StudentInterface {
 
 		ReportCard R = new ReportCard();
 		StudentDaoOperation SDO= new StudentDaoOperation();
-		R= SDO.viewReportCard(StudentID,semesterId);
+		R = SDO.viewReportCard(StudentID,semesterId);
 		ReportCardOperation report = new ReportCardOperation();
 		R.setSpi(report.getSPI(R));
 		return R;

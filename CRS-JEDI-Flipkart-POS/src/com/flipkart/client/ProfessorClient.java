@@ -1,30 +1,40 @@
 package com.flipkart.client;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
+import com.flipkart.dao.ProfessorDaoOperation;
+import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
 public class ProfessorClient {
     private Scanner sc = new Scanner(System.in);
+    private int professorID;
 
     public static void main(String[] args) {
         ProfessorClient test = new ProfessorClient();
-//        test.createProfessorMenu();
+        test.createProfessorMenu("Arka");
     }
 
     public void createProfessorMenu(String username) {
         try {
 
+            professorID = getProfessorID(username);
+            assert professorID != -1;
+
             while(true) {
+                System.out.println("\n\n==~~=~~=~~=~~=~Student Panel~=~~=~~=~~=~~==");
                 System.out.println("Choose an option : ");
                 System.out.println("1 : View registered students");
                 System.out.println("2 : Add Grade");
                 System.out.println("3 : Show available courses");
                 System.out.println("4 : Register for a course");
                 System.out.println("5 : Logout");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -54,23 +64,25 @@ public class ProfessorClient {
         }
     }
 
-    private void registerCourse() {
+    private void registerCourse() throws SQLException {
 
         String courseID;
-
+        Integer semesterID;
         System.out.println("Enter course ID: ");
         courseID = sc.nextLine();
+        System.out.println("Enter Semester ID: ");
+        semesterID = sc.nextInt();
+        sc.nextLine();
+        ProfessorInterface profObj = new ProfessorOperation();
+    	profObj.registerCourse(professorID, semesterID, courseID);
 
         // to do : register for course
     }
 
     private void viewAvailableCourses() {
-        // to do : retrieve course details from db
-    	String instructorID;
-        System.out.println("Enter instructor ID: ");
-        instructorID = sc.nextLine();
+
     	ProfessorInterface profObj = new ProfessorOperation();
-    	profObj.viewCourseProf(instructorID);
+    	profObj.viewCourseProf(professorID);
     }
 
     private void addGrade() throws CourseNotFoundException, GradeNotAddedException {
@@ -99,7 +111,7 @@ public class ProfessorClient {
    
 
     private void viewEnrolledStudents() throws CourseNotFoundException {
-        // to do : get student details from db, and print them
+
     	String courseID;
     	int semesterID;
 
@@ -117,5 +129,11 @@ public class ProfessorClient {
     		throw new CourseNotFoundException(courseID);
     	}
     	
+    }
+
+    private int getProfessorID(String username) throws SQLException {
+
+        ProfessorDaoOperation pdo = new ProfessorDaoOperation();
+        return pdo.getProfessorIDFromUserName(username);
     }
 }

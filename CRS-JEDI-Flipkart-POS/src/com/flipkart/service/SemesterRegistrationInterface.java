@@ -3,8 +3,10 @@
  */
 package com.flipkart.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
 import com.flipkart.exception.CourseAlreadyRegisteredException;
@@ -27,7 +29,7 @@ public interface SemesterRegistrationInterface {
 	 * @param courseId 
 	 * @return the course if it is added successfully, else null
 	 */
-	public RegisteredCourses addCourse(int studentId, int semesterId, String courseId) throws CourseNotFoundException, CourseNotAssignedException, CourseAlreadyRegisteredException, CourseLimitExceededException, StudentNotRegisteredException;
+	public boolean addCourse(int studentId, int semesterId, String courseId) throws CourseNotFoundException, CourseNotAssignedException, CourseAlreadyRegisteredException, CourseLimitExceededException, StudentNotRegisteredException;
 	
 	/**
 	 * Method to drop Course selected by student 
@@ -36,7 +38,7 @@ public interface SemesterRegistrationInterface {
 	 * @param courseId 
 	 * @return Boolean value indicating if it is was dropped successfully
 	 */
-	public RegisteredCourses dropCourse(int studentId, int semesterId, String courseId) throws CourseNotFoundException, CourseNotDeletedException ,StudentNotRegisteredException;
+	public boolean dropCourse(int studentId, int semesterId, String courseId) throws CourseNotFoundException, CourseNotDeletedException ,StudentNotRegisteredException;
 	
 	/**
 	 * Method to view Courses registered by student 
@@ -50,7 +52,7 @@ public interface SemesterRegistrationInterface {
 	 * Method to view all courses available
 	 * @return list of all courses with availbale seats
 	 */
-	public List<RegisteredCourses> viewAvailableCourses(int studentId, int semesterId) throws StudentNotRegisteredException;
+	public ArrayList<Course> viewAvailableCourses() throws StudentNotRegisteredException;
 	
 	
 	/**
@@ -60,6 +62,13 @@ public interface SemesterRegistrationInterface {
 	 * @return total fees to be paid by the student
 	 */
 	public int calculateFees(int studentId, int semesterId) ;
+
+	/**
+	 * @param studentId
+	 * @param semesterId
+	 * @return
+	 */
+	public boolean finishRegistration(int studentId, int semesterId);
 	
 	
 	/**

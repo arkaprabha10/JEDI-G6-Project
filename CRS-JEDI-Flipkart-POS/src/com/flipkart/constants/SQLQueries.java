@@ -26,4 +26,24 @@ public class SQLQueries {
 	 return qry;
 	}
 
+	
+	public static String GET_STUDENT_BY_ID(int studentId, int semesterId) {
+		String qry="select * from registered_courses where student_id = '"+studentId+"' and semester_id = "+semesterId;
+		 return qry;
+	}
+
+	public static String APPROVE_STUDENT(int studentId, int semesterId) {
+		String qry="UPDATE registered_courses set is_approved=1 where student_id = '"+studentId+"' and semester_id = "+semesterId;
+		 return qry;
+	}
+
+	public static String GET_ALL_COURSES(int semesterId) {
+		String qry="select distinct course_id from registered_courses where semester_id = "+semesterId;
+		 return qry;
+	}
+
+	public static String GET_COURSE_STUDENTS(String course_id,int semesterId) {
+		return "select student_id from registered_courses where course_id = '"+course_id+"' and semester_id = "+semesterId;
+	}
+
 }

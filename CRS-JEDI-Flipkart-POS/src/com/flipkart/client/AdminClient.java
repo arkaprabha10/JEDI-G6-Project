@@ -1,9 +1,14 @@
 package com.flipkart.client;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 
+import com.flipkart.constants.constants;
+import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.service.AdminOperation;
 
 public class AdminClient {
@@ -21,7 +26,7 @@ public class AdminClient {
                 System.out.println("2 : Generate report card");
                 System.out.println("3 : Approve student registration");
                 System.out.println("4 : Edit professor details");
-                System.out.println("5 : View course student list");
+                System.out.println("5 : View Course Wise student list");
                 System.out.println("6 : Logout");
                 System.out.println("=======================================");
 
@@ -45,6 +50,7 @@ public class AdminClient {
                         viewCourseStudentList();
                         break;
                     case 6:
+                    	System.exit(0);
                         return;
                     default:
                         System.out.println("Invalid input");
@@ -57,11 +63,45 @@ public class AdminClient {
     }
 
     private void viewCourseStudentList() {
-        String courseID;
-        System.out.println("Enter course ID: ");
-        courseID = sc.nextLine();
+    	
+    	System.out.println("\n\n==~~=~~=~Course Details~=~~=~~=~~==");
+        System.out.println("Choose an option : ");
+        System.out.println("---------------------------------------");
+        System.out.println("1 : View All Course's Details");
+        System.out.println("2 : View for a particular course");
+        System.out.println("=======================================");
+        int menuOption = sc.nextInt();
+        sc.nextLine();
 
-        // to do : get students per course
+    	String courseID="";
+    	Boolean viewAll = true;
+        switch(menuOption) {
+            case 1 :
+                break;
+            case 2 :
+            	viewAll=false;
+            	System.out.println("Enter course ID: ");
+            	courseID = sc.nextLine();
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
+
+        
+        AdminOperation Ao= new AdminOperation();
+        HashMap<String,ArrayList<Integer> > CourseStudentList = Ao.viewCourseStudentList (courseID,constants.SemesterID,viewAll);
+        
+        CourseStudentList.entrySet().forEach(entry -> {
+    	    System.out.println("Course ID : " + entry.getKey());
+    	    System.out.println("Students Enrolled : " );
+    	    for(Integer stID : entry.getValue()) {
+    	    	System.out.print(stID.toString()+"\t");
+    	    }
+    	    System.out.println();
+    	    System.out.println("+++++++++++++++++++++++++++++++++++++++");
+    	    System.out.println();
+    	});
+        
     }
 
     private void editProfessorList() {
@@ -217,11 +257,14 @@ public class AdminClient {
         }
     }
 
-    private void approveStudentRegistration() {
-        String studentID;
+    private void approveStudentRegistration() throws FeesPendingException, StudentNotApprovedException {
+        int studentID;
         System.out.println("Enter student ID: ");
-        studentID = sc.nextLine();
-
+        studentID = sc.nextInt();
+        
+        AdminOperation Ao= new AdminOperation();
+        Ao.approveStudentRegistration(studentID,constants.SemesterID);
+        
         // to do : approve student reg logic
     }
 

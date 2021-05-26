@@ -4,9 +4,12 @@
 package com.flipkart.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.UserAlreadyInUseException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
@@ -26,8 +29,10 @@ public class AdminOperation implements AdminInterface {
 	AdminDaoOperation ado = new AdminDaoOperation();
 
 	@Override
-	public void approveStudentRegistration(ArrayList<Student> students) {
-		// TODO Auto-generated method stub
+	public void approveStudentRegistration(int studentId,int semesterId) throws FeesPendingException, StudentNotApprovedException {
+		
+		AdminDaoOperation ado = new AdminDaoOperation();
+		ado.approveStudentRegistration(studentId,semesterId);
 		
 	}
 
@@ -70,5 +75,14 @@ public class AdminOperation implements AdminInterface {
 		ado.addCourse(newCourse);
 		
 	}
+
+	
+	@Override
+	public HashMap<String,ArrayList<Integer> > viewCourseStudentList(String courseID, int semester, Boolean viewAll) {
+		
+		AdminDaoOperation ado = new AdminDaoOperation();
+		return ado.viewCourseStudentList(courseID,semester,viewAll);
+	}
+
 
 }

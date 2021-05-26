@@ -54,6 +54,7 @@ public class StudentOperation implements StudentInterface {
 		sdo.addStudent(newStudent);
 		return newStudent;
 	}
+	
 	public static void main(String[] args) throws UserAlreadyInUseException, SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
 		System.out.println("Hey There!");
 		StudentOperation so = new StudentOperation();

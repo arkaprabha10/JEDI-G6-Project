@@ -4,6 +4,7 @@
 package com.flipkart.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -11,8 +12,10 @@ import com.flipkart.bean.Student;
 import com.flipkart.exception.CourseAlreadyPresentException;
 import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.ProfessorNotAddedException;
+import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.exception.StudentNotRegisteredException;
 
 /**
@@ -23,8 +26,10 @@ public interface AdminInterface {
 	
 	/**
 	 * @param students
+	 * @throws StudentNotApprovedException 
+	 * @throws FeesPendingException 
 	 */
-	public void approveStudentRegistration(ArrayList<Student> students) throws StudentNotRegisteredException, StudentNotRegisteredException;
+	public void approveStudentRegistration(int studentId,int semesterId) throws StudentNotRegisteredException, StudentNotRegisteredException, FeesPendingException, StudentNotApprovedException;
 	
 	/**
 	 * @param professor
@@ -53,4 +58,5 @@ public interface AdminInterface {
 	 */
 	public void addCourse(String course_name, String courseID, int semester) throws CourseAlreadyPresentException;
 
+	public HashMap<String, ArrayList<Integer>> viewCourseStudentList(String courseID, int semester, Boolean viewAll);
 }

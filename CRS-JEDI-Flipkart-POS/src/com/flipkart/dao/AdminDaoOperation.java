@@ -31,6 +31,29 @@ import com.flipkart.utils.DBUtil;
 public class AdminDaoOperation implements AdminDaoInterface {
 	
 	private PreparedStatement statement = null;
+	
+	private static volatile AdminDaoOperation instance = null;
+
+	
+	/**
+	 * Default Constructor
+	 */
+	private AdminDaoOperation(){}
+	
+	/**
+	 * Method to make AdminDaoOperation Singleton
+	 * @return
+	 */
+	public static AdminDaoOperation getInstance()
+	{
+		if(instance == null)
+		{
+			synchronized(AdminDaoOperation.class){
+				instance = new AdminDaoOperation();
+			}
+		}
+		return instance;
+	}	
 
 	@Override
 	public void approveStudentRegistration(int studentId,int semesterId) throws FeesPendingException, StudentNotApprovedException {

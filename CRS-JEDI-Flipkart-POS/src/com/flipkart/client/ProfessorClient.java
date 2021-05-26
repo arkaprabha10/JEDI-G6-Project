@@ -13,6 +13,7 @@ import com.flipkart.service.ProfessorOperation;
 
 public class ProfessorClient {
     private Scanner sc = new Scanner(System.in);
+    ProfessorInterface profObj = ProfessorOperation.getInstance();
     private int professorID;
 
     public static void main(String[] args) {
@@ -73,7 +74,7 @@ public class ProfessorClient {
         System.out.println("Enter Semester ID: ");
         semesterID = sc.nextInt();
         sc.nextLine();
-        ProfessorInterface profObj = new ProfessorOperation();
+//        ProfessorInterface profObj = new ProfessorOperation();
     	profObj.registerCourse(professorID, semesterID, courseID);
 
         // to do : register for course
@@ -81,7 +82,7 @@ public class ProfessorClient {
 
     private void viewAvailableCourses() {
 
-    	ProfessorInterface profObj = new ProfessorOperation();
+//    	ProfessorInterface profObj = new ProfessorOperation();
     	profObj.viewCourseProf(professorID);
     }
 
@@ -101,7 +102,7 @@ public class ProfessorClient {
         System.out.println("Enter Grade: ");
         grade = sc.nextInt();
         sc.nextLine();
-        ProfessorInterface profObj = new ProfessorOperation();
+//        ProfessorInterface profObj = new ProfessorOperation();
     	profObj.addGrade(studentID, semesterID, courseID, grade);
         // get students details/objects
 
@@ -122,7 +123,7 @@ public class ProfessorClient {
 
     	try {
     		
-        	ProfessorInterface profObj = new ProfessorOperation();
+//        	ProfessorInterface profObj = new ProfessorOperation();
         	profObj.viewCourseStudents(courseID, semesterID);
     	}
     	catch(Exception e) {

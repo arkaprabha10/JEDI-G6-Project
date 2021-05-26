@@ -11,14 +11,20 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.constants;
+import com.flipkart.exception.CourseNotDeletedException;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.FeesPendingException;
-import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.StudentNotApprovedException;
+import com.flipkart.exception.StudentNotRegisteredException;
+import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
 public class AdminClient {
     private Scanner sc = new Scanner(System.in);
-    AdminOperation ao = new AdminOperation();
+//    AdminOperation ao = new AdminOperation();
+    	
+	AdminInterface ao = AdminOperation.getInstance();
+//	NotificationInterface notificationInterface=NotificationOperation.getInstance();
 
     public void createAdminMenu(String username) {
         try {
@@ -33,8 +39,7 @@ public class AdminClient {
                 System.out.println("4 : Add Professor");
                 System.out.println("5 : Remove Professor");
                 System.out.println("6 : View Course Wise student list");
-                System.out.println("7 : Approve Pending Student Accounts");
-                System.out.println("8 : Logout");
+                System.out.println("7 : Logout");
                 System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
@@ -59,10 +64,7 @@ public class AdminClient {
                     case 6:
                         viewCourseStudentList();
                         break;
-                    case 7 :
-                    	approvePendingStudentAccounts();
-                    	break;
-                    case 8:
+                    case 7:
 //                    	System.exit(0);
                         return;
                     default:
@@ -121,8 +123,8 @@ public class AdminClient {
         }
 
         
-        AdminOperation Ao= new AdminOperation();
-        HashMap<String,ArrayList<Integer> > CourseStudentList = Ao.viewCourseStudentList (courseID,constants.SemesterID,viewAll);
+//        AdminOperation Ao= new AdminOperation();
+        HashMap<String,ArrayList<Integer> > CourseStudentList = ao.viewCourseStudentList (courseID,constants.SemesterID,viewAll);
         System.out.println("+-------------------------------------+");
         CourseStudentList.entrySet().forEach(entry -> {
     	    System.out.println("| Course ID : " + entry.getKey());
@@ -201,18 +203,28 @@ public class AdminClient {
         System.out.println("Enter student ID: ");
         studentID = sc.nextInt();
         
-        AdminOperation Ao= new AdminOperation();
-        Ao.approveStudentRegistration(studentID,constants.SemesterID);
+//        AdminOperation Ao= new AdminOperation();
+        try {
+			ao.approveStudentRegistration(studentID,constants.SemesterID);
+		} catch (StudentNotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FeesPendingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StudentNotApprovedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         // to do : approve student reg logic
     }
 
-    private void generateReportCard() throws StudentNotApprovedException, GradeNotAddedException, FeesPendingException {
-        Integer studentID;
+    private void generateReportCard() {
+        String studentID;
         System.out.println("Enter student ID: ");
-        studentID = sc.nextInt();
-        ReportCard R = ao.generateReportCard(studentID);
-        System.out.println("Report Card Generated for Student ID : "+studentID+" SPI : "+R.getSpi());
+        studentID = sc.nextLine();
+
         // to do : get student courses and grade, and generate report card
     }
 
@@ -257,7 +269,18 @@ public class AdminClient {
         System.out.println("Enter course ID: ");
         courseID = sc.nextLine();
         
-        ao.removeCourse(Integer.parseInt(courseID));
+        try {
+			ao.removeCourse(Integer.parseInt(courseID));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CourseNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CourseNotDeletedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         // to do : remove course from db
     }

@@ -4,16 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
-import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
 public class AdminClient {
     private Scanner sc = new Scanner(System.in);
-//    AdminOperation ao = new AdminOperation();
-    
-    AdminInterface ao = AdminOperation.getInstance();
+    AdminOperation ao = new AdminOperation();
 
     public void createAdminMenu(String username) {
         try {
@@ -279,18 +274,7 @@ public class AdminClient {
         System.out.println("Enter course ID: ");
         courseID = sc.nextLine();
         
-        try {
-			ao.removeCourse(Integer.parseInt(courseID));
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (CourseNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (CourseNotDeletedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+        ao.removeCourse(Integer.parseInt(courseID));
         
         // to do : remove course from db
     }

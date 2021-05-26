@@ -1,6 +1,5 @@
 package com.flipkart.client;
 
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,11 +18,8 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.service.StudentOperation;
 
 public class StudentClient {
-	
-	static Scanner sc = new Scanner(System.in);
+     static Scanner sc = new Scanner(System.in);
 
-	StudentOperation so = StudentOperation.getInstance();
-    
     public static void main(String[] args) {
         StudentClient test = new StudentClient();
         System.out.println("Enter You Username");
@@ -155,7 +151,7 @@ public class StudentClient {
 
     private void viewRegisteredCourses(int studentID, int semesterID) throws StudentNotRegisteredException, SQLException {
         // to do : get courses from db, and return a list
-//    	StudentOperation so = new StudentOperation();
+    	StudentOperation so = new StudentOperation();
     	List<Course> courses = so.viewRegisteredCourses(studentID, semesterID);
     	System.out.println("These are your registered courses : ");
     	for(Course c: courses) {
@@ -164,7 +160,7 @@ public class StudentClient {
     }
 
     private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
-//    	StudentOperation so = new StudentOperation();
+    	StudentOperation so = new StudentOperation();
     	ReportCard R = so.viewReportCard(studentID, semesterID);
     	System.out.println("StudentID : "+R.getStudentID()+"\t SemesterID : "+R.getSemesterID());
     	System.out.println("Course  Grade");

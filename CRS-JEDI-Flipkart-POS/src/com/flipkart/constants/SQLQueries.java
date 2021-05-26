@@ -10,7 +10,6 @@ package com.flipkart.constants;
 public class SQLQueries {
 	public static final String ADD_STUDENT = "insert into student(user_name, name, role, student_id, department, joining_year, password, contact_number) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String GET_STUDENTS = "select * from student";
-	public static final String INSERT_NOTIFICATION = null;
 	
 	public static final String GET_REPORT(int studentID, int semesterId) {
 		 String qry="select * from registered_courses where student_id = "+studentID+" and semester_id = "+semesterId +" and is_primary=1";

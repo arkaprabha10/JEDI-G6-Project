@@ -22,36 +22,7 @@ import com.flipkart.exception.UserAlreadyInUseException;
 import com.flipkart.utils.DBUtil;
 
 public class StudentDaoOperation implements StudentDaoInterface {
-	
-	private static volatile StudentDaoOperation instance=null;
-	
-	/**
-	 * Default Constructor
-	 */
-	public StudentDaoOperation()
-	{
-		
-	}
-	
-	/**
-	 * Method to make StudentDaoOperation Singleton
-	 * @return
-	 */
-	public static StudentDaoOperation getInstance()
-	{
-		if(instance==null)
-		{
-			// This is a synchronized block, when multiple threads will access this instance
-			synchronized(StudentDaoOperation.class){
-				instance=new StudentDaoOperation();
-			}
-		}
-		return instance;
-	}
 
-	/**
-	 * @param Student
-	 */
 	@Override
 	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException{
 		
@@ -98,12 +69,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 //		}
 		return student;
 	}
-	
-	
-	/**
-	 * @param StudentID
-	 * @param semesterId
-	 */
+
 	@Override
 	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
 		Connection connection=DBUtil.getConnection();
@@ -157,10 +123,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 //		
 		return R;
 	}
-	
-	/**
-	 * @param 
-	 */
+
 	@Override
 	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
 			throws SQLException, StudentNotRegisteredException {
@@ -240,7 +203,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 				throw new StudentNotRegisteredException();
 			}	
 			
-				
+			
 		}
 		catch(Exception ex)
 		{

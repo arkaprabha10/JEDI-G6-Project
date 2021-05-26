@@ -31,14 +31,6 @@ public interface SemesterRegistrationDaoInterface {
 	 * @return the course if it is added successfully, else null
 	 */
 	public boolean addCourse(int studentId, int semesterId, String courseId) throws SQLException;
-
-	/**
-	 * @param studentId
-	 * @param semeseterId
-	 * @return
-	 * @throws SQLException
-	 */
-	public boolean isRegistered(int studentId, int semeseterId) throws SQLException;
 	
 	/**
 	 * Method to drop Course selected by student 

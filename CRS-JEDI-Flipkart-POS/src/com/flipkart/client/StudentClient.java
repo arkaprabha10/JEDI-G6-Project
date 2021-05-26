@@ -3,9 +3,12 @@ package com.flipkart.client;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.*;
+import com.flipkart.service.SemesterRegistrationInterface;
 import com.flipkart.service.SemesterRegistrationOperation;
+import com.flipkart.service.StudentInterface;
 import com.flipkart.service.StudentOperation;
 
 import java.sql.SQLException;
@@ -16,6 +19,10 @@ import java.util.Scanner;
 public class StudentClient {
     static Scanner sc = new Scanner(System.in);
     private int studentID;
+    
+    SemesterRegistrationInterface sro = SemesterRegistrationOperation.getInstance();
+    StudentInterface so = StudentOperation.getInstance();
+    StudentDaoInterface sdo = StudentDaoOperation.getInstance();
 
     public static void main(String[] args) {
         StudentClient test = new StudentClient();
@@ -114,7 +121,7 @@ public class StudentClient {
 
     private void finishRegistration() {
 
-        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
+//        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
 
         System.out.println("=======================================");
         System.out.println("Finishing registration...");
@@ -135,7 +142,7 @@ public class StudentClient {
 
     private void dropCourse() {
 
-        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
+//        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
 
         System.out.println("=======================================");
         System.out.println("Delete Course");
@@ -143,7 +150,22 @@ public class StudentClient {
 
         String courseID = sc.nextLine();
 
-        boolean courseDropped = sro.dropCourse(studentID, 1, courseID);
+        boolean courseDropped = false;
+		try {
+			courseDropped = sro.dropCourse(studentID, 1, courseID);
+		} catch (CourseNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CourseNotDeletedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StudentNotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         if(courseDropped) {
             System.out.println("Course dropped successfully!");
@@ -155,7 +177,7 @@ public class StudentClient {
 
     private void addCourse() {
 
-        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
+//        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
 
     	System.out.println("=======================================");
         System.out.println("Add Course");
@@ -163,7 +185,25 @@ public class StudentClient {
 
         String courseID = sc.nextLine();
 
-        boolean courseAdded = sro.addCourse(studentID, 1, courseID);
+        boolean courseAdded = false;
+		try {
+			courseAdded = sro.addCourse(studentID, 1, courseID);
+		} catch (CourseNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CourseNotAssignedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CourseAlreadyRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (CourseLimitExceededException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (StudentNotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         if(courseAdded) {
             System.out.println("Course added successfully!");
@@ -175,8 +215,14 @@ public class StudentClient {
 
     private void viewAvailableCourses() {
 
-        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
-        ArrayList<Course> courseCatalog = sro.viewAvailableCourses();
+//        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
+        ArrayList<Course> courseCatalog = null;
+		try {
+			courseCatalog = sro.viewAvailableCourses();
+		} catch (StudentNotRegisteredException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         System.out.println("Course catalog : ");
         for(Course c : courseCatalog) {
             System.out.println("Course ID : "+c.getCourseID()+" \t Course Name : "+ c.getCoursename()+"\t Instructor : "+c.getInstructorID());
@@ -185,7 +231,7 @@ public class StudentClient {
 
     private void viewRegisteredCourses(int studentID, int semesterID) throws StudentNotRegisteredException, SQLException {
 
-    	StudentOperation so = new StudentOperation();
+//    	StudentOperation so = new StudentOperation();
     	List<Course> courses = so.viewRegisteredCourses(studentID, semesterID);
     	System.out.println("These are your registered courses : ");
     	for(Course c: courses) {
@@ -194,7 +240,7 @@ public class StudentClient {
     }
 
     private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
-    	StudentOperation so = new StudentOperation();
+//    	StudentOperation so = new StudentOperation();
     	ReportCard R = so.viewReportCard(studentID, semesterID);
     	System.out.println("StudentID : "+R.getStudentID()+"\t SemesterID : "+R.getSemesterID());
     	System.out.println("Course  Grade");
@@ -203,7 +249,7 @@ public class StudentClient {
     
     private int getStudentID(String username) throws StudentNotRegisteredException, SQLException {
 		
-    	StudentDaoOperation sdo = new StudentDaoOperation();
+//    	StudentDaoOperation sdo = new StudentDaoOperation();
         return sdo.getStudentIDFromUserName(username);
 	}
 }

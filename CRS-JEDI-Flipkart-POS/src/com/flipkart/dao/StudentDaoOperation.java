@@ -22,6 +22,32 @@ import com.flipkart.exception.UserAlreadyInUseException;
 import com.flipkart.utils.DBUtil;
 
 public class StudentDaoOperation implements StudentDaoInterface {
+	
+	private static volatile StudentDaoOperation instance=null;
+	
+	/**
+	 * Default Constructor
+	 */
+	private StudentDaoOperation()
+	{
+		
+	}
+	
+	/**
+	 * Method to make StudentDaoOperation Singleton
+	 * @return
+	 */
+	public static StudentDaoOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(StudentDaoOperation.class){
+				instance=new StudentDaoOperation();
+			}
+		}
+		return instance;
+	}
 
 	@Override
 	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException{

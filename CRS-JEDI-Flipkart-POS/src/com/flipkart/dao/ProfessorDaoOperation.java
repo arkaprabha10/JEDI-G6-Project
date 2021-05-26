@@ -13,6 +13,7 @@ import com.flipkart.bean.Course;
 //import com.flipkart.bean.Grade;
 import com.flipkart.bean.RegisteredCourses;
 //import com.flipkart.bean.Student;
+import com.flipkart.exception.CourseNotFoundException;
 
 /**
  * @author Dell
@@ -23,7 +24,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	
 
 	@Override
-	public void addGrade(Integer studentID, int semesterID, String courseID, Integer grade) {
+	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade) {
 		// TODO Auto-generated method stub
 		
 		Connection connection=DBUtil.getConnection();
@@ -31,32 +32,36 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		{
 			String sql="",sql1="";
 			PreparedStatement stmt = null,stmt1=null;
-			sql = "SELECT * FROM registered_courses WHERE student_id = "+Integer.toString(studentID)+" AND semester_id = "+Integer.toString(grade);         
-		    
+			sql = "SELECT * FROM registered_courses WHERE student_id = "+studentID+" AND semester_id = "+semesterID;         
+//		    System.out.println(sql);
 			stmt = connection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
+			rs.next();
 		    
 			if(rs.getString("primary_course1").equals(courseID))
 		    {
-		    	sql1="insert into registered_courses (grade1)" + " VALUES (?)";
-		    	
+		    	sql1="UPDATE registered_courses set grade1 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
 		    }
 		    else if(rs.getString("primary_course2").equals(courseID))
 		    {
-		    	sql1="insert into registered_courses (grade2)"+" VALUES (?)";
+		    	sql1="UPDATE registered_courses set grade2 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
 		    	
 		    }
 		    else if(rs.getString("primary_course3").equals(courseID))
 		    {
-		    	sql1="insert into registered_courses (grade3)"+" VALUES (?)";
+		    	sql1="UPDATE registered_courses set grade1 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
 		    	
 		    }
 		    else if(rs.getString("primary_course4").equals(courseID))
 		    {
-		    	sql1="insert into registered_courses (grade4)"+" VALUES (?)";
+		    	sql1="UPDATE registered_courses set grade1 = (?) WHERE student_id = "+studentID+" AND semester_id = "+semesterID;
 		    	
 		    }
-		    
+		    else 
+		    {
+		    	throw 
+		    }
+//		    
 			stmt1 = connection.prepareStatement(sql1);
 	    	stmt1.setInt(1, grade);
 			int res = stmt1.executeUpdate();
@@ -88,7 +93,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		// TODO Auto-generated method stub
 		Connection connection=DBUtil.getConnection();
 		try {
-			String sql = "SELECT * FROM registered_courses WHERE primary_course1 = "+courseID+" OR primary_course2 = "+courseID+" OR primary_course3 = "+courseID+" OR primary_course4 = "+courseID ;
+			String sql = "SELECT * FROM registered_courses WHERE primary_course1 = '"+courseID+"' OR primary_course2 = '"+courseID+"' OR primary_course3 = '"+courseID+"' OR primary_course4 = '"+courseID+"'" ;
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery(sql);
 			
@@ -144,9 +149,13 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		Connection connection=DBUtil.getConnection();
 		try {
 			
-			String sql = "SELECT * FROM course_catalog WHERE instructor = "+instructorID ;
+			String sql = "SELECT * FROM course_catalog WHERE instructor="+"'"+instructorID+"'";
+			
+			System.out.println(sql);
 			PreparedStatement stmt = connection.prepareStatement(sql);
+//			stmt.setString(1, instructorID);
 			ResultSet rs = stmt.executeQuery(sql);
+			
 			
 			ArrayList<Course>ans = new ArrayList<Course>();
 			

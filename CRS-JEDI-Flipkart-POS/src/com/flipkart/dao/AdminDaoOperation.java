@@ -78,6 +78,15 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		Connection connection = DBUtil.getConnection();
 		
 		try {
+			
+			PreparedStatement preparedStatement0=connection.prepareStatement("SELECT MAX(instructor_ID) FROM professor");
+			ResultSet results=preparedStatement0.executeQuery();
+			int instructorId = 0;
+			if(results.next()) {
+				instructorId=results.getInt(1);
+			}
+			professor.setInstructorID(instructorId+1);
+			
 			statement = connection.prepareStatement(sql);
 			statement.setString(1, professor.getUserID());
 			statement.setString(2, professor.getName());
@@ -139,7 +148,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			
 			int row = statement.executeUpdate();
 			
-			System.out.println(row + " user deleted.");
+			System.out.println(row + " course deleted.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -163,7 +172,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			
 			int row = statement.executeUpdate();
 			
-			System.out.println(row + " user added.");
+			System.out.println(row + " course added.");
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

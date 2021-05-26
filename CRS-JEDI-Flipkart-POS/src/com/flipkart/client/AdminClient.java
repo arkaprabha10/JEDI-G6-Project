@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.flipkart.bean.Professor;
 import com.flipkart.constants.constants;
 import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.StudentNotApprovedException;
@@ -25,9 +26,10 @@ public class AdminClient {
                 System.out.println("1 : Edit course details");
                 System.out.println("2 : Generate report card");
                 System.out.println("3 : Approve student registration");
-                System.out.println("4 : Edit professor details");
-                System.out.println("5 : View Course Wise student list");
-                System.out.println("6 : Logout");
+                System.out.println("4 : Add Professor");
+                System.out.println("5 : Remove Professor");
+                System.out.println("6 : View Course Wise student list");
+                System.out.println("7 : Logout");
                 System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
@@ -44,13 +46,16 @@ public class AdminClient {
                         approveStudentRegistration();
                         break;
                     case 4:
-                        editProfessorList();
+                    	addProfessorDetails();
                         break;
                     case 5:
-                        viewCourseStudentList();
+                    	removeProfessor();
                         break;
                     case 6:
-                    	System.exit(0);
+                        viewCourseStudentList();
+                        break;
+                    case 7:
+//                    	System.exit(0);
                         return;
                     default:
                         System.out.println("Invalid input");
@@ -90,167 +95,73 @@ public class AdminClient {
         
         AdminOperation Ao= new AdminOperation();
         HashMap<String,ArrayList<Integer> > CourseStudentList = Ao.viewCourseStudentList (courseID,constants.SemesterID,viewAll);
-        
+        System.out.println("+-------------------------------------+");
         CourseStudentList.entrySet().forEach(entry -> {
-    	    System.out.println("Course ID : " + entry.getKey());
-    	    System.out.println("Students Enrolled : " );
+    	    System.out.println("| Course ID : " + entry.getKey());
+    	    System.out.print("| Students Enrolled : \n| " );
     	    for(Integer stID : entry.getValue()) {
     	    	System.out.print(stID.toString()+"\t");
     	    }
     	    System.out.println();
-    	    System.out.println("+++++++++++++++++++++++++++++++++++++++");
-    	    System.out.println();
+    	    System.out.println("+-------------------------------------+");
+//    	    System.out.println();
     	});
         
     }
 
-    private void editProfessorList() {
 
-        String professorID;
-        System.out.println("Enter new/existing professor ID: ");
-
-        professorID = sc.nextLine();
-
-        try {
-
-            while(true) {
-            	System.out.println("=======================================");
-                System.out.println("Options : ");
-                System.out.println("---------------------------------------");
-                System.out.println("1 : Add professor details");
-                System.out.println("2 : Update professor details");
-                System.out.println("3 : Remove professor");
-                System.out.println("4 : Exit");
-                System.out.println("=======================================");
-
-                int menuOption = sc.nextInt();
-                sc.nextLine();
-
-                switch(menuOption) {
-                    case 1 :
-                        addProfessorDetails(professorID);
-                        break;
-                    case 2 :
-                        updateProfessorDetails(professorID);
-                        break;
-                    case 3:
-                        removeProfessor(professorID);
-                        break;
-                    case 4:
-                        return;
-                    default:
-                        System.out.println("Invalid input");
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // to do : update details on user object, if user is professor
-    }
-
-    private void removeProfessor(String professorID) {
-        try {
-
-            System.out.println("Remove " + professorID + " from list?");
-            System.out.println("0 : No");
-            System.out.println("1 : Yes");
-
-            int menuOption = sc.nextInt();
-            sc.nextLine();
-
-            switch (menuOption) {
-                case 0:
-                    return;
-                case 1:
-                    // remove from db
-                    break;
-                default:
-                    System.out.println("Invalid input");
-            }
+    private void removeProfessor() {
+    	System.out.println("Enter Instructor ID :");
+    	Integer professorID = sc.nextInt();
+        
+    	try {
+            ao.removeProfessor(professorID);                            
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void updateProfessorDetails(String professorID) {
 
-        // to do : get professor object from db (try block)
 
+    private void addProfessorDetails() {
+    	
+    	
         try {
 
-            while(true) {
-            	System.out.println("=======================================");
-                System.out.println("Select field to edit: ");
-                System.out.println("---------------------------------------");
-                System.out.println("1 : Name");
-                System.out.println("2 : Department");
-                System.out.println("3 : Designation");
-                System.out.println("4 : Save and Exit");
-                System.out.println("=======================================");
-
-                int menuOption = sc.nextInt();
-                sc.nextLine();
-
-                switch(menuOption) {
-                    case 1 :
-                        String newName;
-                        System.out.println("Enter new name: ");
-                        newName = sc.nextLine();
-                        // to do : update field in obj
-                        break;
-                    case 2 :
-                        String newDepartment;
-                        System.out.println("Enter new department: ");
-                        newDepartment = sc.nextLine();
-                        // to do : update field in obj
-                        break;
-                    case 3:
-                        String newDesignation;
-                        System.out.println("Enter new designation: ");
-                        newDesignation = sc.nextLine();
-                        // to do : update field in obj
-                        break;
-                    case 4:
-                        // to do : update db with new object
-                        return;
-                    default:
-                        System.out.println("Invalid input");
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void addProfessorDetails(String professorID) {
-
-        try {
-
-            String name, password, department, designation, dateOfJoining;
-            Date dojObj;
+            String username, name, password, department, designation, contact;
+            Integer joiningYear;
             
             System.out.println("=======================================");
             System.out.println("Enter professor details");
             System.out.println("---------------------------------------");
-            System.out.println("Name: ");
-            name = sc.nextLine();
+            System.out.println("User Name: ");
+            username = sc.nextLine();
             System.out.println("Password: ");
             password = sc.nextLine();
+            System.out.println("Name: ");
+            name = sc.nextLine();
             System.out.println("Department: ");
             department = sc.nextLine();
             System.out.println("Designation: ");
             designation = sc.nextLine();
-            System.out.println("Date of Joining (dd/MM/yyyy): ");
-            dateOfJoining = sc.nextLine();
+            System.out.println("Contact Number");
+            contact = sc.nextLine();
+            System.out.println("Joining Year");
+            joiningYear = sc.nextInt();
             System.out.println("=======================================");
 
-            dojObj = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfJoining);
-
-            // to do : create professor obj, and add to db
+            Professor Prof = new Professor();
+            Prof.setUserID(username);
+            Prof.setName(name);
+            Prof.setPassword(password);
+            Prof.setDepartment(department);
+            Prof.setDesignation(designation);
+            Prof.setContactNumber(contact);
+            Prof.setJoiningYear(joiningYear);
+            
+            ao.addProfessor(Prof);
+            //done : create professor obj, and add to db
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -143,7 +143,7 @@ public class UserDaoOperation implements UserDaoInterface{
 				assignUserRole(userID);
 			}
 
-			String query = "SELECT password " + "FROM " + userRole;
+			String query = "SELECT password " + "FROM " + userRole ;
 
 			queryStatement = conn.prepareStatement(query);
 			ResultSet rs = queryStatement.executeQuery();

@@ -34,11 +34,14 @@ public class StudentClient {
         	Student student = getStudentfromUserName(username);
 
             while(true) {
-                System.out.println("Choose an option : ");
+            	System.out.println("==~~=~~=~~=~~=~Student Panel~=~~=~~=~~=~~==");
+                System.out.println("Choose an option: ");
+                System.out.println("---------------------------------------");
                 System.out.println("1 : View report card");
                 System.out.println("2 : View registered courses");
                 System.out.println("3 : Open semester registration dashboard");
                 System.out.println("4 : Logout");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -73,12 +76,15 @@ public class StudentClient {
         try {
 
             while(true) {
+            	System.out.println("=======================================");
                 System.out.println("Semester registration : ");
+                System.out.println("---------------------------------------");
                 System.out.println("1 : View available course details");
                 System.out.println("2 : Add course");
                 System.out.println("3 : Drop course");
                 System.out.println("4 : Make a payment");
                 System.out.println("5 : Finish registration and exit");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -129,6 +135,7 @@ public class StudentClient {
 
     private void addCourse() {
 
+    	System.out.println("=======================================");
         System.out.println("Add Course");
         System.out.println("Enter course ID: ");
 

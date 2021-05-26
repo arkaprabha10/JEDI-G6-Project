@@ -25,6 +25,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
 	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException{
+		
 		Connection connection=DBUtil.getConnection();
 		
 		try
@@ -37,7 +38,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 				studentId=results.getInt(1);
 			}
 			student.setStudentID(studentId+1);
-//			System.out.println(student.getStudentID());
+			
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.ADD_STUDENT);
 			preparedStatement.setString(1, student.getUserID());
 			preparedStatement.setString(2, student.getName());

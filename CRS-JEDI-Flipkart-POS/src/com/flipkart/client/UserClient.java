@@ -9,17 +9,20 @@ public class UserClient {
     private Scanner sc = new Scanner(System.in);
 
     public static void main(String[] args) {
-
         UserClient newUser = new UserClient();
+        newUser.createMenu();
     }
 
     private void createMenu() {
         try {
             while(true) {
+            	System.out.println("==~~=~~=~~=~~=~~=~CRS~=~~=~~=~~=~~=~~==");
                 System.out.println("Choose an option: ");
+                System.out.println("---------------------------------------");
                 System.out.println("1 : Register a new user");
                 System.out.println("2 : Login");
                 System.out.println("3 : Exit menu");
+                System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
                 sc.nextLine();
@@ -50,11 +53,12 @@ public class UserClient {
         String username, password, role;
 
         try {
-            System.out.println("Username: ");
+        	System.out.println("=======================================");
+            System.out.print("Username: ");
             username = sc.nextLine();
-            System.out.println("Password: ");
+            System.out.print("Password: ");
             password = sc.nextLine();
-            System.out.println("Enter Role Number (Student/Professor/Admin): ");
+            System.out.print("Enter Role (Student/Professor/Admin): ");
             role = sc.nextLine();
             
             UserOperation uo = new UserOperation();
@@ -63,6 +67,7 @@ public class UserClient {
             {
             	if(role.equals("Student"))
             	{
+            		System.out.println("=======================================");
             		System.out.println("Logged In Succesully as a Student");
             		StudentClient sc = new StudentClient();
             		sc.createStudentMenu(username);
@@ -70,6 +75,7 @@ public class UserClient {
             	}
             	else if(role.equals("Professor"))
             	{
+            		System.out.println("=======================================");
             		System.out.println("Logged In Succesully as a Professor");
             		ProfessorClient pc = new ProfessorClient();
             		pc.createProfessorMenu(username);
@@ -77,7 +83,8 @@ public class UserClient {
             	}
             	else if(role.equals("Admin"))
             	{
-            		System.out.println("Logged In Succesully as a Student");
+            		System.out.println("=======================================");
+            		System.out.println("Logged In Succesully as a Admin");
             		AdminClient ac = new AdminClient();
             		ac.createAdminMenu(username);
             		return;
@@ -85,6 +92,7 @@ public class UserClient {
             	else
             	{
             		System.out.println("Invalid Role");
+            		System.out.println("=======================================");
             	}
             		
             }
@@ -100,9 +108,12 @@ public class UserClient {
 
         try {
             while(true) {
+            	System.out.println("=======================================");
                 System.out.println("Register: ");
+                System.out.println("---------------------------------------");
                 System.out.println("1 : Student");
                 System.out.println("2 : Exit registration");
+                System.out.println("=======================================");
 
                 int userType = sc.nextInt();
                 sc.nextLine();
@@ -128,24 +139,27 @@ public class UserClient {
         StudentOperation so = new StudentOperation();
 
         try {
-
+        	System.out.println("=======================================");
             System.out.println("Enter your details");
-            System.out.println("Username: ");
+            System.out.println("---------------------------------------");
+            System.out.print("Username: ");
             username = sc.nextLine();
-            System.out.println("Password: ");
+            System.out.print("Password: ");
             password = sc.nextLine();
-            System.out.println("Name: ");
+            System.out.print("Name: ");
             name = sc.nextLine();
-            System.out.println("Department: ");
+            System.out.print("Department: ");
             department = sc.nextLine();
-            System.out.println("Year of joining: ");
+            System.out.print("Year of joining: ");
             joiningYear = sc.nextLine();
-            System.out.println("Contact Number: ");
+            System.out.print("Contact Number: ");
             contact = sc.nextLine();
+            System.out.println("=======================================");
             
             so.addStudent(username, name, password, department, contact, Integer.parseInt(joiningYear));
             
             System.out.println("User Added Successfully");
+            System.out.println("=======================================");
 
             // to do : create student bean
 

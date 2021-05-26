@@ -31,22 +31,22 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public void approveStudentRegistration(int studentId,int semesterId) throws FeesPendingException, StudentNotApprovedException {
 		
-		AdminDaoOperation ado = new AdminDaoOperation();
-		ado.approveStudentRegistration(studentId,semesterId);
+		AdminDaoOperation ado1 = new AdminDaoOperation();
+		ado1.approveStudentRegistration(studentId,semesterId);
 		
 	}
 
 	@Override
 	public void addProfessor(Professor professor) {
 		
-		// TODO Auto-generated method stub
+		ado.addProfessor(professor);
 		
 	}
 
 	@Override
 	public void removeProfessor(int professorID) {
 		// TODO Auto-generated method stub
-		ado.removeCourse(professorID);
+		ado.removeProfessor(professorID);
 		
 	}
 
@@ -80,8 +80,8 @@ public class AdminOperation implements AdminInterface {
 	@Override
 	public HashMap<String,ArrayList<Integer> > viewCourseStudentList(String courseID, int semester, Boolean viewAll) {
 		
-		AdminDaoOperation ado = new AdminDaoOperation();
-		return ado.viewCourseStudentList(courseID,semester,viewAll);
+		AdminDaoOperation ado1 = new AdminDaoOperation();
+		return ado1.viewCourseStudentList(courseID,semester,viewAll);
 	}
 
 

@@ -56,7 +56,7 @@ public class StudentClient {
                         break;
                     case 4:
                     	System.out.println("Logging Out ...");
-                    	System.exit(0);
+                    	return;
                     default:
                         System.out.println("Invalid input");
                 }

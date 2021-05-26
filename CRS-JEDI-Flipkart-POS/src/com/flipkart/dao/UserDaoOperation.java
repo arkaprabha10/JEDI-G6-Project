@@ -10,10 +10,25 @@ import java.sql.SQLException;
 import java.util.Objects;
 
 public class UserDaoOperation implements UserDaoInterface{
-
+	private static volatile UserDaoOperation instance=null;
 	private static final Connection conn = DBUtil.getConnection();
 	private static final String[] roleList = {"professor", "student", "admin"};
 	private String userRole;
+
+	private UserDaoOperation(){
+
+	}
+	public static UserDaoOperation getInstance()
+	{
+		if(instance==null)
+		{
+			// This is a synchronized block, when multiple threads will access this instance
+			synchronized(UserDaoOperation.class){
+				instance=new UserDaoOperation();
+			}
+		}
+		return instance;
+	}
 
 	public static void main(String[] args) throws SQLException {
 		UserDaoInterface test = new UserDaoOperation();
@@ -183,7 +198,10 @@ public class UserDaoOperation implements UserDaoInterface{
 //				}
 //			})
 
+
+
 			String query = "SELECT password " + "FROM " + role + " WHERE user_name = ?";
+
 
 			queryStatement = conn.prepareStatement(query);
 			queryStatement.setString(1, userID);

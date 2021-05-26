@@ -92,7 +92,7 @@ public class AdminClient {
 		
 		ao.approveStudentAccount(studentID);
 		
-		s
+		
 	}
 
 	private void viewCourseStudentList() {

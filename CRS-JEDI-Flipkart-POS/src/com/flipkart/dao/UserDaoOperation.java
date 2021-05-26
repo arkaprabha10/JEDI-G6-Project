@@ -147,12 +147,10 @@ public class UserDaoOperation implements UserDaoInterface{
 
 			queryStatement = conn.prepareStatement(query);
 			ResultSet rs = queryStatement.executeQuery();
-
 			rs.next();
 			String password = rs.getString("password");
-
 			if(password.equals(userPassword)) {
-				if(role.equals(userRole))
+				if(role.equalsIgnoreCase(userRole))
 					return true;
 				else return false;
 			}

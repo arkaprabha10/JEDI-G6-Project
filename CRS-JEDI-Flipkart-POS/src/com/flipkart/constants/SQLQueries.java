@@ -26,4 +26,15 @@ public class SQLQueries {
 	 return qry;
 	}
 
+	
+	public static String GET_STUDENT_BY_ID(int studentId, int semesterId) {
+		String qry="select * from registered_courses where student_id = '"+studentId+"' and semester_id = "+semesterId;
+		 return qry;
+	}
+
+	public static String APPROVE_STUDENT(int studentId, int semesterId) {
+		String qry="UPDATE registered_courses set is_approved=1 where student_id = '"+studentId+"' and semester_id = "+semesterId;
+		 return qry;
+	}
+
 }

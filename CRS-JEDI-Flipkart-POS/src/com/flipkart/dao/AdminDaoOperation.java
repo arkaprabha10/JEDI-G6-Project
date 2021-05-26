@@ -6,12 +6,17 @@ package com.flipkart.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
+import com.flipkart.constants.SQLQueries;
+import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.utils.DBUtil;
 
 /**
@@ -23,9 +28,46 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	private PreparedStatement statement = null;
 
 	@Override
-	public void approveStudentRegistration(ArrayList<Student> students) {
-		// TODO Auto-generated method stub
+	public void approveStudentRegistration(int studentId,int semesterId) throws FeesPendingException, StudentNotApprovedException {
 		
+		Connection connection = DBUtil.getConnection();
+		
+		
+		try {
+			statement = connection.prepareStatement(SQLQueries.GET_STUDENT_BY_ID(studentId, semesterId));
+						
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			Boolean primary4 = true;
+			Boolean fees = true;
+			List<String> primary_course_ids = new ArrayList<String>();
+			List<String> alternate_course_ids = new ArrayList<String>();
+			do {
+				if(rs.getBoolean(7)==false)fees=false; //fees not paid
+				if(rs.getString(2)!=null) {
+					if(rs.getBoolean(5)) //is primary 
+						primary_course_ids.add(rs.getString(2));
+					else 
+						alternate_course_ids.add(rs.getString(2));
+				}
+			}while(rs.next());
+			
+			if(!fees) {
+				throw new FeesPendingException(studentId);
+			}
+			
+			if( primary_course_ids.size()  + alternate_course_ids.size() < 4) {
+				throw new StudentNotApprovedException(studentId);
+			}
+			
+			PreparedStatement update_statement = connection.prepareStatement(SQLQueries.APPROVE_STUDENT(studentId, semesterId));
+			
+			update_statement .executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

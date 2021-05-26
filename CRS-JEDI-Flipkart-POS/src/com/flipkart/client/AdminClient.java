@@ -4,6 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import com.flipkart.constants.constants;
+import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.service.AdminOperation;
 
 public class AdminClient {
@@ -217,11 +220,14 @@ public class AdminClient {
         }
     }
 
-    private void approveStudentRegistration() {
-        String studentID;
+    private void approveStudentRegistration() throws FeesPendingException, StudentNotApprovedException {
+        int studentID;
         System.out.println("Enter student ID: ");
-        studentID = sc.nextLine();
-
+        studentID = sc.nextInt();
+        
+        AdminOperation Ao= new AdminOperation();
+        Ao.approveStudentRegistration(studentID,constants.SemesterID);
+        
         // to do : approve student reg logic
     }
 

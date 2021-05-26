@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.UserAlreadyInUseException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.exception.ProfessorNotAddedException;
@@ -26,8 +27,10 @@ public class AdminOperation implements AdminInterface {
 	AdminDaoOperation ado = new AdminDaoOperation();
 
 	@Override
-	public void approveStudentRegistration(ArrayList<Student> students) {
-		// TODO Auto-generated method stub
+	public void approveStudentRegistration(int studentId,int semesterId) throws FeesPendingException, StudentNotApprovedException {
+		
+		AdminDaoOperation ado = new AdminDaoOperation();
+		ado.approveStudentRegistration(studentId,semesterId);
 		
 	}
 

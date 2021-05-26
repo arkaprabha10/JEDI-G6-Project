@@ -14,6 +14,9 @@ import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperation;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.NoStudentInCourseException;
+import com.flipkart.exception.ProfessorCourseRegistrationException;
+import com.flipkart.exception.ProfessorNotAssignedException;
 
 /**
  * @author rutwi
@@ -25,15 +28,21 @@ public class ProfessorOperation implements ProfessorInterface {
 	@Override
 	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade)  
 	{
-		try {
+		
 			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
-			profObj.addGrade(studentID, semesterID,courseID, grade);
-			System.out.println("Grade added successfully");
+			try {
+				profObj.addGrade(studentID, semesterID,courseID, grade);
+				System.out.println("Grade added successfully");
+			} 
+			catch (GradeNotAddedException e) {
+				System.out.println(e.getMessage());
+			} 
+			catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
 			
-		}
-		catch(Exception e){
-			;
-		}
+			
+		
 	}
 
 	//view student details who have registered for a particular course
@@ -44,16 +53,25 @@ public class ProfessorOperation implements ProfessorInterface {
 		
 		try {
 			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
-			ans = profObj.viewCourseStudents(courseID, semesterID);
-			for (RegisteredCourses r:ans) {
-				System.out.println("studentID = " + r.getStudentID()+ " Semester ID = "+r.getSemesterID());
+			try
+			{
+				ans = profObj.viewCourseStudents(courseID, semesterID);
+				for (RegisteredCourses r:ans) {
+					System.out.println("studentID = " + r.getStudentID()+ " Semester ID = "+r.getSemesterID());
+				}
+			}
+			catch(NoStudentInCourseException e) {
+				System.out.println(e.getMessage());
 			}
 			 
 		}
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
+			
 	}
+	
 
 	//view course details which the professor is associated with
 	@Override
@@ -62,15 +80,19 @@ public class ProfessorOperation implements ProfessorInterface {
 		ArrayList<Course>ans = new ArrayList<Course>();
 		try {
 			
-			
+			try {
 			ProfessorDaoInterface profObj=new ProfessorDaoOperation();
 			ans = profObj.viewCourseProf(instructorID);
 			for (Course c: ans) {
 				System.out.println("CourseID = " + c.getCourseID()+ " Course Name = " + c.getCoursename());
+				}
+			}
+			catch(ProfessorNotAssignedException e) {
+				e.getMessage();
 			}
 		}
 		catch(Exception e) {
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 		
 	}
@@ -84,6 +106,7 @@ public class ProfessorOperation implements ProfessorInterface {
 		catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
+		
 		
 		
 		

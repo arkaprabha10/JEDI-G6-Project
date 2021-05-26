@@ -10,38 +10,48 @@ import com.flipkart.bean.Student;
 import com.flipkart.dao.StudentDaoOperation;
 import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
-import com.flipkart.exception.StudentNotApproved;
+import com.flipkart.exception.StudentCourseNotFoundException;
 import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.exception.StudentNotRegisteredException;
-import com.flipkart.exception.UserAlreadyInUseException;
 
 public class StudentOperation implements StudentInterface {
 
 	@Override
-	public ReportCard viewReportCard(int StudentID, int semesterId) throws GradeNotAddedException, StudentNotApproved, FeesPendingException, SQLException, StudentNotApprovedException  {
+	public ReportCard viewReportCard(Integer StudentID, Integer semesterId)   {
 
 		ReportCard R = new ReportCard();
 		StudentDaoOperation SDO= new StudentDaoOperation();
-		R = SDO.viewReportCard(StudentID,semesterId);
+		try {
+			R = SDO.viewReportCard(StudentID,semesterId);
+		} catch (SQLException | GradeNotAddedException | StudentNotApprovedException | FeesPendingException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 		ReportCardOperation report = new ReportCardOperation();
 		R.setSpi(report.getSPI(R));
 		return R;
 	}
 
 	@Override
-	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
-			throws StudentNotRegisteredException, SQLException {
+	public List<Course> viewRegisteredCourses(Integer studentID, Integer semesterId)
+			 {
 		
 		StudentDaoOperation SDO= new StudentDaoOperation();
-		
-		return SDO.viewRegisteredCourses(studentID,semesterId);	
-		
+		List<Course> ans= new ArrayList<Course>();
+		try {
+			ans = SDO.viewRegisteredCourses(studentID,semesterId);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} catch (StudentCourseNotFoundException e) {
+			System.out.println(e.getMessage());
+		}	
+		return ans;
 		
 	}
 
 	@Override
 	public Student addStudent(String userName, String name, String password,String department ,String contactNumber, Integer joiningYear)
-			throws UserAlreadyInUseException, SQLException {
+			  {
 		Student newStudent = new Student();
 		newStudent.setUserID(userName);
 		newStudent.setName(name);
@@ -49,22 +59,14 @@ public class StudentOperation implements StudentInterface {
 		newStudent.setDepartment(department);
 		newStudent.setContactNumber(contactNumber);
 		newStudent.setJoiningYear(joiningYear);
-//		System.out.println("Student Made"+newStudent.getName());
+
 		StudentDaoOperation sdo=new StudentDaoOperation();
-		sdo.addStudent(newStudent);
+		try {
+			sdo.addStudent(newStudent);
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		}
 		return newStudent;
-	}
-	
-	public static void main(String[] args) throws UserAlreadyInUseException, SQLException, StudentNotRegisteredException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
-		System.out.println("Hey There!");
-		StudentOperation so = new StudentOperation();
-		
-//			so.addStudent("09.Charlie", "Drake", "6273","EE", "2538389027", 2021);
-//			List<Course> l=so.viewRegisteredCourses(1, 1);
-//			for (Course el: l ) {
-//				System.out.println(el.getCourseID());
-//			}
-//			so.viewReportCard(1, 1);
 	}
 	
 }

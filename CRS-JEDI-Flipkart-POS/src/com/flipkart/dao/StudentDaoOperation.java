@@ -16,15 +16,15 @@ import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueries;
 import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.StudentCourseNotFoundException;
 import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.exception.StudentNotRegisteredException;
-import com.flipkart.exception.UserAlreadyInUseException;
 import com.flipkart.utils.DBUtil;
 
 public class StudentDaoOperation implements StudentDaoInterface {
 
 	@Override
-	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException{
+	public Student addStudent(Student student) throws SQLException{
 		
 		Connection connection=DBUtil.getConnection();
 		
@@ -58,20 +58,12 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			System.out.println(ex.getMessage());
 //			throw new UserAlreadyInUseException();
 		}
-//		finally
-//		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				System.out.println(e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
+//		
 		return student;
 	}
 
 	@Override
-	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
+	public ReportCard viewReportCard(Integer StudentID, Integer semesterId) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
 		Connection connection=DBUtil.getConnection();
 		
 		ReportCard R = new ReportCard();
@@ -114,8 +106,8 @@ public class StudentDaoOperation implements StudentDaoInterface {
 	}
 
 	@Override
-	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
-			throws SQLException, StudentNotRegisteredException {
+	public List<Course> viewRegisteredCourses(Integer studentID, Integer semesterId)
+			throws SQLException, StudentCourseNotFoundException {
 		
 		Connection connection=DBUtil.getConnection();
 		
@@ -128,10 +120,19 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			List<String> course_ids= new ArrayList<String>();
-
-			while (rs.next()) {
-				course_ids.add(rs.getString(1));
+			if(!rs.next())
+			{
+				throw new StudentCourseNotFoundException(studentID, semesterId);
+				
 			}
+			else {
+			
+				do{
+					course_ids.add(rs.getString(1));
+				}while (rs.next());
+				
+			}
+			 
 			
 			for(String courseId: course_ids) {		
 				PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_COURSE_BY_ID(courseId,semesterId));
@@ -177,7 +178,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 				throw new StudentNotRegisteredException();
 			}
 		}
-		catch(StudentNotRegisteredException ex) {
+		catch(SQLException ex) {
 			System.out.println(ex.getMessage());
 		}
 

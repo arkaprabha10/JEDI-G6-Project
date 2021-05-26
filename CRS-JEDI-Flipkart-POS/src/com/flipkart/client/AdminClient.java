@@ -4,10 +4,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.ReportCard;
+import com.flipkart.bean.Student;
 import com.flipkart.constants.constants;
 import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
@@ -74,9 +76,23 @@ public class AdminClient {
     }
 
     private void approvePendingStudentAccounts() {
-		// TODO Auto-generated method stub
-    	
 		
+    	List<Student> pendingStudents = ao.getPendingStudentAccountsList();
+    	
+    	System.out.println("List of Students with Pending Account Approval : ");
+    	System.out.println();
+    	System.out.println("Student ID\t Name\t Department\t Joining Year\t Contact Number");
+    	for(Student st: pendingStudents) {
+    		System.out.println(st.getStudentID()+"\t"+st.getName()+"\t"+st.getDepartment()+"\t"+st.getJoiningYear()+"\t"+st.getContactNumber());
+    	}
+    	
+    	System.out.println("\n Enter the Student ID for the Student Account you want to approve : ");
+		Integer studentID = sc.nextInt();
+		sc.nextLine();
+		
+		ao.approveStudentAccount(studentID);
+		
+		s
 	}
 
 	private void viewCourseStudentList() {

@@ -5,6 +5,7 @@ package com.flipkart.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
@@ -84,6 +85,20 @@ public class AdminOperation implements AdminInterface {
 		
 		AdminDaoOperation ado1 = new AdminDaoOperation();
 		return ado1.viewCourseStudentList(courseID,semester,viewAll);
+	}
+
+	
+	@Override
+	public List<Student> getPendingStudentAccountsList() {
+
+		return ado.getPendingStudentAccountsList();
+		
+	}
+
+	@Override
+	public void approveStudentAccount(Integer studentID) {
+		ado.approveStudentAccount(studentID);
+		
 	}
 
 

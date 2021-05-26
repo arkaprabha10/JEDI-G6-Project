@@ -146,7 +146,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			ResultSet rs = statement.executeQuery();
 			rs.next();
 			
-//			if(rs.getBoolean(1)) {
+			if(rs.getBoolean(1)) {
 				
 				StudentDaoOperation sdo = new StudentDaoOperation();
 				R = sdo.viewReportCard(studentID, constants.SemesterID);
@@ -158,11 +158,11 @@ public class AdminDaoOperation implements AdminDaoInterface {
 				statement1.executeUpdate();
 				
 				
-//			}
+			}
 			
-//			else {
-//				throw new StudentNotApprovedException(studentID);
-//			}
+			else {
+				throw new StudentNotApprovedException(studentID);
+			}
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -259,6 +259,60 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		}
 		return StudentList;
 	
+	}
+
+	
+	@Override
+	public List<Student> getPendingStudentAccountsList() {
+		
+		Connection connection = DBUtil.getConnection();
+		List<Student> pendingStudents = new ArrayList<Student>();
+		
+		try {
+			statement = connection.prepareStatement(SQLQueries.GET_PENDING_STUDENT);
+						
+			ResultSet rs = statement.executeQuery();
+			rs.next();
+			
+			do {
+				Student student = new Student();
+				student.setUserID(rs.getString(1));
+				student.setName(rs.getString(2));
+				student.setStudentID(rs.getInt(4));
+				student.setDepartment(rs.getString(5));
+				student.setJoiningYear(rs.getInt(6));
+				student.setPassword(rs.getString(7));
+				student.setContactNumber(rs.getString(8));
+				pendingStudents.add(student);
+			}while(rs.next());
+				
+				
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return pendingStudents;
+	}
+
+	@Override
+	public void approveStudentAccount(int studentId) {
+		
+		Connection connection = DBUtil.getConnection();
+		
+		try {
+			statement = connection.prepareStatement(SQLQueries.APPROVE_STUDENT_ACCOUNT(studentId));
+						
+			statement.executeUpdate();
+			
+			System.out.println("Student ID: "+studentId+" Approved !");
+				
+		} catch (SQLException e) {
+			e.getMessage();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 }

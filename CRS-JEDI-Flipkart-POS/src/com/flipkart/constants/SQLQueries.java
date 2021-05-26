@@ -10,6 +10,7 @@ package com.flipkart.constants;
 public class SQLQueries {
 	public static final String ADD_STUDENT = "insert into student(user_name, name, role, student_id, department, joining_year, password, contact_number) values (?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String GET_STUDENTS = "select * from student";
+	public static final String GET_PENDING_STUDENT = "select * from student where account_approved = 0 ";
 	
 	public static final String GET_REPORT(int studentID, int semesterId) {
 		 String qry="select * from registered_courses where student_id = "+studentID+" and semester_id = "+semesterId +" and is_primary=1";
@@ -54,6 +55,11 @@ public class SQLQueries {
 	public static String GENERATE_REPORT_CARD(int studentID,float spi) {
 		String qry="update student set spi = "+spi+ " where student_id = "+studentID;
 		 return qry;
+	}
+
+	public static String APPROVE_STUDENT_ACCOUNT(int studentId) {
+		String qry="update student set account_approved = 1 where student_id = "+studentId;
+		return qry;
 	}
 
 }

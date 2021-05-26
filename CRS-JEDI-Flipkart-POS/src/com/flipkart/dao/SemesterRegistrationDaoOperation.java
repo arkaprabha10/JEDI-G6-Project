@@ -13,6 +13,7 @@ import java.util.TreeSet;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.utils.DBUtil;
 
 /**
@@ -22,7 +23,6 @@ import com.flipkart.utils.DBUtil;
 public class SemesterRegistrationDaoOperation implements SemesterRegistrationDaoInterface{
 
 	private static Connection conn = DBUtil.getConnection();
-	private TreeSet<String> coursesToAdd = new TreeSet<>();
 
 	public static void main(String[] args) throws SQLException {
 		SemesterRegistrationDaoInterface test = new SemesterRegistrationDaoOperation();
@@ -32,21 +32,72 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 	@Override
 	public boolean addCourse(int studentId, int semesterId, String courseId) {
 
+		PreparedStatement stmt;
+		Course courseObj;
+
 		try {
 
-			if(!isRegistered(studentId, semesterId)) {
-				coursesToAdd.add(courseId);
-				return true;
+			courseObj = getCourseDetails(courseId);
+
+			if(courseObj == null) {
+				throw new CourseNotFoundException();
 			}
 
-			else {
-//				throw exception here
+			if(courseObj.getAvailableSeats() == 0) {
+//				throw exception for no seats
 			}
-		} catch (Exception e) {
+
+			String query = "INSERT INTO registered_courses VALUES (?,?,?,?,?,?,?)";
+
+			stmt = conn.prepareStatement(query);
+			stmt.setInt(1, studentId);
+			stmt.setString(2, courseObj.getCoursename());
+			stmt.setInt(3, courseObj.getOfferedSemester());
+			stmt.setInt(4, 0);
+			stmt.setBoolean(5, false);
+			stmt.setBoolean(6, false);
+			stmt.setBoolean(7, false);
+			stmt.execute();
+
+			return true;
+
+		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (CourseNotFoundException e) {
+			System.out.println(e.getMessage());
 		}
 
 		return false;
+	}
+
+	private Course getCourseDetails(String courseId) {
+		PreparedStatement stmt;
+		Course courseObj = null;
+
+		try {
+
+			String query = "SELECT * FROM course_catalog WHERE courseID = ?";
+
+			stmt = conn.prepareStatement(query);
+			stmt.setString(1, courseId);
+			ResultSet rs = stmt.executeQuery();
+
+			rs.next();
+			String courseID = rs.getString("courseID");
+			String courseName = rs.getString("course_name");
+			String instructor = rs.getString("instructor");
+			Integer offeredSemester = rs.getInt("offered_semester");
+			Integer availableSeats = rs.getInt("available_seats");
+
+			courseObj = new Course(courseID, courseName, instructor, 10, availableSeats, offeredSemester);
+
+			return courseObj;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 
 	public boolean isRegistered(int studentId, int semeseterId) {

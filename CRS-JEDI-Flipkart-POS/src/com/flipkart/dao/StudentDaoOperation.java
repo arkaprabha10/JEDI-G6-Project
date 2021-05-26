@@ -44,9 +44,9 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			preparedStatement.setString(3, "student");//role
 			preparedStatement.setInt(4, student.getStudentID());
 			preparedStatement.setString(5, student.getDepartment());
-			preparedStatement.setString(6, student.getPassword());
-			preparedStatement.setString(7, student.getContactNumber());
-			preparedStatement.setInt(8, student.getJoiningYear());
+			preparedStatement.setInt(6, student.getJoiningYear());
+			preparedStatement.setString(7, student.getPassword());
+			preparedStatement.setString(8, student.getContactNumber());
 			preparedStatement.executeUpdate();
 			
 			
@@ -172,7 +172,5 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 
 }

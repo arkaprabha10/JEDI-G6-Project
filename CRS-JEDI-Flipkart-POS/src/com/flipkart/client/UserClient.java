@@ -2,6 +2,8 @@ package com.flipkart.client;
 
 import java.util.Scanner;
 
+import com.flipkart.service.StudentOperation;
+
 public class UserClient {
     private Scanner sc = new Scanner(System.in);
 
@@ -90,7 +92,8 @@ public class UserClient {
 
     private void registerStudent() {
 
-        String username, password, name, department, studentID, joiningYear, address;
+        String username, password, name, department, contact, joiningYear;
+        StudentOperation so = new StudentOperation();
 
         try {
 
@@ -103,12 +106,14 @@ public class UserClient {
             name = sc.nextLine();
             System.out.println("Department: ");
             department = sc.nextLine();
-            System.out.println("Student ID: ");
-            studentID = sc.nextLine();
             System.out.println("Year of joining: ");
             joiningYear = sc.nextLine();
-            System.out.println("Address: ");
-            address = sc.nextLine();
+            System.out.println("Contact Number: ");
+            contact = sc.nextLine();
+            
+            so.addStudent(username, name, password, department, contact, Integer.parseInt(joiningYear));
+            
+            System.out.println("User Added Successfully");
 
             // to do : create student bean
 

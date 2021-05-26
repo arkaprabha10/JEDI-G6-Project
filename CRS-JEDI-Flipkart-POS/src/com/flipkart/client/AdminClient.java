@@ -29,7 +29,8 @@ public class AdminClient {
                 System.out.println("4 : Add Professor");
                 System.out.println("5 : Remove Professor");
                 System.out.println("6 : View Course Wise student list");
-                System.out.println("7 : Logout");
+                System.out.println("7 : Approve Pending Student Accounts");
+                System.out.println("8 : Logout");
                 System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
@@ -54,7 +55,10 @@ public class AdminClient {
                     case 6:
                         viewCourseStudentList();
                         break;
-                    case 7:
+                    case 7 :
+                    	approvePendingStudentAccounts();
+                    	break;
+                    case 8:
 //                    	System.exit(0);
                         return;
                     default:
@@ -67,7 +71,13 @@ public class AdminClient {
         }
     }
 
-    private void viewCourseStudentList() {
+    private void approvePendingStudentAccounts() {
+		// TODO Auto-generated method stub
+    	
+		
+	}
+
+	private void viewCourseStudentList() {
     	
     	System.out.println("\n\n==~~=~~=~Course Details~=~~=~~=~~==");
         System.out.println("Choose an option : ");

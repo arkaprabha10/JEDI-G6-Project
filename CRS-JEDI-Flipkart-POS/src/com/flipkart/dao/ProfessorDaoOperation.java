@@ -20,6 +20,20 @@ import java.util.ArrayList;
  *
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
+	private volatile ProfessorDaoOperation instance=null;
+
+	private ProfessorDaoOperation(){
+
+	}
+	public static ProfessorDaoOperation getInstance(){
+		if(instance==null)
+		{
+			synchronized (ProfessorDaoOperation.class){
+				instance=new ProfessorDaoOperation();
+			}
+		}
+		return instance;
+	}
 
 	public static void main(String[] args) throws SQLException {
 		ProfessorDaoOperation test = new ProfessorDaoOperation();

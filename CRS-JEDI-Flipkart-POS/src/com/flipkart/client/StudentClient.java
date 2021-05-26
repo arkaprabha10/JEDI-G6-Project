@@ -7,10 +7,10 @@ public class StudentClient {
 
     public static void main(String[] args) {
         StudentClient test = new StudentClient();
-        test.createStudentMenu();
+//        test.createStudentMenu();
     }
 
-    public void createStudentMenu() {
+    public void createStudentMenu(String username) {
 
         try {
 
@@ -118,6 +118,7 @@ public class StudentClient {
 
     private void viewAvailableCourses() {
         // to do : get available courses from db
+    	
     }
 
     private void viewRegisteredCourses() {
@@ -125,5 +126,6 @@ public class StudentClient {
     }
 
     private void viewGradeCard() {
+    	
     }
 }

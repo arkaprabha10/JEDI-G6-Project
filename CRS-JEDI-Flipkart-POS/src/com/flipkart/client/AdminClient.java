@@ -9,10 +9,10 @@ public class AdminClient {
 
     public static void main(String[] args) {
         AdminClient test = new AdminClient();
-        test.createAdminMenu();
+//        test.createAdminMenu();
     }
 
-    public void createAdminMenu() {
+    public void createAdminMenu(String username) {
         try {
 
             while(true) {

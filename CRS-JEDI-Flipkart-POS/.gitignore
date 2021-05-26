@@ -1,5 +1,7 @@
 
 ### Eclipse ###
+.project
+.classpath
 .metadata
 bin/
 tmp/

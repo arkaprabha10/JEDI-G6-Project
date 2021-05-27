@@ -12,13 +12,10 @@ public class SemesterRegistration {
 	private Integer semesterID;
 	private String dateOfRegistration;
 	private Boolean isApproved;
-	/**
-	 * @param studentID
-	 * @param semesterID
-	 * @param dateOfRegistration
-	 * @param isApproved
-	 */
 	
+	/**
+	 * Default Constructor
+	 */
 	public SemesterRegistration() {
 		// TODO Auto-generated constructor stub
 		studentID = 0;
@@ -26,6 +23,13 @@ public class SemesterRegistration {
 		dateOfRegistration = "1/1/2021";
 	}
 	
+	/**
+	 * Parameterized constructor
+	 * @param studentID
+	 * @param semesterID
+	 * @param dateOfRegistration
+	 * @param isApproved
+	 */
 	public SemesterRegistration(Integer studentID, Integer semesterID, String dateOfRegistration, Boolean isApproved) {
 		super();
 		this.studentID = studentID;
@@ -35,6 +39,7 @@ public class SemesterRegistration {
 	}
 
 	/**
+	 * Method to get studentID
 	 * @return the studentID
 	 */
 	public Integer getStudentID() {
@@ -42,6 +47,7 @@ public class SemesterRegistration {
 	}
 
 	/**
+	 * Method to set StudentID
 	 * @param studentID the studentID to set
 	 */
 	public void setStudentID(Integer studentID) {
@@ -49,6 +55,7 @@ public class SemesterRegistration {
 	}
 
 	/**
+	 * Method to get SemesterID
 	 * @return the semesterID
 	 */
 	public Integer getSemesterID() {
@@ -56,6 +63,7 @@ public class SemesterRegistration {
 	}
 
 	/**
+	 * Method to set SemesterID
 	 * @param semesterID the semesterID to set
 	 */
 	public void setSemesterID(Integer semesterID) {
@@ -63,6 +71,7 @@ public class SemesterRegistration {
 	}
 
 	/**
+	 * Method to get Date of Registration
 	 * @return the dateOfRegistration
 	 */
 	public String getDateOfRegistration() {
@@ -70,6 +79,7 @@ public class SemesterRegistration {
 	}
 
 	/**
+	 * Method to set Date of Registration
 	 * @param dateOfRegistration the dateOfRegistration to set
 	 */
 	public void setDateOfRegistration(String dateOfRegistration) {
@@ -77,13 +87,15 @@ public class SemesterRegistration {
 	}
 
 	/**
-	 * @return the isApproved
+	 * Method to know Approved or not
+	 * @return true if Approved else false
 	 */
 	public Boolean getIsApproved() {
 		return isApproved;
 	}
 
 	/**
+	 * Method to set Approved or not
 	 * @param isApproved the isApproved to set
 	 */
 	public void setIsApproved(Boolean isApproved) {

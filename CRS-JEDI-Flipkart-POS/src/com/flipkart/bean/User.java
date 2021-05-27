@@ -101,7 +101,9 @@ public class User {
 		this.joiningYear = joiningYear;
 	}
 	
-		
+	/**
+	 * Default Constructor
+	 */
 	public User() {
 		userName = "";
 		name = "Default";
@@ -111,8 +113,16 @@ public class User {
 		joiningYear = 2021;
 		}
 			
-			// TODO Auto-generated constructor stub
 	
+	/**
+	 * Parameterized Constructor
+	 * @param userName
+	 * @param name
+	 * @param role
+	 * @param password
+	 * @param contactNumber
+	 * @param joiningYear
+	 */
 	public User(String userName, String name, String role, String password, String contactNumber, Integer joiningYear) {
 		super();
 		this.userName = userName;
@@ -123,13 +133,6 @@ public class User {
 		this.joiningYear = joiningYear;
 	}
 	
-	/**
-	 * @param userID
-	 * @param name
-	 * @param role
-	 * @param password
-	 * @param contactNumber
-	 * @param joiningYear
-	 */
+
 
 }

@@ -13,6 +13,9 @@ public class Professor extends User{
 	private String department;
 	private String designation;
 	
+	/**
+	 * Default Constructor
+	 */
 	public Professor() {
 		// TODO Auto-generated constructor stub
 	
@@ -23,6 +26,7 @@ public class Professor extends User{
 	
 	
 	/**
+	 * Parametrized Constructor
 	 * @param instructorID
 	 * @param department
 	 * @param designation

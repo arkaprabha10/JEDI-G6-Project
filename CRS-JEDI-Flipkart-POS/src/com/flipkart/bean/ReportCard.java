@@ -18,7 +18,9 @@ public class ReportCard {
 	private Integer semesterID;
 	private Boolean isVisible;
 	
-	
+	/**
+	 * Default Constructor
+	 */
 	public ReportCard() {
 		// TODO Auto-generated constructor stub
 		spi = (float) 10.0;
@@ -28,6 +30,7 @@ public class ReportCard {
 	}
 	
 	/**
+	 * Parameterized Constructor
 	 * @param grades
 	 * @param spi
 	 * @param studentID
@@ -45,6 +48,7 @@ public class ReportCard {
 	}
 
 	/**
+	 * Method to get Grades for all courses
 	 * @return the grades
 	 */
 	public HashMap<String, Integer> getGrades() {
@@ -52,6 +56,7 @@ public class ReportCard {
 	}
 
 	/**
+	 * Method to set Grades
 	 * @param grades the grades to set
 	 */
 	public void setGrades(HashMap<String, Integer> grades) {
@@ -59,6 +64,7 @@ public class ReportCard {
 	}
 
 	/**
+	 * Method to get SPI
 	 * @return the spi
 	 */
 	public Float getSpi() {
@@ -66,6 +72,7 @@ public class ReportCard {
 	}
 
 	/**
+	 * Method to setSpi
 	 * @param spi the spi to set
 	 */
 	public void setSpi(Float spi) {
@@ -73,6 +80,7 @@ public class ReportCard {
 	}
 
 	/**
+	 * Method to get StudentID
 	 * @return the studentID
 	 */
 	public Integer getStudentID() {
@@ -80,13 +88,15 @@ public class ReportCard {
 	}
 
 	/**
-	 * @param studentID the studentID to set
+	 * Method to set StudentID
+	 * @param studentID 
 	 */
 	public void setStudentID(Integer studentID) {
 		this.studentID = studentID;
 	}
 
 	/**
+	 * Method to get semesterID
 	 * @return the semesterID
 	 */
 	public Integer getSemesterID() {
@@ -94,20 +104,23 @@ public class ReportCard {
 	}
 
 	/**
-	 * @param semesterID the semesterID to set
+	 * Method to set SemesterID
+	 * @param semesterID 
 	 */
 	public void setSemesterID(Integer semesterID) {
 		this.semesterID = semesterID;
 	}
 
 	/**
-	 * @return the isVisible
+	 * Method to set Visibility
+	 * @return true if visible else false
 	 */
 	public Boolean getIsVisible() {
 		return isVisible;
 	}
 
 	/**
+	 * Method to set visibility 
 	 * @param isVisible the isVisible to set
 	 */
 	public void setIsVisible(Boolean isVisible) {

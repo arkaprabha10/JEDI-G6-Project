@@ -12,15 +12,20 @@ public class Student extends User{
 	private String department;
 	
 	/**
+	 * Default Constructor
 	 * @param studentID
 	 * @param department
 	 */
-	
 	public Student() {
 	studentID = 0;
 	department = "Default";
 	}
 	
+	/**
+	 * Parameterized Constructor
+	 * @param studentID
+	 * @param department
+	 */
 	public Student(Integer studentID, String department) {
 		super();
 		this.studentID = studentID;

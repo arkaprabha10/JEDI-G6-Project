@@ -10,12 +10,16 @@ package com.flipkart.bean;
 public class Scholarship extends Payment {
 	private String scholarshipName;
 
+	/**
+	 * Default Constructor
+	 */
 	public Scholarship() {
 		// TODO Auto-generated constructor stub
 	scholarshipName = "Default";
 	}
 	
 	/**
+	 * Parameterized Constructor
 	 * @param scholarshipName
 	 */
 	public Scholarship(String scholarshipName) {
@@ -23,5 +27,4 @@ public class Scholarship extends Payment {
 		this.scholarshipName = scholarshipName;
 	}
 	
-
 }

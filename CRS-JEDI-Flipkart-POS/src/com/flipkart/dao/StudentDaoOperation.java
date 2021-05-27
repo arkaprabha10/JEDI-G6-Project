@@ -15,6 +15,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.ReportCard;
+import com.flipkart.bean.Student;
+import com.flipkart.constants.SQLQueries;
+import com.flipkart.exception.CourseNotAssignedException;
+import com.flipkart.exception.ReportCardNotGeneratedException;
+import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.GradeNotAddedException;
+import com.flipkart.exception.StudentNotApprovedException;
+import com.flipkart.exception.StudentNotRegisteredException;
+import com.flipkart.exception.UserAlreadyInUseException;
+import com.flipkart.service.StudentOperation;
+import com.flipkart.utils.DBUtil;
+
 public class StudentDaoOperation implements StudentDaoInterface {
 
 	private static volatile StudentDaoOperation instance=null;
@@ -97,10 +111,13 @@ public class StudentDaoOperation implements StudentDaoInterface {
 				}
 
 				else {
+					if(rs.getInt(4)==0) {
+						throw new GradeNotAddedException(StudentID);	
+						}
 					grades.put(rs.getString(2), rs.getInt(4));
 				}
 			}
-
+			if(grades.isEmpty()) throw new ReportCardNotGeneratedException();
 			R.setIsVisible(true);
 			R.setGrades(grades);
 				

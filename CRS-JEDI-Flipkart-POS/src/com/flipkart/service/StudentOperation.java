@@ -42,11 +42,19 @@ public class StudentOperation implements StudentInterface {
 	}
 
 	@Override
-	public ReportCard viewReportCard(int StudentID, int semesterId) throws GradeNotAddedException, StudentNotApproved, FeesPendingException, SQLException, StudentNotApprovedException  {
+	public ReportCard viewReportCard(int StudentID, int semesterId)  {
 
 		ReportCard R = new ReportCard();
 //		StudentDaoOperation SDO= new StudentDaoOperation();
-		R = SDO.viewReportCard(StudentID,semesterId);
+		try {
+			R = SDO.viewReportCard(StudentID,semesterId);
+			System.out.println("StudentID : "+R.getStudentID()+"\t SemesterID : "+R.getSemesterID());
+	    	System.out.println("Course  Grade");
+	    	R.getGrades().forEach((key, value) -> System.out.println(key + "    " + value));
+		} catch (SQLException | GradeNotAddedException | StudentNotApprovedException | FeesPendingException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
+		}
 		ReportCardOperation report = new ReportCardOperation();
 		R.setSpi(report.getSPI(R));
 		return R;

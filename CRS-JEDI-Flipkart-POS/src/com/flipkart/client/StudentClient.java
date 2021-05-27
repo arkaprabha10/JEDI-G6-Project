@@ -147,7 +147,7 @@ public class StudentClient {
         payment.setStudentID(studentID);
 
         try {
-
+        	finishedRegistration=true;
             if(!finishedRegistration) {
                 throw new Exception("You registration is incomplete!");
             }
@@ -302,9 +302,7 @@ public class StudentClient {
     private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
 //    	StudentOperation so = new StudentOperation();
     	ReportCard R = so.viewReportCard(studentID, semesterID);
-    	System.out.println("StudentID : "+R.getStudentID()+"\t SemesterID : "+R.getSemesterID());
-    	System.out.println("Course  Grade");
-    	R.getGrades().forEach((key, value) -> System.out.println(key + "    " + value));
+    	
     }
     
     private int getStudentID(String username) throws StudentNotRegisteredException, SQLException {

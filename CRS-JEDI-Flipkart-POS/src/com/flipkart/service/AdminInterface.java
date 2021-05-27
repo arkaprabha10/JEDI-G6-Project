@@ -55,7 +55,7 @@ public interface AdminInterface {
 	 * @param courseID
 	 * @param courseCatalog
 	 */
-	public void removeCourse(int courseID) throws CourseNotFoundException, CourseNotDeletedException;
+	public void removeCourse(String courseID) throws CourseNotFoundException, CourseNotDeletedException;
 	
 	/**
 	 * @param courseID

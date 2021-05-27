@@ -16,17 +16,20 @@ import java.util.Scanner;
 public class StudentClient {
     static Scanner sc = new Scanner(System.in);
     private int studentID;
-    private boolean finishedRegistration = true;
+    private boolean finishedRegistration = false;
 
     SemesterRegistrationInterface sro = SemesterRegistrationOperation.getInstance();
     StudentInterface so = StudentOperation.getInstance();
     StudentDaoInterface sdo = StudentDaoOperation.getInstance();
 
     public static void main(String[] args) {
-        StudentClient test = new StudentClient();
-        System.out.println("Enter You Username");
-        String username = sc.nextLine();
-        test.createStudentMenu(username);
+//        StudentClient test = new StudentClient();
+//        System.out.println("Enter You Username");
+//        String username = sc.nextLine();
+//        test.createStudentMenu(username);
+
+        boolean a = sc.nextBoolean();
+        System.out.println(a);
     }
 
     public void createStudentMenu(String username) {
@@ -122,8 +125,6 @@ public class StudentClient {
 
     private void finishRegistration() {
 
-//        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
-
         System.out.println("=======================================");
         System.out.println("Finishing registration...");
 
@@ -161,6 +162,7 @@ public class StudentClient {
             System.out.println("=======================================");
 
             int menuOption = sc.nextInt();
+            sc.nextLine();
 
             switch (menuOption) {
                 case 1:
@@ -242,12 +244,15 @@ public class StudentClient {
     	System.out.println("=======================================");
         System.out.println("Add Course");
         System.out.println("Enter course ID: ");
-
         String courseID = sc.nextLine();
+        System.out.println("Is primary(0/1) ? : ");
+        int isPrimaryInt = sc.nextInt();
+        sc.nextLine();
+        boolean isPrimary = isPrimaryInt == 1;
 
         boolean courseAdded = false;
 		try {
-			courseAdded = sro.addCourse(studentID, 1, courseID);
+			courseAdded = sro.addCourse(studentID, 1, courseID, isPrimary);
 		} catch (CourseNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -291,12 +296,7 @@ public class StudentClient {
 
     private void viewRegisteredCourses(int studentID, int semesterID) throws StudentNotRegisteredException, SQLException {
 
-//    	StudentOperation so = new StudentOperation();
-    	List<Course> courses = so.viewRegisteredCourses(studentID, semesterID);
-    	System.out.println("These are your registered courses : ");
-    	for(Course c: courses) {
-    		System.out.println("Course ID : "+c.getCourseID()+" \t Course Name : "+ c.getCoursename()+"\t Instructor : "+c.getInstructorID());
-    	}
+    	so.viewRegisteredCourses(studentID, semesterID);
     }
 
     private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {

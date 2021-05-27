@@ -1,26 +1,19 @@
 package com.flipkart.dao;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueries;
-import com.flipkart.exception.FeesPendingException;
-import com.flipkart.exception.GradeNotAddedException;
-import com.flipkart.exception.StudentNotApprovedException;
-import com.flipkart.exception.StudentNotRegisteredException;
-import com.flipkart.exception.UserAlreadyInUseException;
-import com.flipkart.service.StudentOperation;
+import com.flipkart.exception.*;
 import com.flipkart.utils.DBUtil;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class StudentDaoOperation implements StudentDaoInterface {
 
@@ -135,28 +128,33 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			PreparedStatement preparedStatement=connection.prepareStatement(SQLQueries.GET_COURSES(studentID,semesterId));
 			
 			ResultSet rs = preparedStatement.executeQuery();
-			List<String> course_ids= new ArrayList<String>();
 
 			while (rs.next()) {
-				course_ids.add(rs.getString(1));
-			}
-			
-			for(String courseId: course_ids) {		
-				PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_COURSE_BY_ID(courseId,semesterId));
+				String courseId = rs.getString("course_id");
+
+				PreparedStatement preparedStatement0=connection.prepareStatement(SQLQueries.GET_COURSE_BY_ID(courseId, semesterId));
 				ResultSet rs0 = preparedStatement0.executeQuery();
-				Course c = new Course();
-				c.setCourseID(courseId);
-				rs0.next();
-				c.setCoursename(rs0.getString(2));
-				c.setInstructorID(rs0.getString(3));
-				registeredCourses.add(c);
+
+				if(rs0.next()) {
+					Course c = new Course();
+					c.setCourseID(courseId);
+					c.setCoursename(rs0.getString("course_name"));
+					c.setInstructorID(rs0.getString("instructor"));
+					c.setPrimary(rs.getBoolean("is_primary"));
+
+					registeredCourses.add(c);
+				}
 			}
 		}
 		
 		catch(Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-		
+
+		if(registeredCourses.isEmpty()) {
+			throw new StudentNotRegisteredException();
+		}
+
 		return registeredCourses;
 	}
 

@@ -5,6 +5,7 @@ package com.flipkart.bean;
 
 /**
  * @author Dell
+ * Admin class
  *
  */
 public class Admin extends User {

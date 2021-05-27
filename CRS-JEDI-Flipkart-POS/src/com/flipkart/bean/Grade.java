@@ -1,5 +1,10 @@
 package com.flipkart.bean;
 
+/**
+ * 
+ * @author Jayanth
+ * Grade class
+ */
 public class Grade {
 	private int numericGrade;
 

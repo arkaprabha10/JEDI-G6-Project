@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * @author Dell
+ * RegisteredCourses Class
  *
  */
 public class RegisteredCourses {

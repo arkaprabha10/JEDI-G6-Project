@@ -5,6 +5,7 @@ package com.flipkart.bean;
 
 /**
  * @author Dell
+ * Scholarship Class
  *
  */
 public class Scholarship extends Payment {

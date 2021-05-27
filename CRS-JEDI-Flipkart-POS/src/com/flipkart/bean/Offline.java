@@ -5,6 +5,7 @@ package com.flipkart.bean;
 
 /**
  * @author Dell
+ * Offline Class
  *
  */
 public class Offline extends Payment{

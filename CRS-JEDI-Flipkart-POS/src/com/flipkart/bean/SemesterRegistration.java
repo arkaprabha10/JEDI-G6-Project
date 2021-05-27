@@ -5,6 +5,7 @@ package com.flipkart.bean;
 
 /**
  * @author Dell
+ * SemesterRegistration Class
  *
  */
 public class SemesterRegistration {

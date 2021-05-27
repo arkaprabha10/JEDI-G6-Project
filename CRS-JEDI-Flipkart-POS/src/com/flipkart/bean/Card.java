@@ -5,6 +5,7 @@ package com.flipkart.bean;
 
 /**
  * @author Dell
+ * Card Class
  *
  */
 public class Card extends Online{

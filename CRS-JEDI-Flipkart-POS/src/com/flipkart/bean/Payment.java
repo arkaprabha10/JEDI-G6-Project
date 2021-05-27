@@ -7,6 +7,7 @@ import javax.print.DocFlavor.INPUT_STREAM;
 
 /**
  * @author Dell
+ * payment Class
  *
  */
 public class Payment {

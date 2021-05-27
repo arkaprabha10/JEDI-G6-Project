@@ -5,7 +5,7 @@ package com.flipkart.bean;
 
 /**
  * @author Dell
- *
+ * Netbanking class
  */
 public class NetBanking extends Online {
 	private String bank;

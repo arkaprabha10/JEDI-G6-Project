@@ -5,7 +5,7 @@ package com.flipkart.bean;
 
 /**
  * @author Dell
- *
+ * Student class
  */
 public class Student extends User{
 	private Integer studentID;

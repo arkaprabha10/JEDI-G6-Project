@@ -5,6 +5,7 @@ package com.flipkart.bean;
 
 /**
  * @author Dell
+ * Professor class
  *
  */
 public class Professor extends User{

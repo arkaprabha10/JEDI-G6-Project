@@ -25,8 +25,10 @@ import com.flipkart.service.ReportCardOperation;
 import com.flipkart.utils.DBUtil;
 
 /**
+ * 
  * @author rutwi
- *
+ * Dao Class Operations for Admin
+ * 
  */
 public class AdminDaoOperation implements AdminDaoInterface {
 	
@@ -55,6 +57,12 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return instance;
 	}	
 
+	/**
+	 * Method to approveStudent Registration using SQL commands
+	 * @param students
+	 * @throws FeesPendingException 
+	 * @throws StudentNotApprovedException 
+	 */
 	@Override
 	public void approveStudentRegistration(int studentId,int semesterId) throws FeesPendingException, StudentNotApprovedException {
 		
@@ -98,6 +106,10 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		}
 	}
 
+	/**
+	 * Method to add Professor using SQL commands
+	 * @param professor
+	 */
 	@Override
 	public void addProfessor(Professor professor){
 		// TODO Auto-generated method stub
@@ -136,6 +148,10 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		 
 	}
 
+	/**
+	 * Method to remove Professor using SQL commands
+	 * @param professor
+	 */
 	@Override
 	public void removeProfessor(int professorID) {
 		// TODO Auto-generated method stub
@@ -157,6 +173,14 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		
 	}
 
+	/**
+	 * Method to Generate ReportCard using SQL commands
+	 * @param studentID
+	 * @return 
+	 * @throws StudentNotApprovedException 
+	 * @throws FeesPendingException 
+	 * @throws GradeNotAddedException 
+	 */
 	@Override
 	public ReportCard generateReportCard(int studentID) throws StudentNotApprovedException, GradeNotAddedException, FeesPendingException {
 		
@@ -193,7 +217,12 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		}
 		return R;
 	}
-
+	
+	/**
+	 * Method to remove course using SQL commands
+	 * @param courseID
+	 * @param courseCatalog
+	 */
 	@Override
 	public void removeCourse(String courseID) {
 		// TODO Auto-generated method stub
@@ -215,6 +244,11 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		
 	}
 
+	/**
+	 * Method to remove course using SQL commands
+	 * @param courseID
+	 * @param courseCatalog
+	 */
 	@Override
 	public void addCourse(Course course) {
 		// TODO Auto-generated method stub
@@ -239,7 +273,13 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		
 	}
 
-	
+	/**
+	 * Method to add Course using SQL commands
+	 * @param courseID
+	 * @param semesterId
+	 * @param viewAll
+	 * @return
+	 */
 	@Override
 	public HashMap<String,ArrayList<Integer> >  viewCourseStudentList(String courseID, int semesterId, Boolean viewAll) {
 		
@@ -284,7 +324,10 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	
 	}
 
-	
+	/**
+	 * Method to Fetch Students yet to approved using SQL commands
+	 * @return list of student yet to approved
+	 */
 	@Override
 	public List<Student> getPendingStudentAccountsList() {
 		
@@ -317,6 +360,10 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		return pendingStudents;
 	}
 
+	/**
+	 * Method to Approve Student using SQL commands
+	 * @param studentId
+	 */
 	@Override
 	public void approveStudentAccount(int studentId) {
 		

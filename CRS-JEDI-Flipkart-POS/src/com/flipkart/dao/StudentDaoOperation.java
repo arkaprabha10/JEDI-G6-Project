@@ -29,6 +29,11 @@ import com.flipkart.exception.UserAlreadyInUseException;
 import com.flipkart.service.StudentOperation;
 import com.flipkart.utils.DBUtil;
 
+/**
+ * 
+ * @author Jayanth
+ * Class to implement Student Dao Operations
+ */
 public class StudentDaoOperation implements StudentDaoInterface {
 
 	private static volatile StudentDaoOperation instance=null;
@@ -49,6 +54,13 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return instance;
 	}
 
+	/**
+	 * Method to add Student in database
+	 * @param student
+	 * @return Student
+	 * @throws SQLException
+	 * @throws UserAlreadyInUseException
+	 */
 	@Override
 	public Student addStudent(Student student) throws SQLException, UserAlreadyInUseException{
 		
@@ -85,6 +97,14 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return student;
 	}
 
+	/**
+	 * Method to view Report Card
+	 * @param StudentID
+	 * @param semesterId
+	 * @return reportCard
+	 * @throws FeesPendingException 
+	 * @throws StudentNotApprovedException 
+	 */
 	@Override
 	public ReportCard viewReportCard(int StudentID, int semesterId) throws SQLException, GradeNotAddedException , StudentNotApprovedException, FeesPendingException{
 		Connection connection=DBUtil.getConnection();
@@ -131,6 +151,14 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return R;
 	}
 
+	/**
+	 * Method to view Registered Courses
+	 * @param studentID
+	 * @param semesterId
+	 * @return list of registeredCourses
+	 * @throws SQLException
+	 * @throws StudentNotRegisteredException
+	 */
 	@Override
 	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
 			throws SQLException, StudentNotRegisteredException {
@@ -175,8 +203,14 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		return registeredCourses;
 	}
 
+	/**
+	 * Method to get StudentId from username
+	 * @param username
+	 * @return StudentId
+	 * @throws StudentNotRegisteredException
+	 * @throws SQLException
+	 */
 	@Override
-	
 	public int getStudentIDFromUserName(String username) throws StudentNotRegisteredException, SQLException {
 		
 		int studentID = -1;

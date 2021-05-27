@@ -17,6 +17,7 @@ import java.util.ArrayList;
 
 /**
  * @author Dell
+ * Class to implement Professor Dao Operations
  *
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
@@ -47,6 +48,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 //			System.out.println(r.getCourseID()+" "+r.getCoursename());
 	}
 
+	/**
+	 * Method to Grade a Student using SQL commands
+	 * @param studentID
+	 * @param courseID
+	 * @param grade
+	 */
 	@Override
 	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade) {
 		// TODO Auto-generated method stub
@@ -78,6 +85,11 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		
 	}
 
+	/**
+	 * Method to View student details for students who are registered in a particular course
+	 * @param professorID
+	 * @return the enrolled students for the corresponding professor and course code.
+	 */
 	@Override
 	public ArrayList<RegisteredCourses> viewCourseStudents(String courseID, Integer semesterID) {
 		// TODO Auto-generated method stub
@@ -115,6 +127,12 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		return null;
 	}
 
+	/**
+	 * Method to view courses which the professor is associated with
+	 * @param instructorID
+	 * @return the enrolled students for the corresponding professor and course code.
+	 * @throws SQLException
+	 */
 	@Override
 	public ArrayList<Course> viewCourseProf(int instructorID) {
 		// TODO Auto-generated method stub
@@ -149,6 +167,14 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		return ans;
 	}
 
+	/**
+	 * Method for Professor to register for a course if no one is allocated to it
+	 * @param instructorID
+	 * @param semesterID
+	 * @param courseID
+	 * @return true if Successfully registered else false
+	 * @throws SQLException
+	 */
 	@Override
 	public Boolean registerCourse(int instructorID, Integer semesterID, String courseID) {
 		

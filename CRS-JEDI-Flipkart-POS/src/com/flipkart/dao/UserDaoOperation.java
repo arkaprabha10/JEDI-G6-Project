@@ -9,6 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
 
+/**
+ * 
+ * @author Jayanth
+ * Class to implement User Dao Operations
+ *
+ */
+
 public class UserDaoOperation implements UserDaoInterface{
 	private static volatile UserDaoOperation instance=null;
 	private static final Connection conn = DBUtil.getConnection();
@@ -30,6 +37,7 @@ public class UserDaoOperation implements UserDaoInterface{
 		return instance;
 	}
 
+	
 	public static void main(String[] args) throws SQLException {
 		UserDaoInterface test = new UserDaoOperation();
 
@@ -39,7 +47,11 @@ public class UserDaoOperation implements UserDaoInterface{
 	}
 
 
-
+	/**
+	 * Method to update Password in database
+	 * @param userID
+	 * @param password
+	 */
 	@Override
 	public void updatePassword(String userID, String newPassword) {
 
@@ -68,6 +80,12 @@ public class UserDaoOperation implements UserDaoInterface{
 		}
 	}
 
+	/**
+	 * Method to get Role of User from DataBase
+	 * @param userID
+	 * @return Role
+	 * @throws UserNotFoundException
+	 */
 	@Override
 	public String getUserRole(String userID) {
 
@@ -82,6 +100,12 @@ public class UserDaoOperation implements UserDaoInterface{
 		return userRole;
 	}
 
+	/**
+	 * Method to assign Role of User from DataBase
+	 * @param userID
+	 * @return Role
+	 * @throws UserNotFoundException
+	 */
 	private void assignUserRole(String userID) throws UserNotFoundException{
 
 		PreparedStatement stmt;
@@ -115,6 +139,10 @@ public class UserDaoOperation implements UserDaoInterface{
 		}
 	}
 
+	/**
+	 * Method to update Contact Number in database
+	 * @param userID
+	 */
 	@Override
 	public void updateContactNumber(String userID, String newNumber) {
 
@@ -143,12 +171,19 @@ public class UserDaoOperation implements UserDaoInterface{
 		}
 	}
 
+	
 	@Override
 	public void updateRole(String userID, String role) {
 		// TODO Auto-generated method stub
 
 	}
 
+	/**
+	 * Method to verify credentials of Users from DataBase
+	 * @param userID
+	 * @param password
+	 * @return Verify credentials operation status
+	 */
 	@Override
 	public boolean loginUser(String userID, String userPassword, String role) {
 

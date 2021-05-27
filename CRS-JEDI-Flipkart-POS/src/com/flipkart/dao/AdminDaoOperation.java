@@ -102,7 +102,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 
@@ -213,7 +213,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return R;
 	}
@@ -355,7 +355,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 				
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return pendingStudents;
 	}

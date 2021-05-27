@@ -18,7 +18,7 @@ import com.flipkart.utils.DBUtil;
 
 /**
  * @author Asus
- *
+ * class to implement Dao operations for Semester Registeration
  */
 public class SemesterRegistrationDaoOperation implements SemesterRegistrationDaoInterface{
 	private static volatile SemesterRegistrationDaoOperation instance=null;
@@ -27,7 +27,11 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 	private SemesterRegistrationDaoOperation(){
 
 	}
-
+	
+	/**
+	 * Method to make AdminDaoOperation Singleton
+	 * @return
+	 */
 	public static SemesterRegistrationDaoOperation getInstance()
 	{
 		if(instance==null)
@@ -51,6 +55,13 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 //		}
 	}
 
+	/**
+	 * Method to add Course selected by student 
+	 * @param studentId
+	 * @param semesterId
+	 * @param courseId
+	 * @return the course if it is added successfully, else null
+	 */
 	@Override
 	public boolean addCourse(int studentId, int semesterId, String courseId, boolean isPrimary) {
 
@@ -103,6 +114,12 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		return false;
 	}
 
+	/**
+	 * Method to get course Details
+	 * @param courseId
+	 * @param semesterId
+	 * @return Course
+	 */
 	private Course getCourseDetails(String courseId, Integer semesterId) {
 		PreparedStatement stmt;
 		Course courseObj = null;
@@ -138,6 +155,13 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		return null;
 	}
 
+	/**
+	 * Method to check if Registered courses exists or not
+	 * @param studentId
+	 * @param semesterId
+	 * @param courseId
+	 * @return true if exists else false
+	 */
 	private boolean checkRegisteredCourseExists(int studentId, int semesterId, String courseId) {
 		PreparedStatement stmt;
 
@@ -187,6 +211,13 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		}
 	}
 
+	/**
+	 * Method to drop Course selected by student 
+	 * @param studentId
+	 * @param semesterId
+	 * @param courseId 
+	 * @return Boolean value indicating if it is was dropped successfully
+	 */
 	@Override
 	public boolean dropCourse(int studentId, int semesterId, String courseId) {
 
@@ -230,6 +261,13 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		return false;
 	}
 
+	/**
+	 * Method to finish registration
+	 * @param studentId
+	 * @param semesterId
+	 * @return true of success else false
+	 * @throws SQLException
+	 */
 	@Override
 	public boolean finishRegistration(int studentId, int semesterId) {
 
@@ -271,6 +309,12 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 	}
 
 
+	/**
+	 * Method to view Courses registered by student 
+	 * @param studentId
+	 * @param semesterId 
+	 * @return list of student's registered courses
+	 */
 	@Override
 	public RegisteredCourses viewRegisteredCourses(int studentId, int semesterId) {
 
@@ -302,6 +346,10 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		return regCourses;
 	}
 
+	/**
+	 * Method to view all courses available
+	 * @return list of all courses with availbale seats
+	 */
 	@Override
 	public ArrayList<Course> viewAvailableCourses() {
 
@@ -334,12 +382,25 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		return courseCatalog;
 	}
 
+	/**
+	 * Method to calculate student Fees
+	 * @param studentId
+	 * @param semesterId
+	 * @return total fees to be paid by the student
+	 */
 	@Override
 	public int calculateFees(int studentId, int semesterId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * Method to pay student Fees
+	 * @param studentId
+	 * @param semesterId
+	 * @param paymentMode 
+	 * @return Boolean value indicating if payment was successful
+	 */
 	@Override
 	public Payment payFees(int studentId, int semesterId, String paymentMode) {
 		// TODO Auto-generated method stub

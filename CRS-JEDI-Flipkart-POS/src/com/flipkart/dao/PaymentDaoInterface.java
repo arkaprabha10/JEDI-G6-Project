@@ -11,7 +11,7 @@ import com.flipkart.exception.PaymentFailedException;
 
 /**
  * @author Jayanth
- *
+ * Interface for Payment Dao Operations
  */
 public interface PaymentDaoInterface {
 	//Deuplicate in semester registration
@@ -24,6 +24,7 @@ public interface PaymentDaoInterface {
 
 
 	/**
+	 * Method to make Payment
 	 * @param payment
 	 */
     public void makePayment(Payment payment) throws PaymentFailedException;

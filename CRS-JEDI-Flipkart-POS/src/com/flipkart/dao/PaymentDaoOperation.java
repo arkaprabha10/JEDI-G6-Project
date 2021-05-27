@@ -18,7 +18,7 @@ import java.util.UUID;
 
 /**
  * @author Asus
- *
+ * Dao class operation for Payment
  */
 public class PaymentDaoOperation implements PaymentDaoInterface{
 
@@ -29,6 +29,10 @@ public class PaymentDaoOperation implements PaymentDaoInterface{
 		PaymentDaoOperation test = new PaymentDaoOperation();
 	}
 	
+	/**
+	 * Method to make Payment
+	 * @param payment
+	 */
 	@Override
 	public void makePayment(Payment payment) throws PaymentFailedException {
 
@@ -53,6 +57,10 @@ public class PaymentDaoOperation implements PaymentDaoInterface{
 		}
 	}
 
+	/**
+	 * Method to New transaction ID
+	 * @return transactionID
+	 */
 	private int getNewTransactionID() {
 
 		int newTransactionID = -1;
@@ -75,11 +83,18 @@ public class PaymentDaoOperation implements PaymentDaoInterface{
 		return newTransactionID;
 	}
 
+	/**
+	 * Method to Update Registered Courses payment
+	 */
 	private void updateRegisteredCoursesPayment() {
 
 		// to do
 	}
 
+	/**
+	 * Method to make PaymentDaoOperation Singleton
+	 * @return
+	 */
 	public static PaymentDaoOperation getInstance()
 	{
 		if(instance==null)

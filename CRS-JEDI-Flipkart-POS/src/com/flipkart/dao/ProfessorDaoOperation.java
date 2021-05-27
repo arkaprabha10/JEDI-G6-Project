@@ -28,6 +28,10 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 
 	}
 	
+	/**
+	 * Method to make ProfessorDaoOperation Singleton
+	 * @return
+	 */
 	public static ProfessorDaoOperation getInstance(){
 		if(instance==null)
 		{

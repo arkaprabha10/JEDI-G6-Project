@@ -19,7 +19,7 @@ import com.flipkart.exception.StudentNotRegisteredException;
 
 /**
  * @author Asus
- *
+ * Interface for SemesteRegistration Dao Operations
  */
 public interface SemesterRegistrationDaoInterface {
 	
@@ -44,7 +44,7 @@ public interface SemesterRegistrationDaoInterface {
 	/**
 	 * @param studentId
 	 * @param semesterId
-	 * @return
+	 * @return true of success else false
 	 * @throws SQLException
 	 */
 	public boolean finishRegistration(int studentId, int semesterId) throws SQLException;

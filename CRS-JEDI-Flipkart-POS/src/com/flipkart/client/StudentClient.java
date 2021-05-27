@@ -13,6 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Jayanth
+ * The class displays the menu for student client
+ *
+ */
 public class StudentClient {
     static Scanner sc = new Scanner(System.in);
     private int studentID;
@@ -32,6 +38,10 @@ public class StudentClient {
         System.out.println(a);
     }
 
+    /**
+     * Method to generate Student Menu for course registration dashboard, reportcard and view registered courses 
+     * @param username
+     */
     public void createStudentMenu(String username) {
 
         try {
@@ -75,7 +85,9 @@ public class StudentClient {
         }
     }
 
-    
+    /**
+     * Method that brings up createRegistrationDashboard Menu
+     */
 	private void createRegistrationDashboard() {
         Scanner sc = new Scanner(System.in);
 
@@ -123,6 +135,9 @@ public class StudentClient {
         }
     }
 
+	/**
+	 * Method used to end Registration 
+	 */
     private void finishRegistration() {
 
         System.out.println("=======================================");
@@ -138,6 +153,9 @@ public class StudentClient {
         }
     }
 
+    /**
+     * Method used to pay Registration fee
+     */
     private void payRegistrationFee() {
 
         Scanner sc = new Scanner(System.in);
@@ -202,6 +220,9 @@ public class StudentClient {
         }
     }
 
+    /**
+     * Method allows student to drop Courses
+     */
     private void dropCourse() {
 
 //        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
@@ -237,6 +258,9 @@ public class StudentClient {
         }
     }
 
+    /**
+     * Methos to add Course
+     */
     private void addCourse() {
 
 //        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
@@ -278,6 +302,9 @@ public class StudentClient {
         }
     }
 
+    /**
+     * Method to view all Available Courses
+     */
     private void viewAvailableCourses() {
 
 //        SemesterRegistrationOperation sro = new SemesterRegistrationOperation();
@@ -294,17 +321,41 @@ public class StudentClient {
         }
     }
 
+    /**
+     * Method to view Registered Courses only
+     * @param studentID
+     * @param semesterID
+     * @throws StudentNotRegisteredException
+     * @throws SQLException
+     */
     private void viewRegisteredCourses(int studentID, int semesterID) throws StudentNotRegisteredException, SQLException {
 
     	so.viewRegisteredCourses(studentID, semesterID);
     }
 
+    /**
+     * Method to view Grade card of student
+     * @param studentID
+     * @param semesterID
+     * @throws SQLException
+     * @throws GradeNotAddedException
+     * @throws StudentNotApproved
+     * @throws FeesPendingException
+     * @throws StudentNotApprovedException
+     */
     private void viewGradeCard(int studentID, int semesterID) throws SQLException, GradeNotAddedException, StudentNotApproved, FeesPendingException, StudentNotApprovedException {
 //    	StudentOperation so = new StudentOperation();
     	ReportCard R = so.viewReportCard(studentID, semesterID);
     	
     }
     
+    /**
+     * Method to get StudentID using username
+     * @param username
+     * @return
+     * @throws StudentNotRegisteredException
+     * @throws SQLException
+     */
     private int getStudentID(String username) throws StudentNotRegisteredException, SQLException {
 		
 //    	StudentDaoOperation sdo = new StudentDaoOperation();

@@ -11,6 +11,12 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.service.ProfessorInterface;
 import com.flipkart.service.ProfessorOperation;
 
+/**
+ * 
+ * @author dell
+ * Class that display Professor Client Menu
+ *
+ */
 public class ProfessorClient {
     private Scanner sc = new Scanner(System.in);
     ProfessorInterface profObj = ProfessorOperation.getInstance();
@@ -21,6 +27,11 @@ public class ProfessorClient {
         test.createProfessorMenu("Arka");
     }
 
+	/**
+	 * Method to create Professor menu
+	 * @param username: professor id obtained after logging into the system
+	 * returns displays all the options for the professor, and provides navigation
+	 */
     public void createProfessorMenu(String username) {
         try {
 
@@ -65,6 +76,10 @@ public class ProfessorClient {
         }
     }
 
+    /**
+     * Method for Professor to register for a course if it hasn't assigned to anyone else
+     * @throws SQLException
+     */
     private void registerCourse() throws SQLException {
 
         String courseID;
@@ -80,12 +95,20 @@ public class ProfessorClient {
         // to do : register for course
     }
 
+    /**
+     * Method to get list of all Courses Professor has to teach
+     */
     private void viewAvailableCourses() {
 
 //    	ProfessorInterface profObj = new ProfessorOperation();
     	profObj.viewCourseProf(professorID);
     }
 
+    /**
+     * Method to help Professor grade a student
+     * @throws CourseNotFoundException
+     * @throws GradeNotAddedException
+     */
     private void addGrade() throws CourseNotFoundException, GradeNotAddedException {
 
 //    	viewEnrolledStudents();
@@ -110,7 +133,10 @@ public class ProfessorClient {
     }
 
    
-
+    /**
+     * Method to view enrolled Students in courses
+     * @throws CourseNotFoundException
+     */
     private void viewEnrolledStudents() throws CourseNotFoundException {
 
     	String courseID;
@@ -132,6 +158,12 @@ public class ProfessorClient {
     	
     }
 
+    /**
+     * Method to get Professor Id from username
+     * @param username
+     * @return
+     * @throws SQLException
+     */
     private int getProfessorID(String username) throws SQLException {
 
         ProfessorDaoOperation pdo = ProfessorDaoOperation.getInstance();

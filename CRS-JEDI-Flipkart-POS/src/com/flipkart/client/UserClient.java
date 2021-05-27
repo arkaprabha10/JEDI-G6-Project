@@ -7,6 +7,13 @@ import java.util.TreeSet;
 import com.flipkart.service.StudentOperation;
 import com.flipkart.service.UserOperation;
 
+/**
+ * 
+ * @author Asus
+ * This class is used as the main entry point of the application
+ * In main menu to login, register, exit menu are displayed
+ *
+ */
 public class UserClient {
     private Scanner sc = new Scanner(System.in);
     
@@ -19,6 +26,9 @@ public class UserClient {
         newUser.createMenu();
     }
 
+	/**
+	 * Method to Create Main Menu
+	 */
     private void createMenu() {
         try {
             while(true) {
@@ -55,6 +65,9 @@ public class UserClient {
         }
     }
 
+	/**
+	 * Method for Login functionality
+	 */
     private void loginUser() {
         String username, password, role;
 
@@ -106,6 +119,9 @@ public class UserClient {
         }
     }
 
+    /**
+     * Method helps users to Register
+     */
     private void registerUser() {
 
         try {
@@ -135,6 +151,9 @@ public class UserClient {
         }
     }
 
+    /**
+     * Method helps users to Register
+     */
     private void registerStudent() {
 
         String username, password, name, department, contact, joiningYear;

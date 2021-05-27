@@ -20,13 +20,22 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.service.AdminInterface;
 import com.flipkart.service.AdminOperation;
 
+/**
+ * 
+ * @author rutwi
+ * Class that display Admin Client Menu
+ *
+ */
 public class AdminClient {
     private Scanner sc = new Scanner(System.in);
 //    AdminOperation ao = new AdminOperation();
     	
 	AdminInterface ao = AdminOperation.getInstance();
 //	NotificationInterface notificationInterface=NotificationOperation.getInstance();
-
+	
+	/**
+	 * Method to Create Admin Menu
+	 */
     public void createAdminMenu(String username) {
         try {
 
@@ -81,6 +90,9 @@ public class AdminClient {
         }
     }
 
+    /**
+     * Method to Approve Pending Student Accounts
+     */
     private void approvePendingStudentAccounts() {
 		
     	List<Student> pendingStudents = ao.getPendingStudentAccountsList();
@@ -101,6 +113,9 @@ public class AdminClient {
 		
 	}
 
+    /**
+     * Method to get Course list that Student has registered
+     */
 	private void viewCourseStudentList() {
     	
     	System.out.println("\n\n==~~=~~=~Course Details~=~~=~~=~~==");
@@ -143,7 +158,9 @@ public class AdminClient {
         
     }
 
-
+	/**
+	 * Method to remove Professor
+	 */
     private void removeProfessor() {
     	System.out.println("Enter Instructor ID :");
     	Integer professorID = sc.nextInt();
@@ -157,7 +174,9 @@ public class AdminClient {
     }
 
 
-
+    /**
+     * Method to add Professor Details to DB
+     */
     private void addProfessorDetails() {
     	
     	
@@ -202,6 +221,11 @@ public class AdminClient {
         }
     }
 
+    /**
+     * Method to approve Student Registration 
+     * @throws FeesPendingException
+     * @throws StudentNotApprovedException
+     */
     private void approveStudentRegistration() throws FeesPendingException, StudentNotApprovedException {
         int studentID;
         System.out.println("Enter student ID: ");
@@ -224,6 +248,9 @@ public class AdminClient {
         // to do : approve student reg logic
     }
 
+    /**
+     * Method to Generate ReportCard using StudentId
+     */
     private void generateReportCard() {
         int studentID;
         System.out.println("Enter student ID: ");
@@ -240,6 +267,9 @@ public class AdminClient {
         // to do : get student courses and grade, and generate report card
     }
 
+    /**
+     * Method to edit CourseList (either add or drop)
+     */
     private void editCourseList() {
         
         try {
@@ -275,6 +305,9 @@ public class AdminClient {
         }
     }
 
+    /**
+     * Method to remove Course from catalogue
+     */
     private void removeCourse() {
         String courseID;
         System.out.println("=======================================");
@@ -297,6 +330,9 @@ public class AdminClient {
         // to do : remove course from db
     }
 
+    /**
+     * Method to add course to cataloge
+     */
     private void addCourse() {
 
         try{

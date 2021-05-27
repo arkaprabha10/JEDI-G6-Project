@@ -42,12 +42,12 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 	}
 
 	@Override
-	public boolean addCourse(int studentId, int semesterId, String courseId) {
+	public boolean addCourse(int studentId, int semesterId, String courseId, boolean isPrimary) {
 
 //		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
 
 		try {
-			return srdo.addCourse(studentId, semesterId, courseId);
+			return srdo.addCourse(studentId, semesterId, courseId, isPrimary);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

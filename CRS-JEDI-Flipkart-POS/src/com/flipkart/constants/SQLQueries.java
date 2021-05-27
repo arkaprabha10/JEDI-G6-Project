@@ -18,8 +18,8 @@ public class SQLQueries {
 	}
 
 	public static final String GET_COURSES(int studentID, int semesterId) {
-		String qry="select course_id from registered_courses where student_id = "+studentID+" and semester_id = "+semesterId ;//+" and is_primary=1";
-		 return qry;
+		String qry="select course_id, is_primary from registered_courses where student_id = "+studentID+" and semester_id = "+semesterId +"";
+		return qry;
 	}
 
 	public static String GET_COURSE_BY_ID(String courseId, int semesterId) {

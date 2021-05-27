@@ -43,7 +43,7 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 	public static void main(String[] args) throws SQLException {
 		SemesterRegistrationDaoInterface test = new SemesterRegistrationDaoOperation();
 
-		test.addCourse(3, 1, "aaa");
+//		test.addCourse(3, 1, "aaa", false);
 //		test.dropCourse(3, 1, "aaa");
 
 //		for(String courseID : test.viewRegisteredCourses(1, 1).getCourseID()) {
@@ -52,7 +52,7 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 	}
 
 	@Override
-	public boolean addCourse(int studentId, int semesterId, String courseId) {
+	public boolean addCourse(int studentId, int semesterId, String courseId, boolean isPrimary) {
 
 		PreparedStatement stmt;
 		Course courseObj;
@@ -83,7 +83,7 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 			stmt.setString(2, courseObj.getCourseID());
 			stmt.setInt(3, courseObj.getOfferedSemester());
 			stmt.setInt(4, 0);
-			stmt.setBoolean(5, false);
+			stmt.setBoolean(5, isPrimary);
 			stmt.setBoolean(6, false);
 			stmt.setBoolean(7, false);
 			stmt.execute();

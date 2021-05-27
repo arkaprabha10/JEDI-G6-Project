@@ -82,14 +82,32 @@ public class StudentOperation implements StudentInterface {
 	 * @throws SQLException 
 	 */
 	@Override
-	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
-			throws StudentNotRegisteredException, SQLException {
-		
-//		StudentDaoOperation SDO= new StudentDaoOperation();
-		
-		return SDO.viewRegisteredCourses(studentID,semesterId);	
-		
-		
+	public void viewRegisteredCourses(int studentID, int semesterId) {
+
+		try {
+			List<Course> courses = SDO.viewRegisteredCourses(studentID,semesterId);
+
+			System.out.println("=======================================");
+			System.out.println("Registered courses :");
+			System.out.println("---------------------------------------");
+			System.out.println("Primary courses :");
+			for(Course c: courses) {
+				if(c.getPrimary()) {
+					System.out.println("Course ID : "+c.getCourseID()+" \t Course Name : "+ c.getCoursename()+"\t Instructor : "+c.getInstructorID());
+				}
+			}
+			System.out.println("---------------------------------------");
+			System.out.println("Alternate courses :");
+			for(Course c: courses) {
+				if(!c.getPrimary()) {
+					System.out.println("Course ID : "+c.getCourseID()+" \t Course Name : "+ c.getCoursename()+"\t Instructor : "+c.getInstructorID());
+				}
+			}
+			System.out.println("=======================================");
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	/**

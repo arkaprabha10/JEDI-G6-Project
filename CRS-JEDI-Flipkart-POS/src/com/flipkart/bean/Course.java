@@ -15,6 +15,16 @@ public class Course {
 	private Integer availableSeats;
 	private Integer offeredSemester;
 
+	public Boolean getPrimary() {
+		return isPrimary;
+	}
+
+	public void setPrimary(Boolean primary) {
+		isPrimary = primary;
+	}
+
+	private Boolean isPrimary;
+
 	public Course() {
 		this.courseID = "0";
 		this.coursename = "xyz";
@@ -22,6 +32,7 @@ public class Course {
 		this.totalSeats = 0;
 		this.availableSeats = 0;
 		this.offeredSemester = 1;
+		this.isPrimary = false;
 	}
 	public Course(String courseID, String coursename, String instructorID, Integer totalSeats, Integer availableSeats, Integer offeredSemester) {
 		super();
@@ -31,6 +42,7 @@ public class Course {
 		this.totalSeats = totalSeats;
 		this.availableSeats = availableSeats;
 		this.offeredSemester = offeredSemester;
+		this.isPrimary = false;
 	}
 
 	public String getCourseID() {

@@ -146,7 +146,7 @@ public class AdminOperation implements AdminInterface {
 			R= ado.generateReportCard(studentID);
 		} catch (SQLException | StudentNotApprovedException | GradeNotAddedException | FeesPendingException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return R;
 	}

@@ -235,6 +235,7 @@ public class AdminClient {
 			// TODO Auto-generated catch block
 //			e.printStackTrace();
 		}
+		if(R.getSpi() > 0)
         System.out.println("Student ID : "+studentID+"    SPI : "+ R.getSpi());
         // to do : get student courses and grade, and generate report card
     }

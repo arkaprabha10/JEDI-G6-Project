@@ -14,6 +14,8 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueries;
+import com.flipkart.exception.CourseNotAssignedException;
+import com.flipkart.exception.ReportCardNotGeneratedException;
 import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.StudentNotApprovedException;
@@ -104,10 +106,13 @@ public class StudentDaoOperation implements StudentDaoInterface {
 				}
 
 				else {
+					if(rs.getInt(4)==0) {
+						throw new GradeNotAddedException(StudentID);	
+						}
 					grades.put(rs.getString(2), rs.getInt(4));
 				}
 			}
-
+			if(grades.isEmpty()) throw new ReportCardNotGeneratedException();
 			R.setIsVisible(true);
 			R.setGrades(grades);
 				
@@ -136,8 +141,9 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			
 			ResultSet rs = preparedStatement.executeQuery();
 			List<String> course_ids= new ArrayList<String>();
-
+		
 			while (rs.next()) {
+//				System.out.println(rs.getString(1));
 				course_ids.add(rs.getString(1));
 			}
 			

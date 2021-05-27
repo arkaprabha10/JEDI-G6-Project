@@ -14,6 +14,7 @@ import com.flipkart.constants.constants;
 import com.flipkart.exception.CourseNotDeletedException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.FeesPendingException;
+import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.service.AdminInterface;
@@ -39,7 +40,8 @@ public class AdminClient {
                 System.out.println("4 : Add Professor");
                 System.out.println("5 : Remove Professor");
                 System.out.println("6 : View Course Wise student list");
-                System.out.println("7 : Logout");
+                System.out.println("7 : Approve Pending Student Accounts");
+                System.out.println("8 : Logout");
                 System.out.println("=======================================");
 
                 int menuOption = sc.nextInt();
@@ -65,6 +67,8 @@ public class AdminClient {
                         viewCourseStudentList();
                         break;
                     case 7:
+                    	approvePendingStudentAccounts();
+                    case 8:
 //                    	System.exit(0);
                         return;
                     default:
@@ -221,10 +225,17 @@ public class AdminClient {
     }
 
     private void generateReportCard() {
-        String studentID;
+        int studentID;
         System.out.println("Enter student ID: ");
-        studentID = sc.nextLine();
-
+        studentID = sc.nextInt();
+        ReportCard R = new ReportCard();
+		try {
+			R = ao.generateReportCard(studentID);
+		} catch (GradeNotAddedException | StudentNotApprovedException | FeesPendingException e) {
+			// TODO Auto-generated catch block
+//			e.printStackTrace();
+		}
+        System.out.println("Student ID : "+studentID+"    SPI : "+ R.getSpi());
         // to do : get student courses and grade, and generate report card
     }
 
@@ -270,7 +281,7 @@ public class AdminClient {
         courseID = sc.nextLine();
         
         try {
-			ao.removeCourse(Integer.parseInt(courseID));
+			ao.removeCourse(courseID);
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -56,7 +56,7 @@ public interface AdminDaoInterface {
 	 * @param courseID
 	 * @param courseCatalog
 	 */
-	public void removeCourse(int courseID) throws SQLException;
+	public void removeCourse(String courseID) throws SQLException;
 	
 	/**
 	 * @param courseID

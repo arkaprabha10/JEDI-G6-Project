@@ -195,14 +195,14 @@ public class AdminDaoOperation implements AdminDaoInterface {
 	}
 
 	@Override
-	public void removeCourse(int courseID) {
+	public void removeCourse(String courseID) {
 		// TODO Auto-generated method stub
 		String sql = "DELETE FROM course_catalog WHERE courseID=?";
 		Connection connection = DBUtil.getConnection();
 		
 		try {
 			statement = connection.prepareStatement(sql);
-			statement.setInt(1, courseID);
+			statement.setString(1, courseID);
 			
 			int row = statement.executeUpdate();
 			
@@ -332,7 +332,7 @@ public class AdminDaoOperation implements AdminDaoInterface {
 		} catch (SQLException e) {
 			e.getMessage();
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		
 		

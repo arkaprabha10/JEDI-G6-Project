@@ -100,7 +100,7 @@ public class AdminOperation implements AdminInterface {
 
 
 	@Override
-	public void removeCourse(int courseID) {
+	public void removeCourse(String courseID) {
 		// TODO Auto-generated method stub
 		try {
 			ado.removeCourse(courseID);
@@ -141,7 +141,14 @@ public class AdminOperation implements AdminInterface {
 	public ReportCard generateReportCard(int studentID)
 			throws GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
 		// TODO Auto-generated method stub
-		return null;
+		ReportCard R = new ReportCard();
+		try {
+			R= ado.generateReportCard(studentID);
+		} catch (SQLException | StudentNotApprovedException | GradeNotAddedException | FeesPendingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return R;
 	}
 
 	

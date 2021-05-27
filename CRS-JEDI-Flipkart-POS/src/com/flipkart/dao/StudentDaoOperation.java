@@ -19,26 +19,19 @@ import com.flipkart.exception.GradeNotAddedException;
 import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserAlreadyInUseException;
+import com.flipkart.service.StudentOperation;
 import com.flipkart.utils.DBUtil;
 
 public class StudentDaoOperation implements StudentDaoInterface {
-	
+
 	private static volatile StudentDaoOperation instance=null;
-	
-	/**
-	 * Default Constructor
-	 */
-	private StudentDaoOperation()
-	{
-		
+
+	StudentDaoOperation() {
+
 	}
-	
-	/**
-	 * Method to make StudentDaoOperation Singleton
-	 * @return
-	 */
-	public static StudentDaoOperation getInstance()
-	{
+
+
+	public static StudentDaoOperation getInstance() {
 		if(instance==null)
 		{
 			// This is a synchronized block, when multiple threads will access this instance
@@ -57,8 +50,8 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		try
 		{
 			//open db connection
-			PreparedStatement preparedStatement0=connection.prepareStatement("SELECT MAX(student_id) FROM student");
-			ResultSet results=preparedStatement0.executeQuery();
+			PreparedStatement stmt = connection.prepareStatement("SELECT MAX(student_id) FROM student");
+			ResultSet results = stmt.executeQuery();
 			int studentId = 0;
 			if(results.next()) {
 				studentId=results.getInt(1);
@@ -75,24 +68,13 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			preparedStatement.setString(7, student.getPassword());
 			preparedStatement.setString(8, student.getContactNumber());
 			preparedStatement.executeUpdate();
-			
-			
-			
+
 		}
 		catch(Exception ex)
 		{
 			System.out.println(ex.getMessage());
 //			throw new UserAlreadyInUseException();
 		}
-//		finally
-//		{
-//			try {
-//				connection.close();
-//			} catch (SQLException e) {
-//				System.out.println(e.getMessage());
-//				e.printStackTrace();
-//			}
-//		}
 		return student;
 	}
 

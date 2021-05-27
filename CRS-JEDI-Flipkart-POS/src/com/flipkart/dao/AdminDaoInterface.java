@@ -6,6 +6,7 @@ package com.flipkart.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -64,5 +65,9 @@ public interface AdminDaoInterface {
 	public void addCourse(Course course) throws SQLException;
 	
 	public HashMap<String, ArrayList<Integer>> viewCourseStudentList(String courseID, int semesterId, Boolean viewAll);
+	
+	public List<Student> getPendingStudentAccountsList();
+	
+	public void approveStudentAccount(int studentId);
 
 }

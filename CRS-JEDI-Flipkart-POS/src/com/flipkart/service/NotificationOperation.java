@@ -3,9 +3,6 @@
  */
 package com.flipkart.service;
 
-import com.flipkart.bean.Notification;
-import com.flipkart.bean.Payment;
-
 /**
  * @author Asus
  *
@@ -13,15 +10,27 @@ import com.flipkart.bean.Payment;
 public class NotificationOperation implements NotificationInterface{
 
 	@Override
-	public Notification GenerateNotification(int studentId, Payment payment, String message) {
+	public void sendPayFeesNotification() {
 		// TODO Auto-generated method stub
-		return null;
+		System.out.println("+-----------------------------------+");
+		System.out.println("|         Notification Alert!       |");
+		System.out.println("+-----------------------------------+");
+		System.out.println("|      Registration Completed!      |");
+		System.out.println("|    Please Complete Fee Payment!   |");
+		System.out.println("+-----------------------------------+");
+		
 	}
 
 	@Override
-	public int sendNotification(int studentId, Notification notification) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void sendPaymentCompleteNotification(int amount, int studentid) {
+		System.out.println("+-----------------------------------+");
+		System.out.println("|         Notification Alert!       |");
+		System.out.println("+-----------------------------------+");
+		System.out.println("|          Payment Completed!       |");
+		System.out.println("|   Student ID: " + studentid);
+		System.out.println("|   Amount    : " + amount);
+		System.out.println("+-----------------------------------+");
+		
 	}
 
 }

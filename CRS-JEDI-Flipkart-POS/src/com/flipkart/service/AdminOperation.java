@@ -6,6 +6,7 @@ package com.flipkart.service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
@@ -141,6 +142,20 @@ public class AdminOperation implements AdminInterface {
 			throws GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	
+	@Override
+	public List<Student> getPendingStudentAccountsList() {
+
+		return ado.getPendingStudentAccountsList();
+		
+	}
+
+	@Override
+	public void approveStudentAccount(Integer studentID) {
+		ado.approveStudentAccount(studentID);
+		
 	}
 
 

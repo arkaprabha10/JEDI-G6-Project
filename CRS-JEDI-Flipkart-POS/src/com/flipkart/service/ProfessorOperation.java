@@ -17,6 +17,7 @@ import com.flipkart.exception.GradeNotAddedException;
 
 /**
  * @author rutwi
+ * Implementations of Admin Operations
  *
  */
 public class ProfessorOperation implements ProfessorInterface {
@@ -44,7 +45,12 @@ public class ProfessorOperation implements ProfessorInterface {
 		return instance;
 	}
 
-	//Add grade
+	/**
+	 * Method to Grade Student updates in database
+	 * @param studentID
+	 * @param courseID
+	 * @param grade
+	 */
 	@Override
 	public void addGrade(Integer studentID, Integer semesterID, String courseID, Integer grade) throws GradeNotAddedException 
 	{
@@ -59,7 +65,12 @@ public class ProfessorOperation implements ProfessorInterface {
 		}
 	}
 
-	//view student details who have registered for a particular course
+	/**
+	 * Method to view all enrolled Students
+	 * @param courseID
+	 * @param semesterID
+	 * @throws CourseNotFoundException
+	 */
 	@Override
 	public void viewCourseStudents(String courseID, Integer semesterID)throws CourseNotFoundException {
 		
@@ -78,7 +89,10 @@ public class ProfessorOperation implements ProfessorInterface {
 		}
 	}
 
-	//view course details which the professor is associated with
+	/**
+	 * Method to view professor with Id
+	 * @param instructorID
+	 */
 	@Override
 	public void viewCourseProf(int instructorID) {
 	
@@ -98,6 +112,13 @@ public class ProfessorOperation implements ProfessorInterface {
 		
 	}
 
+	/**
+	 * Method to register Professor to particular course 
+	 * @param instructorID
+	 * @param semesterID
+	 * @param courseID
+	 * @throws SQLException
+	 */
 	@Override
 	public void registerCourse(int instructorID, Integer semesterID, String courseID) throws SQLException {
 		ProfessorDaoInterface profObj=ProfessorDaoOperation.getInstance();

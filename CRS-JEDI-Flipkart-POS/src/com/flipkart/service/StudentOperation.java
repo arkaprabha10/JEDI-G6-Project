@@ -16,6 +16,12 @@ import com.flipkart.exception.StudentNotApprovedException;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserAlreadyInUseException;
 
+/**
+ * 
+ * @author Jayanth
+ * Implementations of Student Operations
+ * 
+ */
 public class StudentOperation implements StudentInterface {
 	
 	private static volatile StudentOperation instance=null;
@@ -41,6 +47,14 @@ public class StudentOperation implements StudentInterface {
 		return instance;
 	}
 
+	/**
+	 * Method to view ReportCard
+	 * @param StudentID
+	 * @param semesterId
+	 * @return reportCard
+	 * @throws StudentNotApprovedException 
+	 * @throws SQLException 
+	 */
 	@Override
 	public ReportCard viewReportCard(int StudentID, int semesterId)  {
 
@@ -60,6 +74,13 @@ public class StudentOperation implements StudentInterface {
 		return R;
 	}
 
+	/**
+	 * Method to view all registered Courses
+	 * @param studentID
+	 * @param semesterId
+	 * @return course list
+	 * @throws SQLException 
+	 */
 	@Override
 	public List<Course> viewRegisteredCourses(int studentID, int semesterId)
 			throws StudentNotRegisteredException, SQLException {
@@ -71,6 +92,13 @@ public class StudentOperation implements StudentInterface {
 		
 	}
 
+	/**
+	 * Method to add Student so that he can log in
+	 * @param StudentID
+	 * @param reportCard
+	 * @throws UserAlreadyInUseException 
+	 * returns Student
+	 */
 	@Override
 	public Student addStudent(String userName, String name, String password,String department ,String contactNumber, Integer joiningYear)
 			throws UserAlreadyInUseException, SQLException {

@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperation;
+import com.flipkart.exception.CourseAlreadyPresentException;
 import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.exception.FeesPendingException;
 import com.flipkart.exception.GradeNotAddedException;
@@ -24,7 +25,9 @@ import com.flipkart.bean.ReportCard;
 import com.flipkart.bean.Student;
 
 /**
+ * 
  * @author rutwi
+ * Implementations of Admin Operations
  *
  */
 
@@ -55,6 +58,12 @@ public class AdminOperation implements AdminInterface {
 
 	AdminDaoInterface ado  =AdminDaoOperation.getInstance();
 
+	/**
+	 * Method to Approve Student Registration
+	 * @param students
+	 * @throws StudentNotApprovedException 
+	 * @throws FeesPendingException 
+	 */
 	@Override
 	public void approveStudentRegistration(int studentId,int semesterId) throws FeesPendingException, StudentNotApprovedException {
 		
@@ -74,6 +83,11 @@ public class AdminOperation implements AdminInterface {
 		
 	}
 
+	/**
+	 * Method to add Professor
+	 * @param professor
+	 * @throws ProfessorNotAddedException
+	 */
 	@Override
 	public void addProfessor(Professor professor) {
 		
@@ -86,6 +100,10 @@ public class AdminOperation implements AdminInterface {
 		
 	}
 
+	/**
+	 * Method to removeProfessor
+	 * @param professor
+	 */
 	@Override
 	public void removeProfessor(int professorID) {
 		// TODO Auto-generated method stub
@@ -98,7 +116,10 @@ public class AdminOperation implements AdminInterface {
 		
 	}
 
-
+	/**
+	 * Method to removeProfessor
+	 * @param professor
+	 */
 	@Override
 	public void removeCourse(String courseID) {
 		// TODO Auto-generated method stub
@@ -111,6 +132,12 @@ public class AdminOperation implements AdminInterface {
 		
 	}
 
+	/**
+	 * Method to Add Course
+	 * @param courseID
+	 * @param courseCatalog
+	 * @throws CourseAlreadyPresentException
+	 */
 	@Override
 	public void addCourse(String course_name, String courseID, int semester) {
 		// TODO Auto-generated method stub
@@ -129,7 +156,13 @@ public class AdminOperation implements AdminInterface {
 		
 	}
 
-	
+	/**
+	 * Method to get Students list registered a course/ all courses
+	 * @param courseID
+	 * @param semester
+	 * @param viewAll : Option to view all Registered courses
+	 * @return Student List registered for specified course or all courses depending on Viewall
+	 */
 	@Override
 	public HashMap<String,ArrayList<Integer> > viewCourseStudentList(String courseID, int semester, Boolean viewAll) {
 		
@@ -137,6 +170,12 @@ public class AdminOperation implements AdminInterface {
 		return ado.viewCourseStudentList(courseID,semester,viewAll);
 	}
 
+	/**
+	 * Method to return ReportCard
+	 * @param studentID
+	 * @throws StudentNotApprovedException 
+	 * @throws FeesPendingException 
+	 */
 	@Override
 	public ReportCard generateReportCard(int studentID)
 			throws GradeNotAddedException, StudentNotApprovedException, FeesPendingException {
@@ -151,7 +190,10 @@ public class AdminOperation implements AdminInterface {
 		return R;
 	}
 
-	
+	/**
+	 *Method to return get all Pending Student Account list
+	 * @return  
+	 */
 	@Override
 	public List<Student> getPendingStudentAccountsList() {
 
@@ -159,6 +201,10 @@ public class AdminOperation implements AdminInterface {
 		
 	}
 
+	/**
+	 * Method to Approve Student Account
+	 * @param studentID
+	 */
 	@Override
 	public void approveStudentAccount(Integer studentID) {
 		ado.approveStudentAccount(studentID);

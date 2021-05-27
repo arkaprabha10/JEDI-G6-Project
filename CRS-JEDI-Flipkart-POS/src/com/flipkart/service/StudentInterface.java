@@ -18,21 +18,25 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.exception.UserAlreadyInUseException;
 
 /**
+ * 
  * @author rutwi
- *
+ * Interface for Student Operations
+ * 
  */
 public interface StudentInterface {
 	
 	/**
+	 * Method to add Student so that he can log in
 	 * @param StudentID
 	 * @param reportCard
 	 * @throws UserAlreadyInUseException 
+	 * returns Student
 	 */
-
 	public Student addStudent (String userName, String name, String password,String department, String contactNumber, Integer joiningYear) throws UserAlreadyInUseException, SQLException, UserAlreadyInUseException;
 	
 	
 	/**
+	 * Method to view ReportCard
 	 * @param StudentID
 	 * @param semesterId
 	 * @return reportCard
@@ -42,6 +46,7 @@ public interface StudentInterface {
 	public ReportCard viewReportCard(int StudentID, int semesterId) throws GradeNotAddedException, StudentNotApproved,FeesPendingException, SQLException, StudentNotApprovedException;
 	
 	/**
+	 * Method to view all registered Courses
 	 * @param studentID
 	 * @param semesterId
 	 * @return course list

@@ -16,7 +16,7 @@ import com.flipkart.dao.SemesterRegistrationDaoOperation;
 
 /**
  * @author Asus
- *
+ * Implementations of SemesterRegistration Operations
  */
 public class SemesterRegistrationOperation implements SemesterRegistrationInterface{
 	
@@ -41,6 +41,13 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 		return instance;
 	}
 
+	/**
+	 * Method to add Course selected by student 
+	 * @param studentId
+	 * @param semesterId
+	 * @param courseId 
+	 * @return the course if it is added successfully, else null
+	 */
 	@Override
 	public boolean addCourse(int studentId, int semesterId, String courseId, boolean isPrimary) {
 
@@ -55,6 +62,13 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 		return false;
 	}
 
+	/**
+	 * Method to drop Course selected by student 
+	 * @param studentId
+	 * @param semesterId
+	 * @param courseId 
+	 * @return Boolean value indicating if it is was dropped successfully
+	 */
 	@Override
 	public boolean dropCourse(int studentId, int semesterId, String courseId) {
 
@@ -69,12 +83,22 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 		return false;
 	}
 
+	/**
+	 * Method to view Courses registered by student 
+	 * @param studentId
+	 * @param semesterId 
+	 * @return list of student's registered courses
+	 */
 	@Override
 	public RegisteredCourses viewRegisteredCourses(int studentId, int semesterId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/**
+	 * Method to view all courses available
+	 * @return list of all courses with availbale seats
+	 */
 	@Override
 	public ArrayList<Course> viewAvailableCourses() {
 
@@ -89,12 +113,23 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 		return null;
 	}
 
+	/**
+	 * Method to calculate student Fees
+	 * @param studentId
+	 * @param semesterId
+	 * @return total fees to be paid by the student
+	 */
 	@Override
 	public int calculateFees(int studentId, int semesterId) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * @param studentId
+	 * @param semesterId
+	 * @return true if finshed else false
+	 */
 	@Override
 	public boolean finishRegistration(int studentId, int semesterId) {
 //		SemesterRegistrationDaoOperation srdo = new SemesterRegistrationDaoOperation();
@@ -108,6 +143,13 @@ public class SemesterRegistrationOperation implements SemesterRegistrationInterf
 		return false;
 	}
 
+	/**
+	 * Method to pay student Fees
+	 * @param studentId
+	 * @param semesterId
+	 * @param paymentMode 
+	 * @return Boolean value indicating if payment was successful
+	 */
 	@Override
 	public Payment payFees(int studentId, int semesterId, String paymentMode) {
 		// TODO Auto-generated method stub

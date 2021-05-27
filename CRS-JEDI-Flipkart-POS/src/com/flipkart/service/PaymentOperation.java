@@ -15,10 +15,15 @@ import com.flipkart.exception.PaymentFailedException;
 
 /**
  * @author Asus
- *
+ * Implementations of payment Operations
  */
 public class PaymentOperation implements PaymentInterface{
 
+	/**
+	 * Method to make Payments
+	 * @param payment
+	 * @throws PaymentFailedException
+	 */
 	@Override
 	public void makePayment(Payment payment) throws PaymentFailedException {
 		

@@ -9,10 +9,17 @@ import com.flipkart.bean.ReportCard;
 
 /**
  * @author Asus
+ * Implementations of ReportCard Operations
  *
  */
 public class ReportCardOperation implements ReportCardInterface {
 
+	/**
+	 * Method to get student's SPI
+	 * @param studentId
+	 * @param semesterId
+	 * @return spi for that semester and student
+	 */
 	@Override
 	public Float getSPI(ReportCard RC) {
 		HashMap<String, Integer> grades = RC.getGrades();

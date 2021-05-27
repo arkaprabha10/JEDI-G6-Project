@@ -17,6 +17,7 @@ import com.flipkart.exception.StudentNotRegisteredException;
 
 /**
  * @author Asus
+ * Interface for ReportCard Operations
  *
  */
 public interface ReportCardInterface {

@@ -9,7 +9,7 @@ import com.flipkart.exception.PaymentFailedException;
 
 /**
  * @author Jayanth
- *
+ * Interface for Payment Operations
  */
 public interface PaymentInterface {
 	//Deuplicate in semester registration
@@ -22,8 +22,8 @@ public interface PaymentInterface {
 
 
 	/**
+	 * Method to make Payments
 	 * @param payment
-	 * @return
 	 * @throws PaymentFailedException
 	 */
 	public void makePayment(Payment payment) throws PaymentFailedException;

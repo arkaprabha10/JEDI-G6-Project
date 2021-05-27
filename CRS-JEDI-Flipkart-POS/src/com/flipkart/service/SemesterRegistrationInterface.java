@@ -18,7 +18,7 @@ import com.flipkart.exception.StudentNotRegisteredException;
 
 /**
  * @author Asus
- *
+ * Interface for SemesterRegistration  Operations
  */
 public interface SemesterRegistrationInterface {
 	

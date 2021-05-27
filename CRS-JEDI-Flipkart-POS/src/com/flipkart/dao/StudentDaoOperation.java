@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.ReportCard;
@@ -25,7 +26,8 @@ import com.flipkart.service.StudentOperation;
 import com.flipkart.utils.DBUtil;
 
 public class StudentDaoOperation implements StudentDaoInterface {
-
+	
+	private static Logger logger = Logger.getLogger(StudentDaoOperation.class);
 	private static volatile StudentDaoOperation instance=null;
 
 	StudentDaoOperation() {
@@ -74,7 +76,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		}
 		catch(Exception ex)
 		{
-			System.out.println(ex.getMessage());
+			logger.error(ex.getMessage());
 //			throw new UserAlreadyInUseException();
 		}
 		return student;
@@ -120,7 +122,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			
 		catch(Exception ex)
 		{
-			System.out.println(ex.getMessage());
+			logger.error(ex.getMessage());
 		}
 
 		return R;
@@ -160,7 +162,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 		}
 		
 		catch(Exception ex) {
-			System.out.println(ex.getMessage());
+			logger.error(ex.getMessage());
 		}
 		
 		return registeredCourses;
@@ -192,7 +194,7 @@ public class StudentDaoOperation implements StudentDaoInterface {
 			}
 		}
 		catch(StudentNotRegisteredException ex) {
-			System.out.println(ex.getMessage());
+			logger.error(ex.getMessage());
 		}
 
 		return studentID;

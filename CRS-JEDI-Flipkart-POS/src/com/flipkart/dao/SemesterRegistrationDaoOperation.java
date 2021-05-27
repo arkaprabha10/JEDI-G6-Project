@@ -10,6 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import org.apache.log4j.Logger;
+
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Payment;
 import com.flipkart.bean.RegisteredCourses;
@@ -21,9 +23,9 @@ import com.flipkart.utils.DBUtil;
  *
  */
 public class SemesterRegistrationDaoOperation implements SemesterRegistrationDaoInterface{
+	private static Logger logger = Logger.getLogger(SemesterRegistrationDaoOperation.class);
 	private static volatile SemesterRegistrationDaoOperation instance=null;
 	private static Connection conn = DBUtil.getConnection();
-
 	private SemesterRegistrationDaoOperation(){
 
 	}
@@ -95,9 +97,9 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CourseNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		return false;
@@ -222,9 +224,9 @@ public class SemesterRegistrationDaoOperation implements SemesterRegistrationDao
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (CourseNotFoundException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		return false;

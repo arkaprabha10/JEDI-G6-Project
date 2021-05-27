@@ -15,16 +15,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Dell
  *
  */
 public class ProfessorDaoOperation implements ProfessorDaoInterface {
 	
+	private static Logger logger = Logger.getLogger(ProfessorDaoOperation.class);
 	private volatile static ProfessorDaoOperation instance=null;
 
 	private ProfessorDaoOperation(){
-
 	}
 	
 	public static ProfessorDaoOperation getInstance(){
@@ -67,9 +69,9 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			int res = stmt.executeUpdate();
 			
             if (res > 0)            
-                System.out.println("Successfully Inserted");            
+                logger.info("Successfully Inserted");            
             else            
-                System.out.println("Insert Failed");
+                logger.info("Insert Failed");
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -84,7 +86,6 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		Connection connection=DBUtil.getConnection();
 		try {
 			String sql = "SELECT * FROM registered_courses WHERE course_id = ? AND semester_id = ?" ;
-			System.out.println(sql);
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, courseID);
 			stmt.setInt(2, semesterID);
@@ -94,7 +95,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			ArrayList<String> temp = new ArrayList<String>();
 			if(!rs.next())
 			{
-				System.out.println("No student in Course!!");
+				logger.info("No student in Course!!");
 			}
 			else {
 				do  {
@@ -143,7 +144,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		return ans;
@@ -162,7 +163,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			
 			if(!rs.next())
 			{
-				System.out.println("Course already registered / Course doesn't exist!!");
+				logger.info("Course already registered / Course doesn't exist!!");
 				return false;
 			}
 			else {
@@ -170,9 +171,9 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 				PreparedStatement stmt1 = connection.prepareStatement(sql1);
 				int res = stmt1.executeUpdate();
 				if (res > 0)            
-	                System.out.println("Successfully Registered");            
+	                logger.info("Successfully Registered");            
 	            else            
-	                System.out.println("Registration Failed");
+	                logger.info("Registration Failed");
 			}
 				
 			
@@ -210,7 +211,7 @@ public class ProfessorDaoOperation implements ProfessorDaoInterface {
 			}
 		}
 		catch(ProfessorNotRegisteredException ex) {
-			System.out.println(ex.getMessage());
+			logger.error(ex.getMessage());
 		}
 
 		return professorID;

@@ -16,12 +16,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author Asus
  *
  */
 public class PaymentDaoOperation implements PaymentDaoInterface{
 
+	private static Logger logger = Logger.getLogger(PaymentDaoOperation.class);
+	
 	private static volatile PaymentDaoOperation instance=null;
 	private Connection connection=DBUtil.getConnection();
 	
@@ -69,7 +73,7 @@ public class PaymentDaoOperation implements PaymentDaoInterface{
 			}
 		}
 		catch(Exception ex) {
-			System.out.println(ex.getMessage());
+			logger.error(ex.getMessage());
 		}
 
 		return newTransactionID;

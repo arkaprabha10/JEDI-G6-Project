@@ -8,8 +8,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Objects;
+import java.util.logging.Logger;
 
 public class UserDaoOperation implements UserDaoInterface{
+	
+//	private static Logger logger = Logger.getLogger(UserDaoOperation.class);
 	private static volatile UserDaoOperation instance=null;
 	private static final Connection conn = DBUtil.getConnection();
 	private static final String[] roleList = {"professor", "student", "admin"};
@@ -18,6 +21,7 @@ public class UserDaoOperation implements UserDaoInterface{
 	private UserDaoOperation(){
 
 	}
+	
 	public static UserDaoOperation getInstance()
 	{
 		if(instance==null)
